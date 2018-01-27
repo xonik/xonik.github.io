@@ -1,0 +1,31 @@
+.fact{
+	background-color: #99ff99;
+	border: 2px dashed #777;
+	padding: 10px;
+}
+
+.example{
+	background-color: #ffff99;
+	border: 2px dashed #777;
+	padding: 10px;
+}
+
+.details{
+	display: none;
+}
+
+.ingress{
+	font-weight: bold;
+}
+
+.formula, 
+.formulaline{
+	padding-left: 30px;
+}
+
+.singleillustration {
+	background-color: #ddd;
+	border: 1px solid #000;
+	margin: 20px;
+	padding: 5px;
+}
