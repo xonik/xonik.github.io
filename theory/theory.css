@@ -10,6 +10,12 @@
 	padding: 10px;
 }
 
+.inset{
+	background-color: #eeeeee;
+	border: 2px dashed #777;
+	padding: 10px;
+}
+
 .details{
 	display: none;
 }
@@ -18,7 +24,7 @@
 	font-weight: bold;
 }
 
-.formula, 
+.formula,
 .formulaline{
 	padding-left: 30px;
 }
@@ -28,4 +34,8 @@
 	border: 1px solid #000;
 	margin: 20px;
 	padding: 5px;
+}
+
+li {
+	padding: 0.25em;
 }

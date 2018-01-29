@@ -5,7 +5,7 @@
 <title>The VCO explained</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<link rel="stylesheet" type="text/css" href="expo_converter.css">
+<link rel="stylesheet" type="text/css" href="../theory.css">
 
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
@@ -13,8 +13,8 @@
   });
 </script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS_HTML-full"></script>
-<script type="text/javascript" src="expo_converter.js"></script>
-<script src="jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="../theory.js"></script>
+<script src="../jquery-2.1.1.min.js"></script>
 
 </head>
 <body>
@@ -28,7 +28,7 @@
 </p>
 </div>
 <p>
-	But how do we make a constant current source? 
+	But how do we make a constant current source?
 </p>
 <h2>A naive approach</h2>
 <p>
@@ -41,26 +41,26 @@
 
 <H2>The operational amplifier</H2>
 <p>
-	When connecting the output of the opamp to its negative input, you get what is called an inverting amplifier. It operates in what is called its negative feedback mode, the output is fed back to the negative input. 
+	When connecting the output of the opamp to its negative input, you get what is called an inverting amplifier. It operates in what is called its negative feedback mode, the output is fed back to the negative input.
  	<img src="img/illustration_8.png" height="200">
 </p>
 <p>
 	The operational amplifier in its negative feed back mode has a few important properties that are really usefull, and we will use them in the next two sections.
 </p>
 <p class="fact">
-1) The opamp will try to keep both inputs at the same potential. 
+1) The opamp will try to keep both inputs at the same potential.
 </p>
 <p>By connecting the positive input to ground, the opamp will try to keep the negative terminal at the same level and we will get what is called a virtual ground - it stays at $0V$ relative to ground but is, crucially, not connected to ground.
 </p>
 <p class="fact">
-2) The opamp will try to keep the sum of currents into its negative terminal at $0A$. 
+2) The opamp will try to keep the sum of currents into its negative terminal at $0A$.
 </p>
 <p>
-	Any current sent into the negative terminal will be nulled out by the current in the feedback loop from the opamp output to the negative input. 
+	Any current sent into the negative terminal will be nulled out by the current in the feedback loop from the opamp output to the negative input.
 </p>
 <img src="img/opampsummer.png" height="200">
 <p>
-	Exactly how the opamp knows how much current to send through the feedback loop is not terribly important. What IS important is to understand what happens at the output. The opamp can either raise or lower its output voltage, sourcing or sinking current. Think of it like this: Whenever the input current at the negative terminal changes, the opamp will try changing its output to compensate for the change. If it first tries to raise the voltage and this makes the sum of the input currents closer to zero, it has found the correct direction of change. If not, it will try lowering the voltage. 
+	Exactly how the opamp knows how much current to send through the feedback loop is not terribly important. What IS important is to understand what happens at the output. The opamp can either raise or lower its output voltage, sourcing or sinking current. Think of it like this: Whenever the input current at the negative terminal changes, the opamp will try changing its output to compensate for the change. If it first tries to raise the voltage and this makes the sum of the input currents closer to zero, it has found the correct direction of change. If not, it will try lowering the voltage.
 </p>
 <p>
 	Now, how high will the output voltage be? That depends on the circuit elements in the feedback loop, so the simple answer is "whatever it has to be to induce a feedback current that nulls out the input currents". For a simple inverting amplifier that has a single resistor in its feedback path, the current is $I_{feedback} = -V_{out} / R_{feedback}$ (minus because the forward voltage drop is equal to $0 - V_{out}$). For other configurations, just keep in mind that the primary goal is to keep the sum of the input currents at zero and that the input voltage is always $0V$. Also, it is important to be aware that the current into the feedback loop at the negative input terminal may not necessary be the same as the current into the opamp output terminal, this all depends on what you put inside the feedback loop as we'll see shortly.
@@ -73,17 +73,17 @@ Of course, this is only the ideal behaviour of the opamp. As it can only sink/so
 </p>
 <h2>Keeping the reference current constant</h2>
 <p>
-	Our goal is to keep the current flowing into the collector of the left transistor constant, independent of what happens at the base and emitter. 
+	Our goal is to keep the current flowing into the collector of the left transistor constant, independent of what happens at the base and emitter.
 </p>
 <p>
 	 But as mentioned in the "naive approach" section, we cannot just connect a resistor between a known voltage and the transistor collector and expect the voltage across the resistor to be constant.
 </p>
 <p>
-	So what can we do? Well, here is the trick: Put the transistor within the feedback loop of an opamp. 
+	So what can we do? Well, here is the trick: Put the transistor within the feedback loop of an opamp.
 </p>
 <img src="img/illustration_10.png" height="300">
 <p>
-	Remember the two opamp properties stated above - if we connect the opamp's positive terminal to ground, it will try to keep its negative terminal at 0V, and any input current will be counteracted by the current in the feedback loop. 
+	Remember the two opamp properties stated above - if we connect the opamp's positive terminal to ground, it will try to keep its negative terminal at 0V, and any input current will be counteracted by the current in the feedback loop.
 </p>
 <p>
 	If we connect a resistor between the positive supply voltage and the transistor collector, and at the same time connect the collector to the negative terminal of the opamp and the emitter to the opamp output, the transistor ends up being part of the opamp feedback loop. The opamp will do whatever possible to keep the input at 0V, which means that the current flowing through the resistor will be $I = V_{supply} / R_{collector}$, independent of what happens in the transistor. This current flows into the opamp's negative terminal, but the second property tells us that the sum of currents into the terminal should be 0. In order for this to be true, the same current has to flow out of the negative terminal and through the transistor's collector. This is also independent of what happens in the transistor, and voilla, we've got a constant reference current!
@@ -93,7 +93,7 @@ Of course, this is only the ideal behaviour of the opamp. As it can only sink/so
 	Earlier we claimed that exactly how the opamp manages to keep the input at $0V$ and match up the input and output currents is unimportant. But to construct a circuit that works within the desired ranges we need to understand a bit more about what happens. More specifically, we need to know how to keep the opamp within its operational range, not exceeding the amount of current it can source/sink and its maximum voltage swings.
 </p>
 <p>
-	From the exponential converter discussion we know that the current through the emitter is the sum of the current into the collector and the current into the base. However, the current into the base is very much smaller, often between 50 and 200 times smaller than the collector current, so for this discussion it may be ignored. This means that the emitter current equals the collector current.   
+	From the exponential converter discussion we know that the current through the emitter is the sum of the current into the collector and the current into the base. However, the current into the base is very much smaller, often between 50 and 200 times smaller than the collector current, so for this discussion it may be ignored. This means that the emitter current equals the collector current.
 </p>
 <p>
 	Furthermore, we know that the change in emitter voltage will give us a collector current in the right transistor, \(I_{c_2} = I_{c_1} \cdot e^{\frac{\Delta V_{be}}{V_t}}\).
@@ -101,7 +101,7 @@ Of course, this is only the ideal behaviour of the opamp. As it can only sink/so
 <p>
 	All this current has to go somewhere, and that somewhere is into the opamp's output. This means that the sum of the emitter currents in the two transistors cannot exceed $20mV$.
 </p>
-<p class="fact"> 
+<p class="fact">
 	For the circuit to work, the following has to be true:<br>
 	\(I_{c_1} + I_{c_2} < 20mV \)<br>
 	\(I_{c_1} + I_{c_1} \cdot e^{\frac{\Delta V_{be}}{V_t}}) < 20mV \)<br>
@@ -109,22 +109,22 @@ Of course, this is only the ideal behaviour of the opamp. As it can only sink/so
 </p>
 <img src="img/emittercurrents.png" height="200">
 <p>
-	But looking at HOW the opamp manages to keep the left emitter current constant, we realise this: All of the current flows through the emitter resistor and into the opamp. Again, Ohm's law tells us that $V = R \cdot I$. The current is the sum of the emitter currents, which means that the voltage across the resistor is 
+	But looking at HOW the opamp manages to keep the left emitter current constant, we realise this: All of the current flows through the emitter resistor and into the opamp. Again, Ohm's law tells us that $V = R \cdot I$. The current is the sum of the emitter currents, which means that the voltage across the resistor is
 </p>
 <p>
-	\(V_{R_e} = R_{e} \cdot I_{c_1} \cdot (1 + e^{\frac{\Delta V_{be}}{V_t}})\) 
+	\(V_{R_e} = R_{e} \cdot I_{c_1} \cdot (1 + e^{\frac{\Delta V_{be}}{V_t}})\)
 </p>
 <p>
 	So to keep all the current flowing through the resistor, the opamp must make sure the voltage at its output is $V_{R_e}$ below the transistor emitter voltage $V_e$. This means that, at all times, the output voltage of the opamp must be
 </p>
 <p>
-	\(V_{out} = V_e -  V_{R_e}\)<br> 
-	\(V_{out} = V_e - R_{e} \cdot I_{c_1} \cdot (1 + e^{\frac{\Delta V_{be}}{V_t}})\) 
+	\(V_{out} = V_e -  V_{R_e}\)<br>
+	\(V_{out} = V_e - R_{e} \cdot I_{c_1} \cdot (1 + e^{\frac{\Delta V_{be}}{V_t}})\)
 </p>
 <p>
 	As the opamp output cannot be higher or lower than its supply voltages (a bit from them in practice), this gives us a second rule:
 </p>
-<p class="fact"> 
+<p class="fact">
 	For the circuit to work, the following also has to be true:<br>
 	\( V_{supply-} < V_{out} < V_{supply+}\)<br>
 	\( V_{supply-} < V_e - R_{e} \cdot I_{c_1} \cdot (1 + e^{\frac{\Delta V_{be}}{V_t}}) < V_{supply+}\)
@@ -135,7 +135,7 @@ Of course, this is only the ideal behaviour of the opamp. As it can only sink/so
 A nice consequence of the way we created our reference current is that adding voltage control of linear frequency modulation becomes very easy.
 </p>
 <p>
-	If we look at our output current formula, we see that the output current is linearly related to the reference current. Linear Frequency modulation is thus just a matter of changing the reference current. 
+	If we look at our output current formula, we see that the output current is linearly related to the reference current. Linear Frequency modulation is thus just a matter of changing the reference current.
 </p>
 <p>
 	And how do we do that? Again, 2) gives us the solution. The reference current is the sum of all other currents into the opamps negative terminal (the opamp works as a summer and the negative terminal becomes what is known as the summing point). All we need to do is turn the control voltage into a current and inject it into the summing point and the reference current will increase by the same amount.
@@ -161,23 +161,23 @@ A nice consequence of the way we created our reference current is that adding vo
 	<img src="img/coretheory.png" height="200">
 </p>
 <p>
-	To measure the voltage across the capacitor, we may use a device called a comparator. This is a device with two inputs (positive and negative) and one output. It will compare its inputs and if the positive is higher than the negative it will output a voltage close to its positive supply voltage. If the positive input is lower than the negative it will output a voltage close to its negative supply voltage. 
+	To measure the voltage across the capacitor, we may use a device called a comparator. This is a device with two inputs (positive and negative) and one output. It will compare its inputs and if the positive is higher than the negative it will output a voltage close to its positive supply voltage. If the positive input is lower than the negative it will output a voltage close to its negative supply voltage.
 </p>
 <p>
-	To short circuit the capacitor we can connect a JFET transistor across its two terminals. When the transistor is turned on it short circuits the capacitor, when it is turned off the capacitor will charge as normal. 
+	To short circuit the capacitor we can connect a JFET transistor across its two terminals. When the transistor is turned on it short circuits the capacitor, when it is turned off the capacitor will charge as normal.
 </p>
 <p>
-	Connect the output of the comparator to the transistor gate (through some additional circuitry that we'll get back to later). Connect the negative input of the comparator to a reference voltage, for example 5V, and the positive input to one of the capacitor terminals. The second capacitor terminal should be connected to the output of the exponential converter. 
+	Connect the output of the comparator to the transistor gate (through some additional circuitry that we'll get back to later). Connect the negative input of the comparator to a reference voltage, for example 5V, and the positive input to one of the capacitor terminals. The second capacitor terminal should be connected to the output of the exponential converter.
 </p>
 <p>
-	The current from the exponential converter will charge the capacitor until it reaches 5V. At this point the comparator's output flips from negative to positive. This turns on the transistor, which short circuits and instantly discharges the capacitor. As the output voltage falls below 5V, the comparator switches back to negative and the transistor turns off again restarting the cycle. 
+	The current from the exponential converter will charge the capacitor until it reaches 5V. At this point the comparator's output flips from negative to positive. This turns on the transistor, which short circuits and instantly discharges the capacitor. As the output voltage falls below 5V, the comparator switches back to negative and the transistor turns off again restarting the cycle.
 </p>
 <h2>Controlling the frequency</h2>
 <p>
-	The frequency of the output wave is determined by the time it takes to charge the capacitor from $0V$ to the point where we short circuit it (for example $5V$). 
+	The frequency of the output wave is determined by the time it takes to charge the capacitor from $0V$ to the point where we short circuit it (for example $5V$).
 </p>
 <p>
-	From the capacitor formula, we have that the voltage across the capacitor at any time $t$ can be written as 
+	From the capacitor formula, we have that the voltage across the capacitor at any time $t$ can be written as
 </p>
 <p>
 	\(V(t)=\frac{1}{C} \cdot \int_0^t I(\tau) d\tau + V(t_0)\)
@@ -198,19 +198,19 @@ A nice consequence of the way we created our reference current is that adding vo
 	<a href="#" class="expandButton" onclick="openDiv">[show/hide details]</a>
 	<div class="details">
 		<p>
-			The indefinite integral of a constant $a$ is simply 
+			The indefinite integral of a constant $a$ is simply
 		</p>
 		<p>
 			\(\int a dx=ax+K\), where $K$ is a constant.
 		</p>
 		<p>
-			The definite integral from $b$ to $c$ is 
+			The definite integral from $b$ to $c$ is
 		</p>
 		<p>
 			\(\int_b^c a dx=[ax+K]_b^c = (a\cdot c+K)-(a \cdot b +K) = a\cdot c+K-a \cdot b -K = a(c - b)\)
 		</p>
 		<p>
-			Which means that 
+			Which means that
 		</p>
 		<p>
 			\(V(t)=\frac{1}{C} \cdot I(t-0)\)
@@ -221,7 +221,7 @@ A nice consequence of the way we created our reference current is that adding vo
 	\(V(t)=\frac{I}{C}t\)
 </p>
 <p>
-	We now have a usable relationship between time, voltage and current. The time in the formula may be interpreted as the period for a single cycle of the output wave. We know that the voltage at the end of the period is whatever voltage we decided to use as the peak for the wave (remember, the one we connected to the negative terminal of the comparator, when the capacitor reaches this voltage it will be reset to $0V$). 
+	We now have a usable relationship between time, voltage and current. The time in the formula may be interpreted as the period for a single cycle of the output wave. We know that the voltage at the end of the period is whatever voltage we decided to use as the peak for the wave (remember, the one we connected to the negative terminal of the comparator, when the capacitor reaches this voltage it will be reset to $0V$).
 </p>
 <p>
 	If we let $V_{peak}$ be this peak voltage, and remember that the frequency $f=\frac{1}{t}$ we get two very useful formulas:
@@ -232,10 +232,10 @@ A nice consequence of the way we created our reference current is that adding vo
 		<p>
 			\(V_{peak}=\frac{I}{C}t\)
 		<p>
-		</p>	
+		</p>
 			\(t=\frac{C \cdot V_{peak} }{I} \)
 		</p>
-		</p>	
+		</p>
 			\(f = \frac{1}{t}\)
 		</p>
 	</div>
@@ -252,10 +252,10 @@ A nice consequence of the way we created our reference current is that adding vo
 </p>
 <h2>That old opamp trick again</h2>
 <p>
-	There is something we need to mention in relation to the core. How do we manage to keep the current constant and still make sure the lower end of the capacitor stays at 0V? 
+	There is something we need to mention in relation to the core. How do we manage to keep the current constant and still make sure the lower end of the capacitor stays at 0V?
 </p>
 <p>
-	The opamp comes to our rescue again. As before, we put our circuit inside the negative feedback loop and connect the positive input to ground. Once again we'll get a virtual ground at the negative terminal, it will stay at $0V$ at all times. The control current will flow out of the negative terminal and into the exponential converter, but to counteract this the same current will flow through the capacitor. To manage this, the opamp has to raise its output voltage in accordance with the capacitor formula $V(t)=\frac{I}{C}t$. Thus, the opamp output voltage is equal to $V(t)$ and will be the exact output wave we wanted, with an amplitude from 0V to $V_{peak}$. 
+	The opamp comes to our rescue again. As before, we put our circuit inside the negative feedback loop and connect the positive input to ground. Once again we'll get a virtual ground at the negative terminal, it will stay at $0V$ at all times. The control current will flow out of the negative terminal and into the exponential converter, but to counteract this the same current will flow through the capacitor. To manage this, the opamp has to raise its output voltage in accordance with the capacitor formula $V(t)=\frac{I}{C}t$. Thus, the opamp output voltage is equal to $V(t)$ and will be the exact output wave we wanted, with an amplitude from 0V to $V_{peak}$.
 </p>
 <p>
 	<img src="img/opampintegrator.png" height="150">
@@ -265,7 +265,7 @@ A nice consequence of the way we created our reference current is that adding vo
 </p>
 <p>
 	<img src="img/opampintegratorreset.png" height="150">
-</p>	
+</p>
 <p>
 	To buffer the wave and at the same time center it 0V and scale its amplitude if wanted, we add an additional inverting amplifier opamp just after the output. The resistor in the feedback loop may be chosen with a different value from the input resistor to scale the output, and a separate input voltage may be added to center the wave. It is common to use a potentiometer in a resistor-divider configuration to create an adjustable centering voltage as component variations makes it hard to get a correct value otherwise.
 </p>

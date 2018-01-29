@@ -4,7 +4,7 @@
 <title>The exponential converter explained</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<link rel="stylesheet" type="text/css" href="expo_converter.css">
+<link rel="stylesheet" type="text/css" href="../theory.css">
 
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
@@ -12,8 +12,8 @@
   });
 </script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS_HTML-full"></script>
-<script type="text/javascript" src="expo_converter.js"></script>
-<script src="jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="../theory.js"></script>
+<script src="../jquery-2.1.1.min.js"></script>
 
 </head>
 <body>
@@ -22,7 +22,7 @@
 <H1>The VCO</H1>
 <H2>Preface</H2>
 <p class="ingress">
-The VCO is a wonderful thing that does only a very simple task - it generates a repeating waveform at a specific frequency. But understanding what makes it tick is quite a bit harder. I have found several very good tutorials and explanations on the net, but I felt that there was something missing. This document tries to correct that. I wrote it to help me structure my thoughts and work out enough of the missing bits to select the correct component values for a VCO. Hopefully it will help others do the same. 
+The VCO is a wonderful thing that does only a very simple task - it generates a repeating waveform at a specific frequency. But understanding what makes it tick is quite a bit harder. I have found several very good tutorials and explanations on the net, but I felt that there was something missing. This document tries to correct that. I wrote it to help me structure my thoughts and work out enough of the missing bits to select the correct component values for a VCO. Hopefully it will help others do the same.
 </p>
 
 <p>
@@ -54,7 +54,7 @@ But how does the VCO do all this?
 
 <p>
 In a common VCO design there are three main parts.
-</p> 
+</p>
 
 <p>
 1) An exponential converter (or antilog converter). This converts a linear $1V/octave$ input CV into an exponential current. This is necessary as the next stage in the VCO creates a wave with a frequency linearly propotional to the input current, and tone frequencies increase exponentially as we go up the scale.
@@ -118,17 +118,17 @@ As $T$ is dependent on the temperature, $V_t$ also changes when the temperature 
 </p>
 <p class="fact" xanchor="VTeffect">
 $e^{\frac{V_{be}}{V_t}}$ decreases as the temperature increases.
-</p>	
+</p>
 
 <p>
-$I_s$ is the reverse saturation current for a particular transistor. It is seldom (if ever) mentioned in the transistor data sheets and has a complex formula, but all we need to know right now is that it varies wildly with temperature. In According to Schmitz, 
+$I_s$ is the reverse saturation current for a particular transistor. It is seldom (if ever) mentioned in the transistor data sheets and has a complex formula, but all we need to know right now is that it varies wildly with temperature. In According to Schmitz,
 </p>
 <p class="fact" xanchor="ISeffect">
 $I_s$ doubles with every 10°C increase.
-</p>	
+</p>
 
 <p>
-$I_s$ is in the range of $10^{-15}$ to $10^{-12}$, in other words really small. Because $I_s$ is much smaller than the resulting $I_c$, we can ignore $-1$ in the Ebers-Moll equation and write 
+$I_s$ is in the range of $10^{-15}$ to $10^{-12}$, in other words really small. Because $I_s$ is much smaller than the resulting $I_c$, we can ignore $-1$ in the Ebers-Moll equation and write
 </p>
 
 <p class="fact" xanchor="ebersmoll">
@@ -175,11 +175,11 @@ So, doing the maths, we find that the increase in input voltage necessary to dou
 		</p>
 
 		<p class="formula">
-		\(ln(e^\frac{V_{be_1}}{V_t}) = ln (2\cdot e^\frac{V_{be_0}}{V_t})\) 
+		\(ln(e^\frac{V_{be_1}}{V_t}) = ln (2\cdot e^\frac{V_{be_0}}{V_t})\)
 		</p>
 
 		<p class="formula">
-		\(ln(e^\frac{V_{be_1}}{V_t}) = ln (2) + ln(e^\frac{V_{be_0}}{V_t})\) 	
+		\(ln(e^\frac{V_{be_1}}{V_t}) = ln (2) + ln(e^\frac{V_{be_0}}{V_t})\)
 		</p>
 
 		<p class="formula">
@@ -187,7 +187,7 @@ So, doing the maths, we find that the increase in input voltage necessary to dou
 		</p>
 
 		<p class="formula">
-		\(\frac{V_{be_1}-V_{be_0}}{V_t} = ln(2)\) 
+		\(\frac{V_{be_1}-V_{be_0}}{V_t} = ln(2)\)
 		</p>
 
 		<p class="formula">
@@ -201,7 +201,7 @@ So, doing the maths, we find that the increase in input voltage necessary to dou
 </div>
 
 <p class="fact" xanchor="doublefrequency">
-\(\Delta V_{be} = V_t \cdot ln(2)\) 
+\(\Delta V_{be} = V_t \cdot ln(2)\)
 </p>
 
 <p>
@@ -224,11 +224,11 @@ which in turn gives
 </p>
 
 <p>
-This means that, in case of our VCO, 
+This means that, in case of our VCO,
 </p>
 
 <p class="fact" xanchor="deltaVB20">
-At $20°C$, any increase in $V_{be}$ of $17.5mV$, independently of the initial $V_{be}$, will result in a tone one octave up from the starting tone. 
+At $20°C$, any increase in $V_{be}$ of $17.5mV$, independently of the initial $V_{be}$, will result in a tone one octave up from the starting tone.
 </p>
 <p>
 An increase of $35mV$ will give you two octaves up etc. All we have to do now is to build a resistor voltage divider that converts $1V$ to $17.5mV$ and we have a $1V/oct$ exponential converter.
@@ -267,7 +267,7 @@ At a starting temperature $T_0$ we have
 If we increase the temperature by $10°C$, $I_s$ doubles, which gives us, at temperature $T_1$ = $T_0$ + $10°C$,
 </p>
 <p class="formula">
-$I_{c_1} = {2} \cdot I_{s_0} \cdot e^\frac{V_{be}}{V_{t_1}}$ 
+$I_{c_1} = {2} \cdot I_{s_0} \cdot e^\frac{V_{be}}{V_{t_1}}$
 </p>
 
 <p>
@@ -285,7 +285,7 @@ The temperature effect on $V_t$, although opposite of $I_s$, is very much smalle
 </p>
 <div class="example">
 	Example:<br>
-	
+
 <p>
 Increasing the temperature from $20°C$ to $30°C$ will yield the following effect on $V_t$:
 </p>
@@ -312,13 +312,13 @@ Question 3: What does it all mean? What happens when the temperature changes?
 
 
 <p class="fact">
-	1) The effect of the temperature on $I_s$ changes the "base tone", all tones are shifted up the same amount when the temperature rises. 
+	1) The effect of the temperature on $I_s$ changes the "base tone", all tones are shifted up the same amount when the temperature rises.
 </p>
 <p>
-	In other words, the VCO drifts, it goes out of tune, but all tones are shifted in a way that preserves the relation between them. If only $I_s$ changed, a person without perfect pitch may not have noticed that anything had changed (unless of course you compared the before and after tones). 
+	In other words, the VCO drifts, it goes out of tune, but all tones are shifted in a way that preserves the relation between them. If only $I_s$ changed, a person without perfect pitch may not have noticed that anything had changed (unless of course you compared the before and after tones).
 </p>
 <p class="fact">
-	2) The effect of the temperature on $V_t$ changes the distance in volts between the top and bottom tones of an octave. 
+	2) The effect of the temperature on $V_t$ changes the distance in volts between the top and bottom tones of an octave.
 </p>
 <p>
 	As the temperature rises, a larger voltage is needed to double Ic and with it double the frequency, going one octave up. In other words, unless the voltage "spacing" between each tone is increased with rising temperatures, the distance between each tone (in Hz) will be too short. You will still be able to tune in a single perfect tone, say C3. However, all tones above C3 will sound flat (and increasingly so as you move up the scale) and all tones below will sound too sharp.
@@ -329,7 +329,7 @@ To prove 1), that the interval between two tones stays the same as the temperatu
 </p>
 
 <p>
-	Ignoring any change to $V_t$ caused by the temperature, we can use $V_t = 25.3mV$. 
+	Ignoring any change to $V_t$ caused by the temperature, we can use $V_t = 25.3mV$.
 </p>
 
 <p>
@@ -354,7 +354,7 @@ Thus, at $V_{be} = 0$
 </p>
 <p class="formula">
 	$I_c = 1mA \cdot e^0 = 1mA$, producing a VCO frequency of $440Hz$.
-</p>	
+</p>
 
 <p>
 Increasing $V_{be}$ to $17.5mV$ gives us
@@ -368,7 +368,7 @@ Now, let us increase the temperature by $10°C$. We now that $I_c$ doubles to $2
 </p>
 
 <p>
-For $V_{be} = 0$, 
+For $V_{be} = 0$,
 </p>
 
 <p class="formula">
@@ -376,7 +376,7 @@ For $V_{be} = 0$,
 </p>
 
 <p>
-and for $V_{be} = 17.5mV$, 
+and for $V_{be} = 17.5mV$,
 </p>
 <p class="formula">
 	$Ic = 2mA \cdot e^\frac{17.5mV}{25.3mV}  = 4mA$, producing a VCO frequency of $4 \cdot 440Hz = 1760Hz$ (again, doubling the previous value).
@@ -388,11 +388,11 @@ Notice now that the relation between the first and the second frequency for each
 
 <h2>Summary</h2>
 <p>
-From the preceding discussion, it should be clear that there are two major effects of temperature changes on a transistor. By far the worst one is the change to $I_s$, it makes the VCO super sensitive to temperature changes, drifting with one octave per $10°C$. 
+From the preceding discussion, it should be clear that there are two major effects of temperature changes on a transistor. By far the worst one is the change to $I_s$, it makes the VCO super sensitive to temperature changes, drifting with one octave per $10°C$.
 </p>
 
 <p>
-The second effect, $V_t$, changes the intervals between each tone only slightly, it is changed by $0.6 mV$ or about $3.4\%$ when going from $20°C$ to $30°C$. Even so, it is important to get rid of when trying to build a temperature stable oscillator*. 
+The second effect, $V_t$, changes the intervals between each tone only slightly, it is changed by $0.6 mV$ or about $3.4\%$ when going from $20°C$ to $30°C$. Even so, it is important to get rid of when trying to build a temperature stable oscillator*.
 </p>
 
 <p class="footnote">
