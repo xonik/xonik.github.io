@@ -1,3 +1,6 @@
+<!DOCTYPE html>
+<html>
+<body>
 <h1>Exponential convertion - the useful formulas</h1>
 <p>
     The exponential converter / logarithmic converter is a very useful circuit, used for
@@ -16,10 +19,10 @@
 <p>
     The four configurations are:
 <ul>
-    <li>A: Falling positive exponential (starting high positive and falling to close to 0)</li>
-    <li>B: Rising positive exponential (starting close to 0 and rising to high positive)</li>
-    <li>C: Rising negative exponential (starting close to 0 and rising to high negative)</li>
-    <li>D: Falling negative exponential (starting high negative and falling to close to 0)</li>
+    <li>A: Falling positive exponential (starting high positive and decreasing to close to 0)</li>
+    <li>B: Rising positive exponential (starting close to 0 and increasing to high positive)</li>
+    <li>C: Rising negative exponential (starting close to 0 and increasing to high negative)</li>
+    <li>D: Falling negative exponential (starting high negative and decreasing to close to 0)</li>
 </ul>
 </p>
 <p>
@@ -51,10 +54,18 @@
 <p>
     These are the formulas for the four exponential converters:
 <ul>
-    <li>A: I_out = I_ref * e^(-V_cv/V_T), I_ref < 0</li>
-    <li>B: I_out = I_ref * e^(V_cv/V_T), I_ref < 0</li>
-    <li>C: I_out = I_ref * e^(V_cv/V_T), I_ref > 0</li>
-    <li>D: I_out = I_ref * e^(-V_cv/V_T), I_ref > 0</li>
+    <li>A: \(I_{out} = I_{ref} \cdot e^{-\frac{V_{cv}}{V_t}}\)</li>
+    <li>B: \(I_{out} = I_{ref} \cdot e^{\frac{V_{cv}}{V_t}}\)</li>
+    <li>C: \(I_{out} = I_{ref} \cdot e^{\frac{V_{cv}}{V_t}}\)</li>
+    <li>D: \(I_{out} = I_{ref} \cdot e^{-\frac{V_{cv}}{V_t}}\)</li>
+</ul>
+V_t is xXXXXX at 25C - see XXXX for temperature compensation
+</p>
+<p>
+    It is also important to note that
+<ul>
+    <li>I_ref and I_out flows INTO the collectors for A and B</li>
+    <li>I_ref and I_out flows OUT OF the collectors for C and D</li>
 </ul>
 </p>
 <p>
@@ -63,9 +74,11 @@
 </p>
 <p>
     The reference current I_ref is then:
-
+</p>
+<p>
     I_ref = V_ref/R_ref
-
+</p>
+<p>
     or 1.5MOhm/15V = 10uA for C and D, 1.5MOhm/-15V = -10uA for A and B.
 </p>
 <h2>Things to consider</h2>
@@ -132,101 +145,172 @@
     The Ebers-Moll equation for an NPN transistor can be approximated as
 </p>
 <p>
-    I_c = I_s * e^(V_be/V_T).
+    \(I_{c} = I_{s} \cdot e^{\frac{V_{be}}{V_t}}\)
 </p>
 <p>
-Rearranging for V_be gives us
+    Rearranging for V_be gives us
 </p>
 <p>
     V_be = V_T * ln(I_c/I_s)
 </p>
-
 Here's a little trick. Since V_e is the same for both transistors, the difference in V_be between
 the two transistors can be written as
+<p>
+    dV_be = V_be_2 - V_be_1
+    = (V_b_2 - V_e) - (V_b_1 - V_e)
+    = V_b_2 - V_b_1
+</p>
+<p>
+    Also
+</p>
+<p>
+    dV_be = V_t * ln(I_c_2/I_s) - V_t * ln(I_c_2/I_s
+    = V_t(ln(I_c_2/I_s) -ln(I_c_2/I_s)
+    = V_T * ln(I_c_2/I_c_1)
+</p>
+<p>
+    So we get
+</p>
+<p>
+    V_b_2 - V_b_1 = V_T * ln(I_c_2/I_c_1)
+    ln(I_c_2/I_c_1) = (V_b_2 - V_b_1)/V_T
+    I_c_2/I_c_1 = e^((V_b_2 - V_b_1)/V_T)
+</p>
+<p>
+    For NPN:
+</p>
+<p>
+    I_c_2 = I_c_1 * e^((V_b_2 - V_b_1)/V_T)
+</p>
+<p>
+    The Ebers-Moll equation for a PNP transistor on the other hand can be approximated as
+</p>
+<p>
+    \(I_{c} = I_{s} \cdot e^{\frac{V_{eb}}{V_t}}\)
+</p>
+<p>Explain the apprixmiation</p>
+<h3>Where did the PNP equation come from?</h3>
+<p>
+    The NPN transistor's forward characteristics are, according to Microelectronic Circuit Design
+    by Travis Blalock, Richard Jaeger - http://www.jaegerblalock.com/
+</p>
+<p>
+    I_c = I_s * (e^(V_be/V_t) - 1) = α_F I_ES * (e^(V_be/V_t) - 1) (5.21)
+</p>
+<p>
+    and thus
+</p>
+<p>
+    I_ES = I_s/α_F
+</p>
+<p>
+    which is also stated in 5.20
+</p>
+<p>
+    The forward characteristics for the PNP are not clearly stated, but the Ebers-Moll Models for
+    both tne NPN and the PNP are. For NPN it is:
+</p>
+<p>
+    I_c = α_F I_ES * (e^(V_be/V_t) - 1) - I_cs * (e^(V_bc/V_t) - 1)
+</p>
+<p>
+    Here, we recognize the first part as the forward characteristic and the second as the reverse
+    characteristic (5.22).
+</p>
+<p>
+    For PNP it is
+</p>
+<p>
+    I_c = α_F I_ES * (e^(V_eb/V_t) - 1) - I_cs * (e^(V_cb/V_t) - 1)
+</p>
+<p>
+    We know that the first part is the forward characteristic, so
+</p>
+<p>
+    I_c = α_F I_ES * (e^(V_eb/V_t) - 1), I_ES = I_s/α_F
+</p>
+<p>
+    I_c = (e^(V_eb/V_t) - 1)
+</p>
+Note that the only difference is the way we calculate the difference between V_b and V_e - a
+tiny but crucial difference.
+</p>
+<p>
+    Rearranging for V_be gives us
+</p>
+<p>
+    V_eb = V_T * ln(I_c/I_s)
+</p>
+<p>
+    Then the same trick: Since V_e is the same for both transistors, the difference in V_be between
+    the
+    two transistors can be written as
+</p>
+<p>
+    dV_eb = V_eb_2 - V_eb_1
+    = (V_e - V_b_2) - (V_e - V_b_1)
+    = -V_b_2 + V_b_1
+    = V_b_1 + V_b_2
+</p>
+<p>
+    Similarly,
+</p>
+<p>
+    dV_eb = V_t * ln(I_c_2/I_s) - V_t * ln(I_c_2/I_s
+    = V_t(ln(I_c_2/I_s) -ln(I_c_2/I_s)
+    = V_T * ln(I_c_2/I_c_1)
+</p>
+<p>
+    So we get
+</p>
+<p>
+    V_b_1 - V_b_2 = V_T * ln(I_c_2/I_c_1)
+    ln(I_c_2/I_c_1) = (V_b_1 - V_b_2)/V_T
+    I_c_2/I_c_1 = e^((V_b_1 - V_b_2)/V_T)
+</p>
+<p>
+    For PNP:
+</p>
+<p>
+    I_c_2 = I_c_1 * e^((V_b_1 - V_b_2)/V_T)
+</p>
+<p>
+    We now have the formulas for both PNP and NPN transistors. They say nothing about which one of
+    the collectors are to be considered the reference current, nor which one, if any of, the bases
+    are grounded or which one is the control input. If we want to find I_c_1 based on I_c2 instead,
+    we just negate the exponent:
+</p>
+<p>
+    a = b * e^x => b = a / e^x = a * 1/e^x = a*e^-x
+</p>
+<p>
+    Before the final transformation into the formulas above, let's stop to think about what is
+    actually going on in the circuits.
+</p>
+<p>
+    The base of one of the transistors has been grounded in each circuit. Why?
+</p>
+<p>
+    If we ground the base of the transistor that is inside the feedback loop (A, C):
+    - we now have a transistor with a fixed V_b_1 and a fixed I_c_1 (I_ref). As mentioned, a fixed
+    V_c
+    means a fixed V_be, and since V_b is also fixed, V_e will be constant. It cannot go anywhere.
+    - therefore, as we change V_b_2 (the CV), V_be_2 will change, and I_c_2 (I_out) changes.
+</p>
+<p>
+    If we ground the base of the transistor connected to the output:
+    - The transistor inside the feedback loop still has a fixed I_c_1, which means that V_be_1 is
+    also fixed. But now the CV is connected to the base, i.e. V_b_1 is variable. Thus, to keep I_c_1
+    constant, V_e must also change.
+    - the other transistor however, has its base grounded. V_b_2 is constant. Now, as V_b_1 changes,
+    V_e changes. This in turn changes V_be_2, and as V_be_2 changes, I_c_2
+    (I_out) changes.
+</p>
+<p>
+    Thus, we can control I_out by changing either one of the bases and keeping the other fixed.
+</p>
 
-dV_be = V_be_2 - V_be_1
-= (V_b_2 - V_e) - (V_b_1 - V_e)
-= V_b_2 - V_b_1
-
-Also
-
-dV_be = V_t * ln(I_c_2/I_s) - V_t * ln(I_c_2/I_s
-= V_t(ln(I_c_2/I_s) -ln(I_c_2/I_s)
-= V_T * ln(I_c_2/I_c_1)
-
-So we get
-
-V_b_2 - V_b_1 = V_T * ln(I_c_2/I_c_1)
-ln(I_c_2/I_c_1) = (V_b_2 - V_b_1)/V_T
-I_c_2/I_c_1 = e^((V_b_2 - V_b_1)/V_T)
-
-For NPN:
-I_c_2 = I_c_1 * e^((V_b_2 - V_b_1)/V_T)
-
-
-The Ebers-Moll equation for a PNP transistor on the other hand can be approximated as
-
-I_c = I_s * e^(V_eb/V_T). * explain where I found this -- http://www.jaegerblalock.com/
--- Microelectronic Circuit Design by Travis Blalock, Richard Jaeger
-
-Rearranging for V_be gives us
-
-V_eb = V_T * ln(I_c/I_s)
-
-Then the same trick: Since V_e is the same for both transistors, the difference in V_be between the
-two transistors can be written as
-
-dV_eb = V_eb_2 - V_eb_1
-= (V_e - V_b_2) - (V_e - V_b_1)
-= -V_b_2 + V_b_1
-= V_b_1 + V_b_2
-
-Similarly,
-
-dV_eb = V_t * ln(I_c_2/I_s) - V_t * ln(I_c_2/I_s
-= V_t(ln(I_c_2/I_s) -ln(I_c_2/I_s)
-= V_T * ln(I_c_2/I_c_1)
-
-So we get
-
-V_b_1 - V_b_2 = V_T * ln(I_c_2/I_c_1)
-ln(I_c_2/I_c_1) = (V_b_1 - V_b_2)/V_T
-I_c_2/I_c_1 = e^((V_b_1 - V_b_2)/V_T)
-
-For PNP:
-I_c_2 = I_c_1 * e^((V_b_1 - V_b_2)/V_T)
-
-
-We now have the formulas for both PNP and NPN transistors. They say nothing about which one of
-the collectors are to be considered the reference current, nor which one, if any of, the bases
-are grounded or which one is the control input. If we want to find I_c_1 based on I_c2 instead,
-we just negate the exponent:
-
-a = b * e^x => b = a / e^x = a * 1/e^x = a*e^-x
-
-
-Before the final transformation into the formulas above, let's stop to think about what is
-actually going on in the circuits.
-
-The base of one of the transistors has been grounded in each circuit. Why?
-
-If we ground the base of the transistor that is inside the feedback loop (A, C):
-- we now have a transistor with a fixed V_b_1 and a fixed I_c_1 (I_ref). As mentioned, a fixed V_c
-means a fixed V_be, and since V_b is also fixed, V_e will be constant. It cannot go anywhere.
-- therefore, as we change V_b_2 (the CV), V_be_2 will change, and I_c_2 (I_out) changes.
-
-If we ground the base of the transistor connected to the output:
-- The transistor inside the feedback loop still has a fixed I_c_1, which means that V_be_1 is
-also fixed. But now the CV is connected to the base, i.e. V_b_1 is variable. Thus, to keep I_c_1
-constant, V_e must also change.
-- the other transistor however, has its base grounded. V_b_2 is constant. Now, as V_b_1 changes,
-V_e changes. This in turn changes V_be_2, and as V_be_2 changes, I_c_2
-(I_out) changes.
-
-Thus, we can control I_out by changing either one of the bases and keeping the other fixed.
-
-
-The final transformation
+<h2>The final transformation</h2>
 
 For A:
 A is a PNP configuration, so we'll use
@@ -236,7 +320,7 @@ I_c_2 = I_c_1 * e^((V_b_1 - V_b_2)/V_T)
 I_c_2 = I_out, I_c_1 = I_ref, V_b_1 = 0 (grounded) and V_b_2 is our control, V_cv. Thus we're
 left with
 
-I_out = I_ref * e^(-V_cv/V_T)
+\(I_{out} = I_{ref} \cdot e^{-\frac{V_{cv}}{V_t}}\)
 
 For B:
 B is also a PNP configuration, so we'll use
@@ -246,7 +330,7 @@ I_c_2 = I_c_1 * e^((V_b_1 - V_b_2)/V_T)
 I_c_2 = I_out, I_c_1 = I_ref, V_b_2 = 0 (grounded) and V_b_1 is our control, V_cv. Thus we're
 left with
 
-B: I_out = I_ref * e^(V_cv/V_T)
+B: \(I_{out} = I_{ref} \cdot e^{\frac{V_{cv}}{V_t}}\)
 
 For C:
 C is an NPN configuration, so we'll use
@@ -256,7 +340,7 @@ I_c_2 = I_c_1 * e^((V_b_2 - V_b_1)/V_T)
 I_c_2 = I_out, I_c_1 = I_ref, V_b_1 = 0 (grounded) and V_b_2 is our control, V_cv. Thus we're
 left with
 
-C: I_out = I_ref * e^(V_cv/V_T)
+C: \(I_{out} = I_{ref} \cdot e^{\frac{V_{cv}}{V_t}}\)
 
 For B:
 B is also an NPN configuration, so we'll use
@@ -266,10 +350,12 @@ I_c_2 = I_c_1 * e^((V_b_2 - V_b_1)/V_T)
 I_c_2 = I_out, I_c_1 = I_ref, V_b_2 = 0 (grounded) and V_b_1 is our control, V_cv. Thus we're
 left with
 
-D: I_out = I_ref * e^(-V_cv/V_T)
+D: \(I_{out} = I_{ref} \cdot e^{-\frac{V_{cv}}{V_t}}\)
 
 
-Max I_out
+<h2>Direction, I_out</h2>
+
+<h2>Max I_out</h2>
 
 As mentioned, V_c_2 is determined by I_out and the circuit after the collector. Let's look at an
 example:
@@ -283,7 +369,7 @@ value of V_e that limits the maximum I_out:
 
 I_out_max = ((V_e - 0.25) + 15V) / 18kOhm, and V_e is a result of I_ref.
 
-R_e
+<h2>R_e</h2>
 
 R_e limits the current that flows into the constant current-generator op amp. To keep the current
 constant, it has to sink (or source) exactly I_ref + I_out. It does this by moving its output
@@ -292,3 +378,25 @@ I_out). When V_e gets too large, the opamp cannot pull its output further up or 
 cannot get any higher. The smaller the value for R_e, the less voltage across it.
 
 TODO: How to select a good value.
+</body>
+<head>
+    <title>The exponential converter explained</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <link rel="stylesheet" type="text/css" href="expo_converter.css">
+
+    <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+  });
+
+
+
+
+    </script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS_HTML-full"></script>
+    <script type="text/javascript" src="expo_converter.js"></script>
+    <script src="jquery-2.1.1.min.js"></script>
+
+</head>
