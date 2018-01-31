@@ -4,7 +4,7 @@
     <title>The exponential converter explained</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <link rel="stylesheet" type="text/css" href="./theory.css">
+    <link rel="stylesheet" type="text/css" href="../theory.css">
 
     <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
@@ -14,12 +14,11 @@
 
 
 
-
     </script>
     <script type="text/javascript"
             src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS_HTML-full"></script>
-    <script type="text/javascript" src="./theory.js"></script>
-    <script src="./jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="../theory.js"></script>
+    <script src="../jquery-2.1.1.min.js"></script>
 
 </head>
 <body>
@@ -51,11 +50,15 @@
     <li>D: Decreasingly negative exponential (starting high negative and decreasing to close to 0)
     </li>
 </ul>
+<img src="./img/expo-converters-four.png"/>
 </p>
 <p>
     The four plots are derived from the same $-100mV$ to $+100mV$ control voltage (CV).
 </p>
 <h2>The test circuit looks like this:</h2>
+<p>
+    <img src="./img/expo-converters-four-circuit.png"/>
+</p>
 <p>
     There are only tiny variations in the circuits:
 <ul>
@@ -382,6 +385,30 @@ between the two transistors can be written as
     </li>
 </ul>
 <p>
+    <img src="./img/A-V_e-and-V_b_2.png"/><br>
+    For A: $V_{e}$ (green) vs $V_{b_{2}}$ ($=V_{cv}$, blue). For a PNP transistor, the emitter
+    voltage is higher than the base voltage when the transistor is on. The emitter
+    voltage stays constant so the difference between the emitter and the base, $V_{be}$,
+    decreases when $V_{cv}$ increases.
+</p>
+<p>
+    <img src="./img/A-V_e-and-I_out.png"/><br>
+    As $V_{cv}$ increases and thus $V_{be}$ decreases, the output current $I_{out}$ decreases.
+</p>
+<p>
+    <img src="./img/C-V_e-and-V_b_2.png"/><br>
+    For C: $V_{e}$ (blue) vs $V_{b_{2}}$ ($=V_{cv}$, green). For an NPN transistor, the emitter
+    voltage is lower than the base voltage when the transistor is on. The emitter voltage stays
+    constant so the difference between the emitter and the base, $V_{be}$, increases when
+    $V_{cv}$ increases.
+</p>
+<p>
+    <img src="./img/C-V_e-and-I_out.png"/><br>
+    As $V_{cv}$ increases and thus $V_{be}$ increases, the output current $I_{out}$ increases. As
+    the reference current is flowing into the transistor, the output is also a negative voltage.
+
+</p>
+<p>
     If we ground the base of the transistor connected to the output (B, D):
 </p>
 <ul>
@@ -397,6 +424,31 @@ between the two transistors can be written as
         $V_{be_{2}}$ changes, $I_{c_{2}}$ ($I_{out}$) changes.
     </li>
 </ul>
+<p>
+    <img src="./img/"/>MISSING<br> TODO: CHECK IF THIS IS B OR D
+    For B: $V_{e}$ (green) vs $V_{b_{2}}$ ($=V_{cv}$, blue). For a PNP transistor, the emitter
+    voltage is higher than the base voltage when the transistor is on. The difference between
+    the left base voltage $V_{b_{1}} and the emitter voltage $V_{e}$ stays constant, but
+    $V_{b_{1} (=$V_{cv}$) changes, so $V_{e}$ changes with the same amount. The right base,
+    $V_{b_{2}} is tied to 0, so as the emitter voltage decreases, the difference between the emitter
+    and the base, $V_{be}$, decreases.
+</p>
+<p>
+    <img src="./img/"/MISSING><br> TODO: REWRITE THIS
+    As $V_{cv}$ increases and thus $V_{be}$ decreases, the output current $I_{out}$ decreases.
+</p>
+<p>
+    <img src="./img/"/>MISSING<br> TODO: CHECK IF THIS IS B OR D
+    For D: $V_{e}$ (green) vs $V_{b_{2}}$ ($=V_{cv}$, blue). For an NPN transistor, the emitter
+    voltage is lower than the base voltage when the transistor is on. The difference between
+    the left base voltage $V_{b_{1}} and the emitter voltage $V_{e}$ stays constant, but
+    $V_{b_{1} (=$V_{cv}$) changes, so $V_{e}$ changes with the same amount. The right base,
+    $V_{b_{2}} is tied to 0, so as the emitter voltage decreases, the difference between the emitter
+    and the base, $V_{be}$, increases.
+</p>
+<p>
+    <img src="./img/">MISSING<br> TODO: REWRITE THIS
+    As $V_{cv}$ increases and thus $V_{be}$ decreases, the output current $I_{out}$ decreases.</p>
 <p>
     Thus, we can control $I_{out}$ by changing either one of the bases and keeping the other fixed.
 </p>
