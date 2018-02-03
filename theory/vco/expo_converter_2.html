@@ -45,7 +45,7 @@ The road to fully understanding what is going on is littered with mathematics an
 	The Ebers Moll equation, as mentioned, can be written as
 </p>
 <p>
-	\(I_c = I_s \cdot e^{\frac{V_{be}}{V_t}}\)
+	\(I_c = I_s \cdot e^{\frac{V_{be}}{V_T}}\)
 </p>
 <p>
 	given that $I_s$ is much smaller than $I_c$. Solving the equation for $V_{be}$ gives us
@@ -65,7 +65,7 @@ The road to fully understanding what is going on is littered with mathematics an
 		</p>
 	</div>
 	<p class="fact">
-		\(V_{be} = V_t \cdot [ln(I_c) - ln(I_s)]\)
+		\(V_{be} = V_T \cdot [ln(I_c) - ln(I_s)]\)
 	</p>
 </div>
 <p>
@@ -92,7 +92,7 @@ If $I_c$ is constant and we change the base voltage $V_b$ with a value $\Delta V
  	Now let's see what happens when we connect two transistors at the base, like the one you can see in all VCO diagrams out there. The collector current of transistor 1, $I_{c_1}$ is still assumed to be constant.
  </p>
   <img src="img/illustration_5.png" height="200">
- <p>
+ <p class="fact">
  	When the transistors have the emitters connected together, they must also have the same $V_e$ at all times.
  </p>
  <p>
@@ -111,8 +111,9 @@ If $I_c$ is constant and we change the base voltage $V_b$ with a value $\Delta V
 <div class="fact">
 	<p>When transistor 2 has its base grounded, changing $V_{b_1}$ by $\Delta V_b$ will also change $V_{be_2}$ by $\Delta V_b$.
 	</p>
-	<p>When transistor 2 has its base grounded, the <i>difference</i> between $V_{be_1}$ and $V_{be_2}$ is $V_{b_1}$:<br>
-	\(\Delta V_{be} = V_{be_2} - V_{be_1} = V_{b_1}\)
+	<p>When transistor 2 has its base grounded, the <i>difference</i> between $V_{be_1}$ and
+		$V_{be_2}$ is -$V_{b_1}$:<br>
+	\(\Delta V_{be} = V_{be_2} - V_{be_1} = V_{b_{2}} - V_e - (V_{b_1} - V_e) = -V_{b_1}\)
 	</p>
 </div>
 <p></p>
@@ -134,7 +135,8 @@ If $I_c$ is constant and we change the base voltage $V_b$ with a value $\Delta V
 	<p>
 		 \(V_{be_2} = V_{be_{initial}} -18mV\)
 	</p>
-	<p>NB: Even if we did NOT chose $V_{b_1} = 0V$ as an initial condition (which means that the initial base-emitter voltages would be different for the two transistors), we would still get that $V_{be_2}$ would have <i>changed</i> by -18mV.
+	<p>NB: Even if we did NOT choose $V_{b_1} = 0V$ as an initial condition (which means that the
+		initial base-emitter voltages would be different for the two transistors), we would still get that $V_{be_2}$ would have <i>changed</i> by -18mV.
 </div>
 <p>
 	So trick 1 is that changing the base voltage of transistor 1 will lead to a change in the base-emitter voltage of transistor 2. This in turn changes the $I_c$ pf transistor 2. Big deal, so what?
@@ -154,7 +156,7 @@ If $I_c$ is constant and we change the base voltage $V_b$ with a value $\Delta V
 	and earlier we showed that Ebers Moll can be written as
 </p>
 <p>
-	\(V_{be} = V_t \cdot [ln(I_c) - ln(I_s)]\)
+	\(V_{be} = V_T \cdot [ln(I_c) - ln(I_s)]\)
 </p>
 <p>
 	This means that we can write $\Delta V_{be}$ as
@@ -163,17 +165,17 @@ If $I_c$ is constant and we change the base voltage $V_b$ with a value $\Delta V
 	<a href="#" class="expandButton" onclick="openDiv">[show/hide details]</a>
 	<div class="details">
 		<p>
-			\(\Delta V_{be} = V_t \cdot [ln(I_{c_2}) - ln(I_s)] - V_t \cdot [ln(I_{c_1}) - ln(I_s)]\)<br>
-			\(\Delta V_{be} = V_t \cdot [ln(I_{c_2}) - ln(I_s) - ln(I_{c_1}) + ln(I_s)]\)<br>
-			\(\Delta V_{be} = V_t \cdot [ln(I_{c_2}) - ln(I_{c_1})]\)
+			\(\Delta V_{be} = V_T \cdot [ln(I_{c_2}) - ln(I_s)] - V_T \cdot [ln(I_{c_1}) - ln(I_s)]\)<br>
+			\(\Delta V_{be} = V_T \cdot [ln(I_{c_2}) - ln(I_s) - ln(I_{c_1}) + ln(I_s)]\)<br>
+			\(\Delta V_{be} = V_T \cdot [ln(I_{c_2}) - ln(I_{c_1})]\)
 		</p>
 	</div>
 </div>
 <p>
-	\(\Delta V_{be} = V_t \cdot ln(\frac{I_{c_2}}{I_{c_1}})\)
+	\(\Delta V_{be} = V_T \cdot ln(\frac{I_{c_2}}{I_{c_1}})\)
 </p>
 <p class="fact">
-	The difference between the base-emitter voltages of the two transistors can be written as	\(\Delta V_{be} = V_t \cdot ln(\frac{I_{c_2}}{I_{c_1}})\)
+	The difference between the base-emitter voltages of the two transistors can be written as	\(\Delta V_{be} = V_T \cdot ln(\frac{I_{c_2}}{I_{c_1}})\)
 </p>
 <p>
 	Wow! Did you see that? $I_s$ just magically disappeared! Ah, but so it did in the explanation of the basic exponential converter as well, and that didn't help us much back then, did it?
@@ -185,9 +187,9 @@ If $I_c$ is constant and we change the base voltage $V_b$ with a value $\Delta V
 	<a href="#" class="expandButton" onclick="openDiv">[show/hide details]</a>
 	<div class="details">
 		<p>
-			\(\Delta V_{be} = V_t \cdot ln(\frac{I_{c_2}}{I_{c_1}})\)<br>
-			\(ln(\frac{I_{c_2}}{I_{c_1}}) = \frac{\Delta V_{be}}{V_t}\)<br>
-			\(\frac{I_{c_2}}{I_{c_1}} = e^{\frac{\Delta V_{be}}{V_t}}\)<br>
+			\(\Delta V_{be} = V_T \cdot ln(\frac{I_{c_2}}{I_{c_1}})\)<br>
+			\(ln(\frac{I_{c_2}}{I_{c_1}}) = \frac{\Delta V_{be}}{V_T}\)<br>
+			\(\frac{I_{c_2}}{I_{c_1}} = e^{\frac{\Delta V_{be}}{V_T}}\)<br>
 		</p>
 		<p>
 			and finally
@@ -198,20 +200,21 @@ If $I_c$ is constant and we change the base voltage $V_b$ with a value $\Delta V
 	<img src="img/illustration_4.png" height="200" class="singleillustration">
 </div>
 <p>
-	\(I_{c_2} = I_{c_1} \cdot e^{\frac{\Delta V_{be}}{V_t}}\)
+	\(I_{c_2} = I_{c_1} \cdot e^{\frac{\Delta V_{be}}{V_T}}\)
 </p>
 <p>
 	As $I_{c_1}$ is constant, we'll call it $I_{ref}$. <br> $I_{c_2}$ will be used to control the vco core, so let's call it $I_{core}$:
 </p>
 <p>
-	\(I_{core} = I_{ref} \cdot e^{\frac{\Delta V_{be}}{V_t}}\)
+	\(I_{core} = I_{ref} \cdot e^{\frac{\Delta V_{be}}{V_T}}\)
 </p>
 <p>
-	This time, $I_{core}$ only depends on $\Delta V_{be}$* (*and $V_T$ which also varies a little with temperature as we have seen eariler). $I_{ref}$ is still presumed to be constant. Since $\Delta V_{be}$ is equal to $V_{b_1}$ when the base of transistor two is at $0V$, we get a superb, usable formula:
+	This time, $I_{core}$ only depends on $\Delta V_{be}$* (*and $V_T$ which also varies a little
+	with temperature as we have seen eariler). $I_{ref}$ is still presumed to be constant. Since $\Delta V_{be}$ is equal to $-V_{b_1}$ when the base of transistor two is at $0V$, we get a superb, usable formula:
 </p>
 <p class="fact" xanchor="expConverterFunction">
 	The output current $I_{core}$ can always be found as a function of the base voltage of the first transistor:<br>
-	\(I_{core} = I_{ref} \cdot e^{\frac{V_{b_1}}{V_t}}\)
+	\(I_{core} = I_{ref} \cdot e^{\frac{-V_{b_1}}{V_T}}\)
 </p>
 <p>
 	In much the same way as we did for the basic exponential converter, we can now figure out how much $V_{b_1}$ needs to change to double $I_{core}$.
@@ -223,19 +226,20 @@ If $I_c$ is constant and we change the base voltage $V_b$ with a value $\Delta V
 	<a href="#" class="expandButton" onclick="openDiv">[show/hide details]</a>
 	<div class="details">
 		<p>
-			\(\frac{I_{core}}{I_{ref}} = e^{\frac{V_{b_1}}{V_t}}\)<br>
-			\(ln(\frac{I_{core}}{I_{ref}}) = \frac{V_{b_1}}{V_t}\)<br>
+			\(\frac{I_{core}}{I_{ref}} = e^{\frac{-V_{b_1}}{V_T}}\)<br>
+			\(ln(\frac{I_{core}}{I_{ref}}) = \frac{-V_{b_1}}{V_T}\)<br>
 		</p>
 	</div>
 </div>
 <p>
-	\(V_{b_1} = V_t \cdot ln(\frac{I_{core}}{I_{ref}})\)
+	\(V_{b_1} = -V_T \cdot ln(\frac{I_{core}}{I_{ref}})\)
 </p>
 <p>
 	The change in $V_{b_1}$ that causes a doubling of $I_{core}$ can then be written as
 </p>
 <p>
-	\(\Delta V_{b_1} = V_t \cdot ln(\frac{2 I_{core}} {I_{ref}}) - V_t \cdot ln(\frac{I_{core}} {I_{ref}})\)
+	\(\Delta V_{b_1} = -V_T \cdot ln(\frac{2 I_{core}} {I_{ref}}) - (-V_T \cdot ln(\frac{I_{core}}
+	{I_{ref}}))\)
 </p>
 <p>
 	and be simplified to
@@ -244,18 +248,24 @@ If $I_c$ is constant and we change the base voltage $V_b$ with a value $\Delta V
 	<a href="#" class="expandButton" onclick="openDiv">[show/hide details]</a>
 	<div class="details">
 		<p>
-			\(\Delta V_{b_1} = V_t \cdot [ ln(\frac{2 I_{core}} {I_{ref}}) - ln(\frac{I_{core}} {I_{ref}})]\)<br>
-			\(\Delta V_{b_1} = V_t \cdot ln(\frac{\frac{2 I_{core}} {I_{ref}}}{\frac{I_{core}} {I_{ref}}})\)<br>
-			\(\Delta V_{b_1} = V_t \cdot ln(\frac{2 I_{core}}{I_{core}})\)<br>
+			\(\Delta V_{b_1} = -V_T \cdot [ ln(\frac{2 I_{core}} {I_{ref}}) - ln(\frac{I_{core}}
+			{I_{ref}})]\)<br>
+			\(\Delta V_{b_1} = -V_T \cdot ln(\frac{\frac{2 I_{core}} {I_{ref}}}{\frac{I_{core}}
+			{I_{ref}}})\)<br>
+			\(\Delta V_{b_1} = -V_T \cdot ln(\frac{2 I_{core}}{I_{core}})\)<br>
 		</p>
 	</div>
 </div>
 <p class="fact">
 	The change in base voltage of the first transistor that is necessary to double the output current $I_{core}$ is: <br><br>
-	\(\Delta V_{b_1} = V_t \cdot ln(2)\)<br>
+	\(\Delta V_{b_1} = -V_T \cdot ln(2)\)<br>
 </p>
 <p>
 	which, incidently is the same result as we saw for the basic exponential converter, meaning that the voltage necessary to double $I_{core}$, \(\Delta V_{b_1} = 17.5mV\) at $20°C$.
+</p>
+<p>
+	TODO: comment on why it is reversed - and thus is -17.5mV, not 17.5mV. CORRECT EVERYTHING
+	FROM HERE ON OUT!
 </p>
 <H1>Temperature compensation for $V_T$</H1>
 <div class="ingress">
@@ -275,9 +285,10 @@ If $I_c$ is constant and we change the base voltage $V_b$ with a value $\Delta V
 <p>
 	\(V_T = \frac{k \cdot T}{q}\)
 </p>
+<p>
 	where <br>
-	\(k = 1.38 \cdot 10^-23\) Joules/Kelvin<br>
-	\(q = 1.6 \cdot 10^-19\) Coloumbs<br>
+	\(k = 1.38 \cdot 10^{-23}\) Joules/Kelvin<br>
+	\(q = 1.6 \cdot 10^{-19}\) Coloumbs<br>
 	\(T = \) absolute temperature in degrees Kelvinq (= degrees celcius + 273.16)
 </p>
 <p>

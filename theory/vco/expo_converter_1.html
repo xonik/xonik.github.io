@@ -91,7 +91,7 @@ From what is called the Ebers-Moll equation* (*approximation), we get that
 </p>
 
 <p class="formula">
-\(I_c = I_s \cdot (e^\frac{V_{be}}{V_t} -1 )\)
+\(I_c = I_s \cdot (e^\frac{V_{be}}{V_T} -1 )\)
 </p>
 
 <p>
@@ -101,7 +101,7 @@ where
 <div class="formulaline">$V_{be} =$ the transistors base-emitter voltage, i.e. the voltage difference between the base and the emitter</div>
 
 <p class="formula" xanchor="VTdef">
-\(V_t = \frac{k \cdot T}{q}\)
+\(V_T = \frac{k \cdot T}{q}\)
 </p>
 <p>
 	<div class="formulaline">\(q = 1.6 \cdot 10^{-19} Coloumbs\) (electron charge)</div>
@@ -114,10 +114,10 @@ where
 </p>
 
 <p>
-As $T$ is dependent on the temperature, $V_t$ also changes when the temperature changes. In fact
+As $T$ is dependent on the temperature, $V_T$ also changes when the temperature changes. In fact
 </p>
 <p class="fact" xanchor="VTeffect">
-$e^{\frac{V_{be}}{V_t}}$ decreases as the temperature increases.
+$e^{\frac{V_{be}}{V_T}}$ decreases as the temperature increases.
 </p>
 
 <p>
@@ -132,7 +132,7 @@ $I_s$ is in the range of $10^{-15}$ to $10^{-12}$, in other words really small. 
 </p>
 
 <p class="fact" xanchor="ebersmoll">
-\(I_c = I_s \cdot e^\frac{V_{be}}{V_t}\)
+\(I_c = I_s \cdot e^\frac{V_{be}}{V_T}\)
 </p>
 
 <p>
@@ -167,31 +167,31 @@ So, doing the maths, we find that the increase in input voltage necessary to dou
 		</p>
 
 		<p class="formula">
-		\(I_s \cdot e^\frac{V_{be_1}}{V_t} = 2 \cdot I_s \cdot e^\frac{V_{be_0}}{V_t}\)
+		\(I_s \cdot e^\frac{V_{be_1}}{V_T} = 2 \cdot I_s \cdot e^\frac{V_{be_0}}{V_T}\)
 		</p>
 
 		<p class="formula">
-		\(e^\frac{V_{be_1}}{V_t} = 2 \cdot e^\frac{V_{be_0}}{V_t}\)
+		\(e^\frac{V_{be_1}}{V_T} = 2 \cdot e^\frac{V_{be_0}}{V_T}\)
 		</p>
 
 		<p class="formula">
-		\(ln(e^\frac{V_{be_1}}{V_t}) = ln (2\cdot e^\frac{V_{be_0}}{V_t})\)
+		\(ln(e^\frac{V_{be_1}}{V_T}) = ln (2\cdot e^\frac{V_{be_0}}{V_T})\)
 		</p>
 
 		<p class="formula">
-		\(ln(e^\frac{V_{be_1}}{V_t}) = ln (2) + ln(e^\frac{V_{be_0}}{V_t})\)
+		\(ln(e^\frac{V_{be_1}}{V_T}) = ln (2) + ln(e^\frac{V_{be_0}}{V_T})\)
 		</p>
 
 		<p class="formula">
-		\(\frac{V_{be_1}}{V_t} = ln (2) + \frac{V_{be_0}}{V_t}\)
+		\(\frac{V_{be_1}}{V_T} = ln (2) + \frac{V_{be_0}}{V_T}\)
 		</p>
 
 		<p class="formula">
-		\(\frac{V_{be_1}-V_{be_0}}{V_t} = ln(2)\)
+		\(\frac{V_{be_1}-V_{be_0}}{V_T} = ln(2)\)
 		</p>
 
 		<p class="formula">
-		\(V_{be_1}-V_{be_0} = V_t \cdot ln (2)\)
+		\(V_{be_1}-V_{be_0} = V_T \cdot ln (2)\)
 		</p>
 
 		<p>
@@ -201,11 +201,11 @@ So, doing the maths, we find that the increase in input voltage necessary to dou
 </div>
 
 <p class="fact" xanchor="doublefrequency">
-\(\Delta V_{be} = V_t \cdot ln(2)\)
+\(\Delta V_{be} = V_T \cdot ln(2)\)
 </p>
 
 <p>
-  In the general case, to get $x \cdot I_c$, you have to increase $V_{be}$ by $V_t \cdot ln(x)$. This can be used, for example, to calculate the voltage change necessary to increase the frequency by one semitone.
+  In the general case, to get $x \cdot I_c$, you have to increase $V_{be}$ by $V_T \cdot ln(x)$. This can be used, for example, to calculate the voltage change necessary to increase the frequency by one semitone.
 </p>
 
 <p>
@@ -275,19 +275,19 @@ In other words we get a doubling of $I_c$ and thus the VCO frequency when the te
 </p>
 
 <p>
-Even though $I_c$ doubles, our formula for $\Delta V_{be}$ still holds true though the actual value changes a bit as $V_t$ is also temperature dependent.
+Even though $I_c$ doubles, our formula for $\Delta V_{be}$ still holds true though the actual value changes a bit as $V_T$ is also temperature dependent.
 </p>
 
-<h3>Question 2: What about $V_t$, how does it change with temperature?</h3>
+<h3>Question 2: What about $V_T$, how does it change with temperature?</h3>
 
 <p>
-The temperature effect on $V_t$, although opposite of $I_s$, is very much smaller. However, it is not negligible. When the temperature rises, so does $V_t$. Since $V_t$ is in the denominator of the exponent in the Ebers-Moll equation, the exponent decreases with increasing temperatures. This in turn means that to get the same output current $I_c$, we have to increase the input voltage $V_{be}$. In other words, as the temperature increases, so does the voltage necessary to double the frequency.
+The temperature effect on $V_T$, although opposite of $I_s$, is very much smaller. However, it is not negligible. When the temperature rises, so does $V_T$. Since $V_T$ is in the denominator of the exponent in the Ebers-Moll equation, the exponent decreases with increasing temperatures. This in turn means that to get the same output current $I_c$, we have to increase the input voltage $V_{be}$. In other words, as the temperature increases, so does the voltage necessary to double the frequency.
 </p>
 <div class="example">
 	Example:<br>
 
 <p>
-Increasing the temperature from $20°C$ to $30°C$ will yield the following effect on $V_t$:
+Increasing the temperature from $20°C$ to $30°C$ will yield the following effect on $V_T$:
 </p>
 <p>
 	At $20°C$ we found that the $\Delta V_{be}$ necessary to double the output current was $17.53mV$. <span xref="deltaVB20"></span>
@@ -318,7 +318,7 @@ Question 3: What does it all mean? What happens when the temperature changes?
 	In other words, the VCO drifts, it goes out of tune, but all tones are shifted in a way that preserves the relation between them. If only $I_s$ changed, a person without perfect pitch may not have noticed that anything had changed (unless of course you compared the before and after tones).
 </p>
 <p class="fact">
-	2) The effect of the temperature on $V_t$ changes the distance in volts between the top and bottom tones of an octave.
+	2) The effect of the temperature on $V_T$ changes the distance in volts between the top and bottom tones of an octave.
 </p>
 <p>
 	As the temperature rises, a larger voltage is needed to double Ic and with it double the frequency, going one octave up. In other words, unless the voltage "spacing" between each tone is increased with rising temperatures, the distance between each tone (in Hz) will be too short. You will still be able to tune in a single perfect tone, say C3. However, all tones above C3 will sound flat (and increasingly so as you move up the scale) and all tones below will sound too sharp.
@@ -329,20 +329,20 @@ To prove 1), that the interval between two tones stays the same as the temperatu
 </p>
 
 <p>
-	Ignoring any change to $V_t$ caused by the temperature, we can use $V_t = 25.3mV$.
+	Ignoring any change to $V_T$ caused by the temperature, we can use $V_T = 25.3mV$.
 </p>
 
 <p>
 	At an initial input voltage of 0V, we get that
 </p>
 <p class="formula">
-	$e^\frac{V_{be}}{V_t} = e^0 = 1$
+	$e^\frac{V_{be}}{V_T} = e^0 = 1$
 </p>
 <p>
 	Increasing $V_{be}$ by $17.5mV$, effectively going one octave up, gives us
 </p>
 <p class="formula">
-	$e^\frac{V_{be}}{V_t} = e^\frac{17.5mV}{25.3mV} = 2$
+	$e^\frac{V_{be}}{V_T} = e^\frac{17.5mV}{25.3mV} = 2$
 </p>
 
 <p>
@@ -383,7 +383,7 @@ and for $V_{be} = 17.5mV$,
 </p>
 
 <p>
-Notice now that the relation between the first and the second frequency for each temperature is the same. Both are doubled, in other words the interval is exactly one octave in both cases. Even if the VCO may not be in tune, the individual intervals between tones are still correct. (Again, this is only valid if we ignore the changes in $V_t$).
+Notice now that the relation between the first and the second frequency for each temperature is the same. Both are doubled, in other words the interval is exactly one octave in both cases. Even if the VCO may not be in tune, the individual intervals between tones are still correct. (Again, this is only valid if we ignore the changes in $V_T$).
 </p>
 
 <h2>Summary</h2>
@@ -392,7 +392,7 @@ From the preceding discussion, it should be clear that there are two major effec
 </p>
 
 <p>
-The second effect, $V_t$, changes the intervals between each tone only slightly, it is changed by $0.6 mV$ or about $3.4\%$ when going from $20°C$ to $30°C$. Even so, it is important to get rid of when trying to build a temperature stable oscillator*.
+The second effect, $V_T$, changes the intervals between each tone only slightly, it is changed by $0.6 mV$ or about $3.4\%$ when going from $20°C$ to $30°C$. Even so, it is important to get rid of when trying to build a temperature stable oscillator*.
 </p>
 
 <p class="footnote">

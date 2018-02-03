@@ -14,6 +14,7 @@
 
 
 
+
     </script>
     <script type="text/javascript"
             src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS_HTML-full"></script>
@@ -26,17 +27,23 @@
 <h1>Exponential convertion - the useful formulas</h1>
 <p>
     The exponential converter / logarithmic converter is a very useful circuit, used for
-    converting a linear CV to a logarithmic current in analog synthesizer VCOs and VCAs etc. Single
-    transistor exponential converters are terribly temperature sensitive, so a dual transistor
-    scheme
-    that compensates for many of the temperature effects is often used.
+    converting a linear CV to a logarithmic current in analog synthesizer VCOs and VCAs etc. They
+    are usually build by exploiting a fundamental property of transistors where the transistor
+    output current is a natural exponential function of the voltage between the transistor base
+    and emitter. Single transistor exponential converters however, are terribly temperature
+    sensitive, so a dual transistor scheme that compensates for many of the temperature effects
+    is often used.
 </p>
 <p>
     This article describes four different variations of this circuit. I have seen several articles
     saying that you can change what transistor to connect the reference current to, and what base to
     use for controlling the converter. This text explains how. I will not
-    go into details about how they compensate for temperature variations (see here for a discussion
-    of this), but I will give you the necessary formulas and explain how I arrived at them.
+    go into details about how they compensate for temperature variations, but I will give you the
+    necessary formulas and explain how I arrived at them.
+</p>
+<p>
+    Check out my three articles on the VCO for explanations of how temperature compensation
+    actually works.
 </p>
 <h2>The four configurations are:</h2>
 <p>
@@ -50,14 +57,14 @@
     <li>D: Decreasingly negative exponential (starting high negative and decreasing to close to 0)
     </li>
 </ul>
-<img src="./img/expo-converters-four.png"/>
+<img src="./img/expo-converters-four.png" class="fullwidth"/>
 </p>
 <p>
     The four plots are derived from the same $-100mV$ to $+100mV$ control voltage (CV).
 </p>
 <h2>The test circuit looks like this:</h2>
 <p>
-    <img src="./img/expo-converters-four-circuit.png"/>
+    <img src="./img/expo-converters-four-circuit.png" class="fullwidth"/>
 </p>
 <p>
     There are only tiny variations in the circuits:
@@ -80,15 +87,22 @@
 <h2>These are the formulas for the four exponential converters:</h2>
 <div class="fact">
     <ul>
-        <li>A: \(I_{out} = I_{ref} \cdot e^{-\frac{V_{cv}}{V_{t}}}\)</li>
-        <li>B: \(I_{out} = I_{ref} \cdot e^{\frac{V_{cv}}{V_{t}}}\)</li>
-        <li>C: \(I_{out} = I_{ref} \cdot e^{\frac{V_{cv}}{V_{t}}}\)</li>
-        <li>D: \(I_{out} = I_{ref} \cdot e^{-\frac{V_{cv}}{V_{t}}}\)</li>
+        <li>A: \(I_{out} = I_{ref} \cdot e^{-\frac{V_{cv}}{V_T}}\)</li>
+        <li>B: \(I_{out} = I_{ref} \cdot e^{\frac{V_{cv}}{V_T}}\)</li>
+        <li>C: \(I_{out} = I_{ref} \cdot e^{\frac{V_{cv}}{V_T}}\)</li>
+        <li>D: \(I_{out} = I_{ref} \cdot e^{-\frac{V_{cv}}{V_T}}\)</li>
     </ul>
-    TODO: Vt=what
+    <p>
+        \(V_T = \frac{k \cdot T}{q}\)
+    </p>
+    <p>
+    \(k = 1.38 \cdot 10^{-23}\) Joules/Kelvin<br>
+    \(q = 1.6 \cdot 10^{-19}\) Coloumbs<br>
+    \(T = \) absolute temperature in degrees Kelvinq (= degrees celcius + 273.16)
+    </p>
 </div>
 <p>
-    $V_{t}$ is $25.7mV$ at 25C - see other documents on this site for temperature compensation
+    $V_T$ is $25.7mV$ at 25°C - see other documents on this site for temperature compensation
 </p>
 <p>
     It is also important to note that
@@ -121,27 +135,27 @@
         The
         exact
         value is temperature dependent. Doubling or halving the current is important, as a frequency
-        increase of one octave is equal to doubling the frequency.
+        change of one octave is equal to doubling or halving of the frequency.
     </li>
     <li>
-        Build the pre-$V_{cv}$-input circuitry to produce a $17.5mV$ response that matches your
+        Design the pre-$V_{cv}$-input circuitry to produce a $17.5mV$ response that matches your
         wanted CV response - e.g. if your input CV is 0 to 5V and you want a $1oct/V$ response,
-        you need to make a circuit with \(V_{out} = V_{in} \cdot 0.0175\)
+        you need to make a circuit with \(V_{out} = V_{in} \cdot 0.0175\).
     </li>
     <li>
         Add or subtract a voltage from the input CV to trim the starting points of octaves (tune a
         note)
     </li>
     <li>
-        Adjust the division circuitry/attenuation factor (4) to adjust the V/oct (adjusts
+        Adjust the division circuitry/attenuation factor in point (4) to adjust the V/oct (adjusts
         tracking)
     </li>
     <li>
         The voltage at the collector of the right transistor, $V_{c_{2}}$, cannot be determined by
         looking at the exponential converter alone - it depends on whatever you put after the
         converter. However, for the transistor to conduct, $V_{c}$ must be at least $0.25V$
-        (approx) larger than $V_{e}$ for the NPN configuration, and $V_{c}$ must be at least
-        $0.25V$ (approx) less than $V_{e}$ for the PNP configuration. This limits the maximum
+        (approx) larger than $V_e$ for the NPN configuration, and $V_{c}$ must be at least
+        $0.25V$ (approx) less than $V_e$ for the PNP configuration. This limits the maximum
         $I_{out}$, see example at the end.
     </li>
 </ul>
@@ -152,7 +166,7 @@
 </h1>
 <div class="fact">
     <ul>
-        <li>Two transistors with connected emitters have the same $V_{e}$.</li>
+        <li>Two transistors with connected emitters have the same $V_e$.</li>
         <li>
             The collector current $I_{c}$ is directly related to $V_{be}$
             <div>
@@ -202,53 +216,53 @@
     The Ebers-Moll equation for an NPN transistor can be approximated as
 </p>
 <p>
-    \(I_{c} = I_{s} \cdot e^{\frac{V_{be}}{V_{t}}}\)
+    \(I_{c} = I_{s} \cdot e^{\frac{V_{be}}{V_T}}\)
 </p>
 <p>
     Rearranging for $V_{be}$ gives us
 </p>
 <p>
-    \(V_{be} = V_{t} \cdot ln(\frac{I_{c}}{I_{s}})\)
+    \(V_{be} = V_T \cdot ln(\frac{I_{c}}{I_{s}})\)
 </p>
-Here's a little trick. Since $V_{e}$ is the same for both transistors, the difference in $V_{be}$
+Here's a little trick. Since $V_e$ is the same for both transistors, the difference in $V_{be}$
 between the two transistors can be written as
 <p>
     \(\Delta V_{be} = V_{be_{2}} - V_{be_{1}}\)<br>
-    \(\Delta V_{be} = (V_{b_{2}} - V_{e}) - (V_{b_{1}} - V_{e})\)<br>
-    \(\Delta V_{be} = V_{b_{2}} - V_{b_{1}}\)
+    \(\Delta V_{be} = (V_{b_{2}} - V_e) - (V_{b_1} - V_e)\)<br>
+    \(\Delta V_{be} = V_{b_{2}} - V_{b_1}\)
 </p>
-<p>Comment: the order of the bases in the delta is unimportant, as long as we use the same ordering
+<p>The order of the bases in the delta is unimportant, as long as we use the same ordering
     for both voltages and currents we will end up at the same result.
 </p>
 <p>
     Also
 </p>
 <p>
-    \(\Delta V_{be} = V_{t} \cdot ln(\frac{I_{c_{2}}}{I_{s}}) - V_{t} \cdot
+    \(\Delta V_{be} = V_T \cdot ln(\frac{I_{c_{2}}}{I_{s}}) - V_T \cdot
     ln(\frac{I_{c_{2}}}{I_{s}})\)<br>
-    \(\Delta V_{be} = V_{t} \cdot (ln(\frac{I_{c_{2}}}{I_{s}}) -ln(\frac{I_{c_{2}}}{I_{s}})\)<br>
-    \(\Delta V_{be} = V_{t} \cdot ln(\frac{I_{c_{2}}}{I_{c_{1}}})\)
+    \(\Delta V_{be} = V_T \cdot (ln(\frac{I_{c_{2}}}{I_{s}}) -ln(\frac{I_{c_{2}}}{I_{s}})\)<br>
+    \(\Delta V_{be} = V_T \cdot ln(\frac{I_{c_{2}}}{I_{c_{1}}})\)
 </p>
 <p>
     So we get
 </p>
 <p>
-    \(V_{b_{2}} - V_{b_{1}} = V_{t} \cdot ln(\frac{I_{c_{2}}}{I_{c_{1}}})\)<br>
-    \(ln(\frac{I_{c_{2}}}{I_{c_{1}}}) = \frac{V_{b_{2}} - V_{b_{1}}}{V_{t}}\)<br>
-    \(\frac{I_{c_{2}}}{I_{c_{1}}} = e^{\frac{V_{b_{2}} - V_{b_{1}}}{V_{t}}}\)
+    \(V_{b_{2}} - V_{b_1} = V_T \cdot ln(\frac{I_{c_{2}}}{I_{c_{1}}})\)<br>
+    \(ln(\frac{I_{c_{2}}}{I_{c_{1}}}) = \frac{V_{b_{2}} - V_{b_1}}{V_T}\)<br>
+    \(\frac{I_{c_{2}}}{I_{c_{1}}} = e^{\frac{V_{b_{2}} - V_{b_1}}{V_T}}\)
 </p>
 <p>
     For NPN:
 </p>
 <p class="fact">
-    \(I_{c_{2}} = I_{c_{1}} \cdot e^{\frac{V_{b_{2}} - V_{b_{1}}}{V_{t}}}\)
+    \(I_{c_{2}} = I_{c_{1}} \cdot e^{\frac{V_{b_{2}} - V_{b_1}}{V_T}}\)
 </p>
 <h3>Deducing the PNP equation</h3>
 <p>
     The Ebers-Moll equation for a PNP transistor on the other hand can be approximated as
 </p>
 <p>
-    \(I_{c} = I_{s} \cdot e^{\frac{V_{eb}}{V_{t}}}\)
+    \(I_{c} = I_{s} \cdot e^{\frac{V_{eb}}{V_T}}\)
 </p>
 <div>
     <a href="#" class="expandButton" onClick="openDiv">[show where the PNP equation came from]</a>
@@ -260,8 +274,8 @@ between the two transistors can be written as
             by Travis Blalock, Richard Jaeger - http://www.jaegerblalock.com/
         </p>
         <p>
-            \(I_{c} = I_{s} \cdot (e^{\frac{V_{be}}{V_{t}}} - 1) = \alpha_{F} I_{ES} \cdot
-            (e^{\frac{V_{be}}{V_{t}}} - 1)\) (5.21)
+            \(I_{c} = I_{s} \cdot (e^{\frac{V_{be}}{V_T}} - 1) = \alpha_{F} I_{ES} \cdot
+            (e^{\frac{V_{be}}{V_T}} - 1)\) (5.21)
         </p>
         <p>
             and thus
@@ -278,8 +292,8 @@ between the two transistors can be written as
             both tne NPN and the PNP are. For NPN it is:
         </p>
         <p>
-            \(I_{c} = \alpha_{F} I_{ES} \cdot (e^{\frac{V_{be}}{V_{t}}} - 1) - I_{cs} \cdot
-            (e^{\frac{V_{bc}}{V_{t}}} - 1)\)
+            \(I_{c} = \alpha_{F} I_{ES} \cdot (e^{\frac{V_{be}}{V_T}} - 1) - I_{cs} \cdot
+            (e^{\frac{V_{bc}}{V_T}} - 1)\)
         </p>
         <p>
             Here, we recognize the first part as the forward characteristic and the second as the
@@ -290,25 +304,25 @@ between the two transistors can be written as
             For PNP it is
         </p>
         <p>
-            \(I_{c} = \alpha_{F} I_{ES} \cdot (e^{\frac{V_{eb}}{V_{t}}} - 1) - I_{cs} \cdot
-            (e^{\frac{V_{cb}}{V_{t}}} - 1)\)
+            \(I_{c} = \alpha_{F} I_{ES} \cdot (e^{\frac{V_{eb}}{V_T}} - 1) - I_{cs} \cdot
+            (e^{\frac{V_{cb}}{V_T}} - 1)\)
         </p>
         <p>
             We know that the first part is the forward characteristic, so
         </p>
         <p>
-            \(I_{c} = \alpha_{F} I_{ES} \cdot (e^{\frac{V_{eb}}{V_{t}}} - 1)\), and \(I_{ES} =
+            \(I_{c} = \alpha_{F} I_{ES} \cdot (e^{\frac{V_{eb}}{V_T}} - 1)\), and \(I_{ES} =
             \frac{I_{s}}{\alpha_{F}}\)<br>
         </p>
         <p>
             which means that the forward characteristic for the PNP is
         </p>
         <p>
-            \(I_{c} = (e^{\frac{V_{eb}}{V_{t}}} - 1)\)
+            \(I_{c} = (e^{\frac{V_{eb}}{V_T}} - 1)\)
         </p>
         <p>
             Note that the only difference is the way we calculate the difference between $V_{b}$ and
-            $V_{e}$ - a tiny but crucial difference.
+            $V_e$ - a tiny but crucial difference.
         </p>
     </div>
 </div>
@@ -316,40 +330,40 @@ between the two transistors can be written as
     Rearranging for $V_{be}$ gives us
 </p>
 <p>
-    \( V_{eb} = V_{t} \cdot ln(\frac{I_{c}}/{I_{s}})\)
+    \( V_{eb} = V_T \cdot ln(\frac{I_{c}}{I_{s}})\)
 </p>
 <p>
-    Then the same trick: Since $V_{e}$ is the same for both transistors, the difference in $V_{be}$
+    Then the same trick: Since $V_e$ is the same for both transistors, the difference in $V_{be}$
     between the two transistors can be written as
 </p>
 <p>
-    \(\Delta V_{eb} = V_{eb_{2}} - V_{eb_{1}}\)<br>
-    \(\Delta V_{eb} = (V_{e} - V_{b_{2}}) - (V_{e} - V_{b_{1}})\)<br>
-    \(\Delta V_{eb} = -V_{b_{2}} + V_{b_{1}}\)<br>
-    \(\Delta V_{eb} = V_{b_{1}} + V_{b_{2}}\)
+    \(\Delta V_{eb} = V_{eb_{2}} - V_{eb_1}\)<br>
+    \(\Delta V_{eb} = (V_e - V_{b_{2}}) - (V_e - V_{b_1})\)<br>
+    \(\Delta V_{eb} = -V_{b_{2}} + V_{b_1}\)<br>
+    \(\Delta V_{eb} = V_{b_1} + V_{b_{2}}\)
 </p>
 <p>
     Similarly,
 </p>
 <p>
-    \(\Delta V_{eb} = V_{t} \cdot ln(\frac{I_{c_{2}}}{I_{s}}) - V_{t} \cdot
-    ln(\frac{I_{c_{2}}}{I_{s}}\)<br>
-    \(\Delta V_{eb} = V_{t}(ln(\frac{I_{c_{2}}}{I_{s}}) -ln(\frac{I_{c_{2}}}{I_{s}})\)<br>
-    \(\Delta V_{eb} = V_{t} \cdot ln(\frac{I_{c_{2}}}{I_{c_{1}}})\)
+    \(\Delta V_{eb} = V_T \cdot ln(\frac{I_{c_{2}}}{I_{s}}) - V_T \cdot
+    ln(\frac{I_{c_{2}}}{I_{s}})\)<br>
+    \(\Delta V_{eb} = V_T(ln(\frac{I_{c_{2}}}{I_{s}}) -ln(\frac{I_{c_{2}}}{I_{s}})\)<br>
+    \(\Delta V_{eb} = V_T \cdot ln(\frac{I_{c_{2}}}{I_{c_{1}}})\)
 </p>
 <p>
     So we get
 </p>
 <p>
-    \(V_{b_{1}} - V_{b_{2}} = V_{t} \cdot ln(\frac{I_{c_{2}}}{I_{c_{1}}})\)<br>
-    \(ln(\frac{I_{c_{2}}}{I_{c_{1}}}) = \frac{V_{b_{1}} - V_{b_{2}}}{V_{t}}\)<br>
-    \(\frac{I_{c_{2}}}{I_{c_{1}}} = e^{\frac{V_{b_{1}} - V_{b_{2}}}{V_{t}}}\)
+    \(V_{b_1} - V_{b_{2}} = V_T \cdot ln(\frac{I_{c_{2}}}{I_{c_{1}}})\)<br>
+    \(ln(\frac{I_{c_{2}}}{I_{c_{1}}}) = \frac{V_{b_1} - V_{b_{2}}}{V_T}\)<br>
+    \(\frac{I_{c_{2}}}{I_{c_{1}}} = e^{\frac{V_{b_1} - V_{b_{2}}}{V_T}}\)
 </p>
 <p>
     For PNP:
 </p>
 <p class="fact">
-    \(I_{c_{2}} = I_{c_{1}} \cdot e^{\frac{V_{b_{1}} - V_{b_{2}}}{V_{t}}}\)
+    \(I_{c_{2}} = I_{c_{1}} \cdot e^{\frac{V_{b_1} - V_{b_{2}}}{V_T}}\)
 </p>
 <p>
     We now have the formulas for both PNP and NPN transistors. They say nothing about which one of
@@ -360,7 +374,7 @@ between the two transistors can be written as
 <p>
     \(a = b \cdot e^{x} => b = \frac{a}{e^{x}} = a \cdot \frac{1}{e^{x}} = a \cdot e^{-x}\)
 </p>
-<h3>What is going on in the circuits?</h3>
+<h2>What is going on in the circuits?</h2>
 <p>
     Before the final transformation into the formulas above, let's stop to think about what is
     actually going on in the circuits.
@@ -368,13 +382,13 @@ between the two transistors can be written as
 <p>
     The base of one of the transistors has been grounded in each circuit. Why?
 </p>
-<p>
+<h3>
     If we ground the base of the transistor that is inside the feedback loop (A, C):
-</p>
+</h3>
 <ul>
     <li>
-        We now have a transistor with a fixed $V_{b_{1}}$ and a fixed $I_{c_{1}}$ ($I_{ref}$). As
-        mentioned, a fixed $V_c$ means a fixed $V_{be}$, and since $V_{b}$ is also fixed, $V_{e}$
+        We now have a transistor with a fixed $V_{b_1}$ and a fixed $I_{c_{1}}$ ($I_{ref}$). As
+        mentioned, a fixed $V_c$ means a fixed $V_{be}$, and since $V_{b}$ is also fixed, $V_e$
         will be constant. It cannot go anywhere.
     </li>
     <li>
@@ -384,82 +398,94 @@ between the two transistors can be written as
         ($I_{out}$) changes.
     </li>
 </ul>
+<h3>For A</h3>
 <p>
-    <img src="./img/A-V_e-and-V_b_2.png"/><br>
-    For A: $V_{e}$ (green) vs $V_{b_{2}}$ ($=V_{cv}$, blue). For a PNP transistor, the emitter
+    <img src="./img/A-V_e-and-V_b_2.png" class="fullwidth"/><br>
+    $V_e$ (green) vs $V_{b_{2}}$ ($=V_{cv}$, blue). For a PNP transistor, the emitter
     voltage is higher than the base voltage when the transistor is on. The emitter
     voltage stays constant so the difference between the emitter and the base, $V_{be}$,
     decreases when $V_{cv}$ increases.
 </p>
 <p>
-    <img src="./img/A-V_e-and-I_out.png"/><br>
-    As $V_{cv}$ increases and thus $V_{be}$ decreases, the output current $I_{out}$ decreases.
+    <img src="./img/A-V_e-and-I_out.png" class="fullwidth"/><br>
+    Green line is $I_{out}$, dotted line is $V_e$. As $V_{cv}$ increases and thus $V_{be}$
+    decreases, the output current $I_{out}$ decreases.
 </p>
+<h3>For C</h3>
 <p>
-    <img src="./img/C-V_e-and-V_b_2.png"/><br>
-    For C: $V_{e}$ (blue) vs $V_{b_{2}}$ ($=V_{cv}$, green). For an NPN transistor, the emitter
+    <img src="./img/C-V_e-and-V_b_2.png" class="fullwidth"/><br>
+    $V_e$ (blue) vs $V_{b_{2}}$ ($=V_{cv}$, green). For an NPN transistor, the emitter
     voltage is lower than the base voltage when the transistor is on. The emitter voltage stays
     constant so the difference between the emitter and the base, $V_{be}$, increases when
     $V_{cv}$ increases.
 </p>
 <p>
-    <img src="./img/C-V_e-and-I_out.png"/><br>
-    As $V_{cv}$ increases and thus $V_{be}$ increases, the output current $I_{out}$ increases. As
-    the reference current is flowing into the transistor, the output is also a negative voltage.
+    <img src="./img/C-V_e-and-I_out.png" class="fullwidth"/><br>
+    Green line is $I_{out}$, dotted line is $V_e$. As $V_{cv}$ increases and thus $V_{be}$
+    increases, the output current $I_{out}$ increases. As
+    the reference current is flowing into the transistor, the output is also a negative current.
 
 </p>
-<p>
+<h3>
     If we ground the base of the transistor connected to the output (B, D):
-</p>
+</h3>
 <ul>
     <li>
         The transistor inside the feedback loop still has a fixed $I_{c_{1}}$, which means that
-        $V_{be_{1}}$ is also fixed. But now the CV is connected to the base, i.e. $V_{b_{1}}$ is
-        variable. Thus, to keep $I_{c_{1}}$ constant, $V_{e}$ must also change.
+        $V_{be_{1}}$ is also fixed. But now the CV is connected to the base, i.e. $V_{b_1}$ is
+        variable. Thus, to keep $I_{c_{1}}$ constant, $V_e$ must also change.
     </li>
     <li>
         The other transistor however, has its base grounded. $V_{b_{2}}$ is constant. Now, as
-        $V_{b_{1}}$ changes, $V_{e}$ changes. This in turn changes difference between
+        $V_{b_1}$ changes, $V_e$ changes. This in turn changes difference between
         the right base and the emmiter, $V_{be_{2}}$, and as
         $V_{be_{2}}$ changes, $I_{c_{2}}$ ($I_{out}$) changes.
     </li>
 </ul>
+<h3>For B</h3>
 <p>
-    <img src="./img/"/>MISSING<br> TODO: CHECK IF THIS IS B OR D
-    For B: $V_{e}$ (green) vs $V_{b_{2}}$ ($=V_{cv}$, blue). For a PNP transistor, the emitter
+    <img src="./img/B-V_e-red_V_b_1-green.png" class="fullwidth"/><br>
+    $V_e$ (red) vs $V_{b_1}$ ($=V_{cv}$, green). For a PNP transistor, the emitter
     voltage is higher than the base voltage when the transistor is on. The difference between
-    the left base voltage $V_{b_{1}} and the emitter voltage $V_{e}$ stays constant, but
-    $V_{b_{1} (=$V_{cv}$) changes, so $V_{e}$ changes with the same amount. The right base,
-    $V_{b_{2}} is tied to 0, so as the emitter voltage decreases, the difference between the emitter
-    and the base, $V_{be}$, decreases.
+    the left base voltage $V_{b_1}$ and the emitter voltage $V_e$ stays constant, but
+    $V_{b_1}$ (=$V_{cv}$) changes, so $V_e$ changes with the same amount. The right base,
+    $V_{b_{2}}$ is tied to 0, so as the emitter voltage increases, the difference between the
+    emitter and the right base, $V_{be_{2}}$, increases.
 </p>
 <p>
-    <img src="./img/"/MISSING><br> TODO: REWRITE THIS
-    As $V_{cv}$ increases and thus $V_{be}$ decreases, the output current $I_{out}$ decreases.
+    <img src="./img/B-V_e-and-I_out.png" class="fullwidth"><br>
+    Blue line is $I_{out}$, green line is $V_e$. As $V_{cv}$ increases and thus $V_{be_{2}}$
+    increases, the output current $I_{out}$ increases.
 </p>
+<h3>For D</h3>
 <p>
-    <img src="./img/"/>MISSING<br> TODO: CHECK IF THIS IS B OR D
-    For D: $V_{e}$ (green) vs $V_{b_{2}}$ ($=V_{cv}$, blue). For an NPN transistor, the emitter
+    <img src="./img/D-V_e-blue_V_b_1-green.png" class="fullwidth"/><br>
+    For D: $V_e$ (green) vs $V_{b_1}$ ($=V_{cv}$, blue). For an NPN transistor, the emitter
     voltage is lower than the base voltage when the transistor is on. The difference between
-    the left base voltage $V_{b_{1}} and the emitter voltage $V_{e}$ stays constant, but
-    $V_{b_{1} (=$V_{cv}$) changes, so $V_{e}$ changes with the same amount. The right base,
-    $V_{b_{2}} is tied to 0, so as the emitter voltage decreases, the difference between the emitter
-    and the base, $V_{be}$, increases.
+    the left base voltage $V_{b_1}$ and the emitter voltage $V_e$ stays constant, but
+    $V_{b_1}$ (=$V_{cv}$) changes, so $V_e$ changes with the same amount. The right base,
+    $V_{b_{2}}$ is tied to 0, so as the emitter voltage increases, the difference between the
+    emitter and the base, $V_{be_{2}}$, decreases.
 </p>
 <p>
-    <img src="./img/">MISSING<br> TODO: REWRITE THIS
-    As $V_{cv}$ increases and thus $V_{be}$ decreases, the output current $I_{out}$ decreases.</p>
+    <img src="./img/D-V_e-and-I_out.png" class="fullwidth"><br>
+    Green line is $I_{out}$, blue line is $V_e$. As $V_{cv}$ increases and thus $V_{be_{2}}$
+    decreases, the output current $I_{out}$ decreases.  As
+    the reference current is flowing into the transistor, the output is also a negative current.</p>
 <p>
     Thus, we can control $I_{out}$ by changing either one of the bases and keeping the other fixed.
 </p>
 
 <h2>The final transformation</h2>
+<p>
+    Let's deduce the exact formulas for each of our circuits.
+</p>
 <h3>For A</h3>
 <p>
     A is a PNP configuration, so we'll use
 </p>
 <p>
-    \(I_{c_{2}} = I_{c_{1}} \cdot e^{\frac{V_{b_{1}} - V_{b_{2}}}{V_{t}}}\)
+    \(I_{c_{2}} = I_{c_{1}} \cdot e^{\frac{V_{b_1} - V_{b_{2}}}{V_T}}\)
 </p>
 <p>
     If we set
@@ -467,21 +493,21 @@ between the two transistors can be written as
 <p>
     \(I_{c_{2}} = I_{out}\)<br>
     \(I_{c_{1}} = I_{ref}\)<br>
-    \(V_{b_{1}} = 0\) (grounded)<br>
+    \(V_{b_1} = 0\) (grounded)<br>
     $V_{b_{2}}$ is our control, $V_{cv}$
 </p>
 <p>
     we're left with
 </p>
 <p>
-    A: \(I_{out} = I_{ref} \cdot e^{-\frac{V_{cv}}{V_{t}}}\)
+    A: \(I_{out} = I_{ref} \cdot e^{-\frac{V_{cv}}{V_T}}\)
 </p>
 <h3>For B</h3>
 <p>
     B is also a PNP configuration, so we'll use
 </p>
 <p>
-    \(I_{c_{2}} = I_{c_{1}} \cdot e^{\frac{V_{b_{1}} - V_{b_{2}}}{V_{t}}}\)
+    \(I_{c_{2}} = I_{c_{1}} \cdot e^{\frac{V_{b_1} - V_{b_{2}}}{V_T}}\)
 </p>
 <p>
     If we set
@@ -489,21 +515,21 @@ between the two transistors can be written as
 <p>
     \(I_{c_{2}} = I_{out}\)<br>
     \(I_{c_{1}} = I_{ref}\)<br>
-    \(V_{b_{2}} = 0\) (grounded)<br>
-    $V_{b_{1}}$ is our control, $V_{cv}$
+    $V_{b_1}$ is our control, $V_{cv}$<br>
+    \(V_{b_{2}} = 0\) (grounded)
 </p>
 <p>
     we're left with
 </p>
 <p>
-    B: \(I_{out} = I_{ref} \cdot e^{\frac{V_{cv}}{V_{t}}}\)
+    B: \(I_{out} = I_{ref} \cdot e^{\frac{V_{cv}}{V_T}}\)
 </p>
 <h3>For C</h3>
 <p>
     C is an NPN configuration, so we'll use
 </p>
 <p>
-    \(I_{c_{2}} = I_{c_{1}} \cdot e^{\frac{V_{b_{2}} - V_{b_{1}}}{V_{t}}}\)
+    \(I_{c_{2}} = I_{c_{1}} \cdot e^{\frac{V_{b_{2}} - V_{b_1}}{V_T}}\)
 </p>
 <p>
     If we set
@@ -511,35 +537,35 @@ between the two transistors can be written as
 <p>
     \(I_{c_{2}} = I_{out}\)<br>
     \(I_{c_{1}} = I_{ref}\)<br>
-    \(V_{b_{1}} = 0\) (grounded)<br>
+    \(V_{b_1} = 0\) (grounded)<br>
     $V_{b_{2}}$ is our control, $V_{cv}$
 </p>
 <p>
     we're left with
 </p>
 <p>
-    C: \(I_{out} = I_{ref} \cdot e^{\frac{V_{cv}}{V_{t}}}\)
+    C: \(I_{out} = I_{ref} \cdot e^{\frac{V_{cv}}{V_T}}\)
 </p>
 <h3>For D</h3>
 <P>
     D is also an NPN configuration, so we'll use
 </P>
 <p>
-    \(I_{c_{2}} = I_{c_{1}} \cdot e^{\frac{V_{b_{2}} - V_{b_{1}}}{V_{t}}}\)
+    \(I_{c_{2}} = I_{c_{1}} \cdot e^{\frac{V_{b_{2}} - V_{b_1}}{V_T}}\)
 <p>
     If we set
 </p>
 <p>
     \(I_{c_{2}} = I_{out}\)<br>
     \(I_{c_{1}} = I_{ref}\)<br>
-    \(V_{b_{2}} = 0\) (grounded)<br>
-    $V_{b_{1}}$ is our control $V_{cv}$
+    $V_{b_1}$ is our control $V_{cv}$<br>
+    \(V_{b_{2}} = 0\) (grounded)
 </p>
 <p>
     we're left with
 </p>
 <p>
-    D: \(I_{out} = I_{ref} \cdot e^{-\frac{V_{cv}}{V_{t}}}\)
+    D: \(I_{out} = I_{ref} \cdot e^{-\frac{V_{cv}}{V_T}}\)
 </p>
 
 
@@ -558,21 +584,36 @@ between the two transistors can be written as
     \(V_{c_{2}} = -15V + 18kOhm \cdot I_{out}\).
 </p>
 <p>
-    As also mentioned, $V_{c}$ for a PNP transistor must be at least $0.25V$ less than $V_{e}$. It
-    is thus the value of $V_{e}$ that limits the maximum $I_{out}$:
+    As also mentioned, $V_{c}$ for a PNP transistor must be at least $0.25V$ less than $V_e$. It
+    is thus the value of $V_e$ that limits the maximum $I_{out}$:
 </p>
 <p>
-    \(I_{out_{max}} = \frac{(V_{e} - 0.25) + 15V}{18kOhm}\), and $V_{e}$ is a result of $I_{ref}$.
+    \(I_{out_{max}} = \frac{(V_e - 0.25) + 15V}{18kOhm}\), and $V_e$ is a result of $I_{ref}$.
 </p>
-EXAMPLE PICS
-<h2>$R_{e}$</h2>
 <p>
-    $R_{e}$ limits the current that flows into the constant current-generator op amp. To keep the
+    <img src="./img/B-v_ce-pinchoff-v_b_1-red_v_e-V_c-blue-I_out-lightblue.png"
+         class="fullwidth"/><br>
+    This shows what happens as the output current for B increases. The red line is $V_{b_1}$,
+    the green is $V_e$. They are both increasing though it is hard to see in this image. As a result
+    of this, $I_{out}$, the light blue line, also increases. This means that to adhere to Ohms law,
+    the voltage across the 18k resistor in the test circuit increases too, which in turn means
+    that $V_{c_{2}}$ increases - this is the dark blue line . At around $V_{b_1}=115mV$ the
+    difference between the collector voltage and the emitter voltage is no longer > 0.25V and
+    the transistor won't conduct any larger current. Thus the max $I_{out}$ has been reached.
+</p>
+<h2>$R_e$</h2>
+<p>
+    $R_e$ limits the current that flows into the constant current-generator op amp. To keep the
     current constant, it has to sink (or source) exactly $I_{ref} + I_{out}$. It does this by
-    moving its output voltage up and down. The voltage across $R_{e}$ follows Ohms law, \(V_{e} =
-    R_e \cdot I_e = R_e \cdot (I_{ref} + I_{out}) \). When $V_{e}$ gets too large, the opamp
+    moving its output voltage up and down. The voltage across $R_e$ follows Ohms law, \(V_{R_e} =
+    R_e \cdot I_e = R_e \cdot (I_{ref} + I_{out}) \). When $V_{R_e}$ gets too large, the opamp
     cannot pull its output further up or down, and $I_{out}$ cannot get any higher. The smaller
-    the value for $R_{e}$, the less voltage across it.
+    the value for $R_e$, the less voltage across it.
+    <img src="./img/B-opamp-output-voltage-breakdown.png" class="fullwidth"/><br>
+    Here we have replaced the 1.5k $R_e$ in test circuit B with a 150k resistor. This plot shows
+    the opamp output voltage as the CV increases. At around 50mV the opamp has reached its
+    maximum output voltage and it cannot compensate for any larger currents. We have once again
+    reached the maximum for our circuit.
 </p>
 
 <script>
