@@ -43,3 +43,18 @@ li {
 .fullwidth {
 	width: 95%;
 }
+
+.halfwidth {
+	width: 47.5%;
+}
+
+.halfcolumn {
+	padding: 10px;
+	width: 47.5%;
+	float: left;
+}
+.clear {
+	content: "";
+	clear: both;
+	display: table;
+}

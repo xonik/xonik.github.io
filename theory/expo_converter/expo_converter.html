@@ -15,6 +15,7 @@
 
 
 
+
     </script>
     <script type="text/javascript"
             src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS_HTML-full"></script>
@@ -64,7 +65,8 @@
 </p>
 <h2>The test circuit looks like this:</h2>
 <p>
-    <img src="./img/expo-converters-four-circuit.png" class="fullwidth"/>
+    <img src="./img/expo-converters-four-circuit.png" class="fullwidth"/><br>
+    NB: -100mA to 100mA should be -100mV to 100mV, this is an error in the image.
 </p>
 <p>
     There are only tiny variations in the circuits:
@@ -96,9 +98,9 @@
         \(V_T = \frac{k \cdot T}{q}\)
     </p>
     <p>
-    \(k = 1.38 \cdot 10^{-23}\) Joules/Kelvin<br>
-    \(q = 1.6 \cdot 10^{-19}\) Coloumbs<br>
-    \(T = \) absolute temperature in degrees Kelvinq (= degrees celcius + 273.16)
+        \(k = 1.38 \cdot 10^{-23}\) Joules/Kelvin<br>
+        \(q = 1.6 \cdot 10^{-19}\) Coloumbs<br>
+        \(T = \) absolute temperature in degrees Kelvinq (= degrees celcius + 273.16)
     </p>
 </div>
 <p>
@@ -212,6 +214,11 @@
     and $I_c$:
 </p>
 <h3>Deducing the NPN equation</h3>
+<p><img src="./img/NPN-voltages_and_currents.png" class="halfwidth"><br>
+    Currents and voltages in the NPN version. In the following text $I_{ref} = I_{c_1}$ and $I_{out}
+    =
+    I_{c_2}$, $V_{be_x} = V_{b_x} - V_e$
+</p>
 <p>
     The Ebers-Moll equation for an NPN transistor can be approximated as
 </p>
@@ -258,6 +265,10 @@ between the two transistors can be written as
     \(I_{c_2} = I_{c_1} \cdot e^{\frac{V_{b_2} - V_{b_1}}{V_T}}\)
 </p>
 <h3>Deducing the PNP equation</h3>
+<p><img src="./img/PNP-voltages_and_currents.png" class="halfwidth"><br>
+    Currents and voltages in the PNP version. In the following text $I_{ref} = I_{c_1}$ and
+    $I_{out} = I_{c_2}$, $V_{be_x} = V_{b_x} - V_e$
+</p>
 <p>
     The Ebers-Moll equation for a PNP transistor on the other hand can be approximated as
 </p>
@@ -399,33 +410,40 @@ between the two transistors can be written as
     </li>
 </ul>
 <h3>For A</h3>
-<p>
-    <img src="./img/A-V_e-and-V_b_2.png" class="fullwidth"/><br>
-    $V_e$ (green) vs $V_{b_2}$ ($=V_{cv}$, blue). For a PNP transistor, the emitter
-    voltage is higher than the base voltage when the transistor is on. The emitter
-    voltage stays constant so the difference between the emitter and the base, $V_{be}$,
-    decreases when $V_{cv}$ increases.
-</p>
-<p>
-    <img src="./img/A-V_e-and-I_out.png" class="fullwidth"/><br>
-    Green line is $I_{out}$, dotted line is $V_e$. As $V_{cv}$ increases and thus $V_{be}$
-    decreases, the output current $I_{out}$ decreases.
-</p>
-<h3>For C</h3>
-<p>
-    <img src="./img/C-V_e-and-V_b_2.png" class="fullwidth"/><br>
-    $V_e$ (blue) vs $V_{b_2}$ ($=V_{cv}$, green). For an NPN transistor, the emitter
-    voltage is lower than the base voltage when the transistor is on. The emitter voltage stays
-    constant so the difference between the emitter and the base, $V_{be}$, increases when
-    $V_{cv}$ increases.
-</p>
-<p>
-    <img src="./img/C-V_e-and-I_out.png" class="fullwidth"/><br>
-    Green line is $I_{out}$, dotted line is $V_e$. As $V_{cv}$ increases and thus $V_{be}$
-    increases, the output current $I_{out}$ increases. As
-    the reference current is flowing into the transistor, the output is also a negative current.
+<div>
+    <div class="halfcolumn">
+        <img src="./img/A-V_e-and-V_b_2.png" class="fullwidth"/><br>
+        $V_e$ (green) vs $V_{b_2}$ ($=V_{cv}$, blue). For a PNP transistor, the emitter
+        voltage is higher than the base voltage when the transistor is on. The emitter
+        voltage stays constant so the difference between the emitter and the base, $V_{be}$,
+        decreases when $V_{cv}$ increases.
+    </div>
+    <div class="halfcolumn">
+        <img src="./img/A-V_e-and-I_out.png" class="fullwidth"/><br>
+        Green line is $I_{out}$, dotted line is $V_e$. As $V_{cv}$ increases and thus $V_{be}$
+        decreases, the output current $I_{out}$ decreases.
+    </div>
+</div>
+<div class="clear"/>
 
-</p>
+<h3>For C</h3>
+<div>
+    <div class="halfcolumn">
+        <img src="./img/C-V_e-and-V_b_2.png" class="fullwidth"/><br>
+        $V_e$ (blue) vs $V_{b_2}$ ($=V_{cv}$, green). For an NPN transistor, the emitter
+        voltage is lower than the base voltage when the transistor is on. The emitter voltage stays
+        constant so the difference between the emitter and the base, $V_{be}$, increases when
+        $V_{cv}$ increases.
+    </div>
+    <div class="halfcolumn">
+        <img src="./img/C-V_e-and-I_out.png" class="fullwidth"/><br>
+        Green line is $I_{out}$, dotted line is $V_e$. As $V_{cv}$ increases and thus $V_{be}$
+        increases, the output current $I_{out}$ increases. As
+        the reference current is flowing into the transistor, the output is also a negative current.
+    </div>
+</div>
+<div class="clear"/>
+
 <h3>
     If we ground the base of the transistor connected to the output (B, D):
 </h3>
@@ -443,38 +461,42 @@ between the two transistors can be written as
     </li>
 </ul>
 <h3>For B</h3>
-<p>
-    <img src="./img/B-V_e-red_V_b_1-green.png" class="fullwidth"/><br>
-    $V_e$ (red) vs $V_{b_1}$ ($=V_{cv}$, green). For a PNP transistor, the emitter
-    voltage is higher than the base voltage when the transistor is on. The difference between
-    the left base voltage $V_{b_1}$ and the emitter voltage $V_e$ stays constant, but
-    $V_{b_1}$ (=$V_{cv}$) changes, so $V_e$ changes with the same amount. The right base,
-    $V_{b_2}$ is tied to 0, so as the emitter voltage increases, the difference between the
-    emitter and the right base, $V_{be_2}$, increases.
-</p>
-<p>
-    <img src="./img/B-V_e-and-I_out.png" class="fullwidth"><br>
-    Blue line is $I_{out}$, green line is $V_e$. As $V_{cv}$ increases and thus $V_{be_2}$
-    increases, the output current $I_{out}$ increases.
-</p>
+<div>
+    <div class="halfcolumn">
+        <img src="./img/B-V_e-red_V_b_1-green.png" class="fullwidth"/><br>
+        $V_e$ (red) vs $V_{b_1}$ ($=V_{cv}$, green). For a PNP transistor, the emitter
+        voltage is higher than the base voltage when the transistor is on. The difference between
+        the left base voltage $V_{b_1}$ and the emitter voltage $V_e$ stays constant, but
+        $V_{b_1}$ (=$V_{cv}$) changes, so $V_e$ changes with the same amount. The right base,
+        $V_{b_2}$ is tied to 0, so as the emitter voltage increases, the difference between the
+        emitter and the right base, $V_{be_2}$, increases.
+    </div>
+    <div class="halfcolumn">
+        <img src="./img/B-V_e-and-I_out.png" class="fullwidth"><br>
+        Blue line is $I_{out}$, green line is $V_e$. As $V_{cv}$ increases and thus $V_{be_2}$
+        increases, the output current $I_{out}$ increases.
+    </div>
+</div>
+<div class="clear"/>
 <h3>For D</h3>
-<p>
-    <img src="./img/D-V_e-blue_V_b_1-green.png" class="fullwidth"/><br>
-    For D: $V_e$ (green) vs $V_{b_1}$ ($=V_{cv}$, blue). For an NPN transistor, the emitter
-    voltage is lower than the base voltage when the transistor is on. The difference between
-    the left base voltage $V_{b_1}$ and the emitter voltage $V_e$ stays constant, but
-    $V_{b_1}$ (=$V_{cv}$) changes, so $V_e$ changes with the same amount. The right base,
-    $V_{b_2}$ is tied to 0, so as the emitter voltage increases, the difference between the
-    emitter and the base, $V_{be_2}$, decreases.
-</p>
-<p>
-    <img src="./img/D-V_e-and-I_out.png" class="fullwidth"><br>
-    Green line is $I_{out}$, blue line is $V_e$. As $V_{cv}$ increases and thus $V_{be_2}$
-    decreases, the output current $I_{out}$ decreases.  As
-    the reference current is flowing into the transistor, the output is also a negative current.</p>
-<p>
-    Thus, we can control $I_{out}$ by changing either one of the bases and keeping the other fixed.
-</p>
+<div>
+    <div class="halfcolumn">
+        <img src="./img/D-V_e-blue_V_b_1-green.png" class="fullwidth"/><br>
+        For D: $V_e$ (green) vs $V_{b_1}$ ($=V_{cv}$, blue). For an NPN transistor, the emitter
+        voltage is lower than the base voltage when the transistor is on. The difference between
+        the left base voltage $V_{b_1}$ and the emitter voltage $V_e$ stays constant, but
+        $V_{b_1}$ (=$V_{cv}$) changes, so $V_e$ changes with the same amount. The right base,
+        $V_{b_2}$ is tied to 0, so as the emitter voltage increases, the difference between the
+        emitter and the base, $V_{be_2}$, decreases.
+    </div>
+    <div class="halfcolumn">
+        <img src="./img/D-V_e-and-I_out.png" class="fullwidth"><br>
+        Green line is $I_{out}$, blue line is $V_e$. As $V_{cv}$ increases and thus $V_{be_2}$
+        decreases, the output current $I_{out}$ decreases. As
+        the reference current is flowing into the transistor, the output is also a negative current.
+    </div>
+</div>
+<div class="clear"/>
 
 <h2>The final transformation</h2>
 <p>
