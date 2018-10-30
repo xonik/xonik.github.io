@@ -1,5 +1,4 @@
 var OUTPUTMODE_BLOCK_MIDI = 0;
-var OUTPUTMODE_BLOCK_MIDI = 0;
 var OUTPUTMODE_REVERT_TO_MIDI = 1;
 var OUTPUTMODE_INSTANT_SWITCH = 2;
 
@@ -52,7 +51,7 @@ var defaultsettings = [
   27, // POT_D 31
   28, // POT_S 32
   29, // POT_R 33
-  
+
   1, // Save settings to EE prom after sysex update.
   0, // default midi channel
   OUTPUTMODE_REVERT_TO_MIDI, //default output mode (but is overwritten by the switch detector)
@@ -61,11 +60,11 @@ var defaultsettings = [
 
   //two pole switch boundary
   64,
-  
+
   //three pole switch boundaries
   42,
   84,
-  
+
   //four pole switch boundaries
   32,
   64,
@@ -88,12 +87,12 @@ function populateFields(settings){
       field.val(settings[field.attr('pos')]);
 	}
   });
-  
+
   // all dropdowns
   $('select[pos]').each(function(){
     $(this).val(settings[$(this).attr('pos')]);
   });
-  
+
 }
 
 function generateSettings(){
@@ -115,14 +114,14 @@ function generateSettings(){
 			}
 		}
 	});
-  
+
 	// all dropdowns
 	$('select').each(function(){
 		if($(this).attr('pos')){
 			settings[$(this).attr('pos')] = parseInt($(this).val());
 		}
-	});	
-	
+	});
+
 	return settings;
 }
 
@@ -136,15 +135,15 @@ function downloadSettings() {
 
 	// sysex start
 	data.setUint8 (0, MIDI_SYSEX_START);
-	
+
 	// sysex address
 	data.setUint8 (1, sysexAddress[0]);
 	data.setUint8 (2, sysexAddress[1]);
 	data.setUint8 (3, sysexAddress[2]);
-	
+
 	// sysex function
 	data.setUint8 (4, SYSEX_OP_CHANGE_SETTING);
-	
+
 	// settings
 	for(i = 0; i<settings.length; i++){
 	  data.setUint8 (i*2+5, i);
@@ -152,7 +151,7 @@ function downloadSettings() {
 	}
 	// sysex end
 	data.setUint8 (bufferSize - 1, MIDI_SYSEX_END);
-	
+
 	var blob = new Blob([data], {type: 'application/octet-binary'})
 	saveAs(blob, "mpg200-settings.syx");
 }
@@ -166,18 +165,18 @@ function downloadClearSettings() {
 
 	// sysex start
 	data.setUint8 (0, MIDI_SYSEX_START);
-	
+
 	// sysex address
 	data.setUint8 (1, sysexAddress[0]);
 	data.setUint8 (2, sysexAddress[1]);
 	data.setUint8 (3, sysexAddress[2]);
-	
+
 	// sysex function
 	data.setUint8 (4, SYSEX_OP_CLEAR_SETTINGS_FROM_EE);
-	
+
 	// sysex end
 	data.setUint8 (5, MIDI_SYSEX_END);
-	
+
 	var blob = new Blob([data], {type: 'application/octet-binary'})
 	saveAs(blob, "mpg200-clear-settings.syx");
 }
@@ -189,25 +188,25 @@ function midiReadyCallback() {
 		dropdown
 			.append($("<option></option>")
 			.attr("value",outputs.id)
-			.text(outputs.name)); 		
-	}        
+			.text(outputs.name));
+	}
 	dropdown.val(0);
 	setMidiDeviceFromDropdown();
 	setMidiChannelFromDropdown();
 }
-          
+
 function setMidiDeviceFromDropdown(){
 	var dropdown = $("#outputDropdown");
 	var deviceId = dropdown.val();
 	console.log("set midi device to " + deviceId);
 	midi.selectOutput(deviceId);
-}		  
-	
+}
+
 function setMidiChannelFromDropdown(){
 	midiChannel = $("#midichannel").val();
 	console.log("set midi channel to " + midiChannel);
-}		
-	
+}
+
 function sendSettingsAsSysex(){
 
 	var settings = generateSettings();
@@ -215,7 +214,7 @@ function sendSettingsAsSysex(){
 	for(i = 0; i<settings.length; i++){
 	  sysexData.push(i);
 	  sysexData.push(settings[i]);
-	}		
+	}
 	midi.sendSysex(sysexAddress,sysexData);
 }
 
@@ -226,7 +225,7 @@ function sendClearSettingsAsSysex(){
 
 function sendDialValueAsCC(value, dial){
 	value = Math.round(value);
-	var pos = $(dial.i).attr("pos-link"); 
+	var pos = $(dial.i).attr("pos-link");
 	var cc = $("[pos='"+pos+"']").val();
 
 	midi.sendCC(midiChannel, cc, value);
@@ -234,8 +233,8 @@ function sendDialValueAsCC(value, dial){
 
 //kickstart everything on document load
 function init(){
-	populateFields(defaultsettings);	  
-	  
+	populateFields(defaultsettings);
+
 	$(".dial127").knob({
 		'angleArc': 270,
 		'angleOffset': 225,
@@ -245,17 +244,17 @@ function init(){
 		"width": 50,
 		"height": 50,
 		"fgColor": "#ff0000",
-		"thickness": ".2",			
-		'change' : function (v) { 
+		"thickness": ".2",
+		'change' : function (v) {
 			sendDialValueAsCC(v, this);
 		},
-		'release' : function (v) { 
+		'release' : function (v) {
 			sendDialValueAsCC(v, this);
 		}
-		
+
 	});
 	$(".dial127").val(0);
-	
+
 	midi.init(midiReadyCallback);
 }
 
