@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>The triangle oscillator - maths</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <link rel="stylesheet" type="text/css" href="../theory.css">
+
+    <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+  });
+    </script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS_HTML-full"></script>
+    <script type="text/javascript" src="../theory.js"></script>
+    <script src="../jquery-2.1.1.min.js"></script>
+
+</head>
+<body>
+<p>
+<h1>The triangle oscillator - some theory and formulas</h1>
+<p>
+    On my blog, I did a rather thorough analysis of the super saw (saw animator, ultrasaw) circuit
+    from the Minibrute/Maxibrute. I explained in general terms what blocks it's made up of and
+    the theory behind what makes it able to phase shift a saw wave using a triangle wave as control.
+</p>
+<p>
+    Now, I also wanted to build this circuit myself, to test it in a polyphonic synth. The only
+    problem is that the Minibrute super saw triangle waves are controlled by in-circuit
+    potentiometers, which means I would either have to have one potentiometer per voice, or an
+    8-channel potentiometer, which of course is not feasible. I would have to change this into
+    some form of voltage control. (I could of course replace the whole triangle wave circuit with
+    a digital or analog LFO, but where's the fun in that...).
+</p>
+<p>
+    [FACTS HERE]
+    - frequency controlled only by R_integrator and C, and is independent of V_sat and V_supply
+    - The amplitude is controlled only by the ratio between the resistors in the hysteresis part
+    and is also independent of V_sat and V_supply.
+</p>
+<p>
+    Fortunately, the only place where we have a potentiometer is between the two opamps. I could
+    replace this with a voltage controlled resistor scheme, or I could try to understand exactly
+    what it does and look for alternatives.
+</p>
+<p>
+    So let's take a closer look at the circuit. It is actually rather simple. It consists of two
+    main parts - a comparator with hysteresis and an integrator. The output of the integrator feeds
+    back to the comparator, and whenever its output voltage crosses a predefined comparator voltage,
+    the comparator output switches polarity. The comparator output in turn controls the integrator
+    charging/discharging, and changing polarity flips from charging to discharging and vice versa.
+    Let's see exactly what is going on.
+    [PIC HERE]
+</p>
+<h2>The comparator</h2>
+<p>
+    The left opamp is configured as a comparator. It has its negative input tied to 0V, which means
+    that whenever its positive input crosses 0V, its output will swing between the positive and
+    negative opamp saturation voltages, $+/- V_{sat}$ (Close to but not necessarily equal to the
+    supply voltages).
+</p>
+<p>
+    But the positive input is not tied directly to the integrator output. Instead the output goes
+    through a resitor. We also have a resistor between the comparator output and the positive
+    comparator terminal (e.g. positive feedback as opposed to the negative feedback most often
+    found in opamp based circuits). These resistors form what is called a hysteresis circuit.
+</p>
+<p>
+    What it does it changing when the comparator output flips polarity. Instead of an instant flip
+    when the input crosses the reference voltage, it 'delays' the flip until the voltage is a
+    certain amount above or below the reference.
+</p>
+<p>
+    It is important to note that the circuit input is now not AT the positive terminal, but rather
+    before $R_1$. The voltage at the positive terminal is still at 0V (or actually, the same voltage
+    as the negative terminal) when the comparator output flips. But how do we know exactly when the
+    flip happens?
+</p>
+<p>
+    Well, the two resistors $R_1$ and $R_2$ form a voltage divider between the integrator output
+    $V_{int}$ and the comparator output ($V_{comp}). The center of this divider is connected to
+    the positive terminal, $V_{pos}$.
+</p>
+<p>
+    The formula for a resistor voltage divider is  \(V_{out} = \frac{R_2}{R_1 + R_2} \cdot V_{in}\)
+    [FIGURE, NORMAL VOLTAGE DIVIDER]
+</p>
+<p>
+    Normally when doing resistor divider calculators, we assume that the bottom of the divider is at
+    0V. This is not the case for us, the bottom is at $V_{int}$. Our input and output voltages are
+    thus:
+</p>
+<ul>
+    <li>\(V_{in} = V_{int} - V_{comp}\)</li>
+    <li>\(V_{out} = V_{pos} - V_{comp}\)</li>
+</ul>
+<p>
+    This gives us: \(V_{pos} - V_{comp} = \frac{R_2}{R_1 + R_2} \cdot (V_{int} - V_{comp})\)
+</p>
+<p>
+    Right. But how does this help us figure out when the comparator flips? Well, we know this
+    happens when the positive and negative comparator inputs are equal, and the negative input
+    is tied to 0V. This means that the flip happens when $V_{pos}$ is 0V too. Entering this into the
+    equation above, and solving for the integrator output voltage $V_{int}$ gives us:
+</p>
+<p>
+    \(0 - V_{comp} = \frac{R_2}{R_1 + R_2} \cdot (V_{int} - V_{comp})\)<br>
+    \(-V_{comp} = \frac{R_2}{R_1 + R_2} \cdot V_{int} - \frac{R_2}{R_1 + R_2} \cdot
+    V_{comp}\)<br>
+    \(\frac{R_2}{R_1 + R_2} \cdot V_{int} = \frac{R_2}{R_1 + R_2} \cdot V_{comp} -V_{comp}\)<br>
+    \(\frac{R_2}{R_1 + R_2} \cdot V_{int} = \frac{R_2}{R_1 + R_2} \cdot V_{comp} -
+    \frac{R_1 + R_2}{R_1 + R_2} \cdot V_{comp}\)<br>
+    \(\frac{R_2}{R_1 + R_2} \cdot V_{int} = \frac{-R_1}{R_1 + R_2} \cdot V_{comp}\)<br>
+    \(R_2 \cdot V_{int} = -R_1 \cdot V_{comp}\)<br>
+</p>
+<p>
+    and finally
+</p>
+<p>
+    \(V_{int} = -\frac{R_1}{R_2} \cdot V_{comp}\)<br>
+</p>
+<p>
+    which means that the comparator output polarity changes once $V_{int}$ has reached $-\frac{R_1}{R_2} \cdot V_{comp}$
+</p>
+<h2>The integrator</h2>
+<p>
+    The second part of the triangle oscillator is the integrator. It consists of a capacitor $C$, a
+    resistor $R_{int}$ and an opamp. The capacitor is placed in the feedback loop of the opamp.
+    The resistor and capacitor share a common terminal at the opamp's negative terminal, which is
+    at virtual ground (0V). From the basic opamp 'laws' we know that any current that flows through
+    the resistor and into the common terminal, also flows into the capacitor, charging it. [FIGURE]
+</p>
+<p>
+    The left capacitor terminal is locked at 0V, so charging/discharing the cap changes the
+    potential at the right terminal (or rather, the opamp rises it's output voltage to draw a
+    continous current into the cap). The charging continues until the opamp cannot change its
+    output anymore (it reaches its $V_{saturation}$) or charging is interrupted by changing the
+    current through $R_{int}$.
+</p>
+<p>
+    The current through $R_{int}$ is simply the output of the comparator divided by the resistance,
+    \(I_{int} = \frac{+/-V_{comp}}{R_{int}}\)
+</p>
+<p>
+    From my work on the VCO, we have that
+</p>
+
+<script>
+  $(".expandButton").click(function (event) {
+    event.preventDefault();
+    var detailsDiv = $(event.target).siblings(".details").first();
+    detailsDiv.toggle();
+  });
+</script>
+</body>
+</html>
