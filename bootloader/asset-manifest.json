@@ -1,0 +1,13 @@
+{
+  "main.css": "/bootloader/static/css/main.f9185e34.chunk.css",
+  "main.js": "/bootloader/static/js/main.3560f88c.chunk.js",
+  "main.js.map": "/bootloader/static/js/main.3560f88c.chunk.js.map",
+  "static/js/1.7f41969e.chunk.js": "/bootloader/static/js/1.7f41969e.chunk.js",
+  "static/js/1.7f41969e.chunk.js.map": "/bootloader/static/js/1.7f41969e.chunk.js.map",
+  "runtime~main.js": "/bootloader/static/js/runtime~main.1b308a47.js",
+  "runtime~main.js.map": "/bootloader/static/js/runtime~main.1b308a47.js.map",
+  "static/css/main.f9185e34.chunk.css.map": "/bootloader/static/css/main.f9185e34.chunk.css.map",
+  "index.html": "/bootloader/index.html",
+  "precache-manifest.f5437a3a9007a9f2ede1a5f19c0e4b92.js": "/bootloader/precache-manifest.f5437a3a9007a9f2ede1a5f19c0e4b92.js",
+  "service-worker.js": "/bootloader/service-worker.js"
+}
