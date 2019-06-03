@@ -1,40 +1,43 @@
 <html>
 <head>
     <meta name="description" content="Xonik.no - served by github pages">
-    <title>Xonik Devices - Synthesizere</title>
+    <title>Xonik Devices - ETI Vocoder</title>
 </head>
 <body>
 <a href="http://xonik.no"><img src="../../images/xonik-logo.png" class="logo-image"></a>
 
-<h1>Synthesizere</h1>
+<h1>ETI Vocoder</h1>
 <p>
-    Min store lidenskap. Jeg har brukt ufattelig mange timer på å studere og fikle med
-    synthesizerkretser (men kan merkelig nok ikke lage musikk eller spille piano).
+    En vocoder kan beskrives som en stemmesynthesizer. Den kan få synthesizere eller andre
+    instrumenter til å høres ut som de snakker, og brukes veldig forenklet sagt til å lage
+    ‘robotstemmer’. Klassiske eksempler på bruk av vocoder er mye av Kraftwerks musikk (Autobahn,
+    The Robots).
 </p>
 <p>
-    Klokka består av en arduino, en RFID/NFC-modul, en buck-converter for å få 3.3v ut av et 1.5v
-    batteri, og div andre små deler. Kretskortet er produsert i Kina av dirtypcbs.com.
+    Vocoderen analyserer lyden den får inn på en kanal - stemmen - og finner ut hvilke frekvenser
+    lyden inneholder og hvilket volum disse har. Deretter separerer den frekvensene fra input på en
+    kanal nummer to (carrier), men erstatter volumet fra kanal nummer to med volumet fra kanal
+    nummer én. Når dette gjøres på mange nok frekvenser vil man kunne kjenne igjen ordlydene fra
+    kanal nummer en i kanal nummer to.
 </p>
+<p>
 
-<h2>Hvordan funker den?</h2>
-<p>
-    Ved start, mål og på hver post er det hengt opp et RFID-kort som kan scannes vha klokka. Disse
-    har
-    unik ID og klokka vet derfor hvor den er - når den ser startkortet startes en timer, deretter
-    registreres tid for passering av de ulike postene før man til slutt avslutter tiden ved
-    målpassering.
+    Denne Vocoderen er min gjenskaping av et design fra bladet Electronics Today International fra
+    ca 1980. I en artikkelserie beskrives vocoderen og kretskortene man trenger for å bygge den. Jeg
+    har designet nye og mindre kretskort og samtidig rettet en rekke småfeil i tekst og kretser.
 </p>
 <p>
-    RFID-modulen er toveis, så den fungerer både som en RFID-leser og som et NFC-kort. Etter
-    målpassering kan man derfor lese av passeringstidene fra en mobiltelefon. Dataene hentes ut i
-    form
-    av en URL med query-params, der hvert param er en passeringstid. Man kan dermed bruke en webside
-    med
-    litt innebygget logikk og f.eks localstorage til å lese av tiden for flere løpere.
+
+    Vocoderen er helt analog, dvs den inneholder ingen datamaskin eller mikrokontroller. All analyse
+    og syntese skjer ved hjelp av elektroniske kretser. Frekvensene separeres ved hjelp av
+    båndpassfiltre basert på motstander og kondensatorer, amplitude (volum) finner man med
+    lavpassfiltrering. Lavpassfiltreringen gir en styrespenning som er proposjonal med volumet til
+    en bestemt frekvens. Styrespenningen kontrollerer på sin side en spenningsstyrt forsterker som
+    styrer volumet på et frekvensbånd fra kanal nummer to.
 </p>
 <ul>
     <li><a href="../synth">Synthesizerbygging</a></li>
-    <li><a href="../vocoder">ETI Vocoder</a></li>
+    <li><a href="../orientering">Orienteringsklokke</a></li>
     <li><a href="http://atosynth.blogspot.com">Til byggebloggen min</a></li>
     <li><a href="http://xonik.no">Til xonik.no</a></li>
 </ul>

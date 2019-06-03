@@ -1,42 +1,60 @@
 <html>
 <head>
     <meta name="description" content="Xonik.no - served by github pages">
-    <title>Xonik Devices - Orienteringsklokke</title>
+    <title>Xonik Devices - Synthesizere</title>
 </head>
 <body>
 <a href="http://xonik.no"><img src="../../images/xonik-logo.png" class="logo-image"></a>
 
-<h1>Orienteringsklokke</h1>
+<h1>Synthesizere</h1>
 <p>
-    Dette er en håndmonterbar RF-id-leser for bruk i orientering. Datteren min testet en
-    proffversjon av dette på ‘Verdens Kuleste Dag’ og ville ha noen tilsvarende hjemme.
-    Målet mitt var å lage denne så billig at den kan lages i mange eksemplarer.
-    I øyeblikket er prisen ca 150,- pr. stykk, men det forutsetter printing og skjæring av deler
-    på Skuret.
+    Min store lidenskap. Jeg har brukt ufattelig mange timer på å studere og fikle med
+    synthesizerkretser (men kan merkelig nok ikke lage musikk eller spille piano).
 </p>
+<h2>Moduler til modulær synthesizer</h2>
 <p>
-    Klokka består av en arduino, en RFID/NFC-modul, en buck-converter for å få 3.3v ut av et 1.5v
-    batteri, og div andre små deler. Kretskortet er produsert i Kina av dirtypcbs.com.
+    Det du ser her er en rekke påbegynte moduler fra en modulær synthesizer - et instrument der man
+    kobler sammen en rekke separate deler for å lage en lyd. Jeg har designet de lilla kretskortene,
+    men en del er modifikasjoner av andres design. De gulaktige kortene er fra yusynth.net, her har
+    jeg produsert kortene selv ved først å printe ut kretsen på fotopapir vha en laserprinter, for
+    så å stryke det hele på en kobber/glassfiberplate og etse bort kobberet som ikke er dekket av
+    toner.
 </p>
 
-<h2>Hvordan funker den?</h2>
+<h2>Polyfonisk synthesizer</h2>
 <p>
-    Ved start, mål og på hver post er det hengt opp et RFID-kort som kan scannes vha klokka. Disse
-    har
-    unik ID og klokka vet derfor hvor den er - når den ser startkortet startes en timer, deretter
-    registreres tid for passering av de ulike postene før man til slutt avslutter tiden ved
-    målpassering.
+    De sorte kortene er deler til det største prosjektet jeg noengang har begynt på - en polyfonisk
+    synthesizer. En polyfonisk synthesizer er en synth som kan spille flere toner samtidig. Hver
+    tone som spilles samtidig krever en helt egen synth, så en synth som kan spille 16 toner
+    samtidig er i praktis 16 separate synthesizere koblet sammen.
 </p>
 <p>
-    RFID-modulen er toveis, så den fungerer både som en RFID-leser og som et NFC-kort. Etter
-    målpassering kan man derfor lese av passeringstidene fra en mobiltelefon. Dataene hentes ut i
-    form
-    av en URL med query-params, der hvert param er en passeringstid. Man kan dermed bruke en webside
-    med
-    litt innebygget logikk og f.eks localstorage til å lese av tiden for flere løpere.
+    Hvert av disse kortene utfører en bestemt funksjon slik som styrespenningsgenerering (DAC),
+    tonegenerering (VCO), bølgeforming, filtrering (VCF), ringmodulering, støygenerering osv, ikke
+    ulikt modulene i en modulær synthesizer, men de er beregnet på å kobles sammen fast og styres av
+    den mikrokontroller. Kretsene er i stor grad enten mine egne design eller svært tilpassede
+    versjoner av andres design. Alle er beregnet på overflatemonterte komponenter, komponenter som
+    kan loddes semimaskinelt. Vi har loddeovn som kan gjøre dette på skuret.
+</p>
+<h2>Machinebeats trommemaskin</h2>
+<p>
+    Dette er en klone av Rolands TR-909 trommemaskin. Lydgenereringskretsene er et <a
+        href="http://www.9090project.co.uk/">kit laget av
+    Trevor Page</a>, mens styrekretsene, displayinterface og all hardware er designet av meg.
+</p>
+<p>
+    Jeg startet på denne i 2004, før Arduino var en ting. Jeg måtte derfor programmere alt fra
+    bunnen av i C, inkludert interfacekode for det grafiske displayet. Prosessen er dokumentert på
+    http://so909.blogspot.com. Boksen er i pulverlakert stål og endestykkene er 1cm tykk
+    pulverlakert aluminium der det er frest ut hull, begge deler laget av <a
+        href="http://emachineshop.com">http://emachineshop.com</a>.
+    De grå sidestykkene er ventilasjonshull og er, sammen med frontpanelet og displayvinduet og
+    div andre smådeler, laget med <a href="http://schaeffer-ag.de">Front Panel Designer</a>.
+    Frontpanelet er silketrykket hos Oslo Silketrykk. Tastene er produsert og gravert av Contech i
+    England og kretskortene produsert av Olimex i Bulgaria.
 </p>
 <ul>
-    <li><a href="../synth">Synthesizerbygging</a></li>
+    <li><a href="../orientering">Orienteringsklokke</a></li>
     <li><a href="../vocoder">ETI Vocoder</a></li>
     <li><a href="http://atosynth.blogspot.com">Til byggebloggen min</a></li>
     <li><a href="http://xonik.no">Til xonik.no</a></li>
