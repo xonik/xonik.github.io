@@ -30,12 +30,17 @@ h3{
 }
 
 .left-table{
-	float: left; 
-	margin-right: 20px;	
+	float: left;
+	margin-right: 20px;
 }
 
 .logo-image{
 	position: fixed;
 	top: 20px;
 	left: 10px;
+}
+
+.email{
+	vertical-align: middle;
+	height: 24px;
 }
