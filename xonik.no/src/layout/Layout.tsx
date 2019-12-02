@@ -14,7 +14,10 @@ const Layout: React.FunctionComponent<Props> = props => {
     <div className="layout">
       <Helmet defaultTitle="Xonik.no"/>
       <Header />
-      <div className="layout__main">{children}</div>
+      <div>
+        <a href="http://xonik.no"><img src="/images/xonik-logo.png" className="logo-image" alt="Xonik logo"/></a>
+        <div className="layout__main">{children}</div>
+      </div>
       <Footer />
     </div>
   );

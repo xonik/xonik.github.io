@@ -1,0 +1,17 @@
+.builders-guide {
+  &_parts-table {
+    border: 1px solid black;
+    td{
+      border: 1px solid black;
+      padding: 5px;
+    }
+  }
+}
+
+.part-image {
+  margin-left: 2rem;
+  img {
+    width: 30rem;
+  }
+  width: 30rem;
+}

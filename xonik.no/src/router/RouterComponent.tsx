@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Router, Route, Switch, Redirect } from 'react-router-dom';
 import history from './history';
 import { routes } from './routes';
 import {
@@ -7,6 +6,7 @@ import {
   ROUTE_REDIRECT
 } from './routes.type';
 import { Routes } from './routes.type';
+import { Redirect, Route, Router, Switch } from 'react-router';
 
 const getRoutes = (routes: Routes) => {
   return routes.map(route => {

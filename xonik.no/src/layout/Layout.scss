@@ -1,7 +1,8 @@
 .layout {
-  background-color: green;
-
   &__main {
-    background-color: blue;
+    max-width: 50rem;
+    h2 {
+      margin-top: 2rem;
+    }
   }
 }
