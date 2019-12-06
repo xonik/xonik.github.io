@@ -10,6 +10,11 @@ import jacksImage from './images/jacks.jpg';
 import jackParts from './images/jack-parts.jpg';
 import sixPinDin from './images/6_pin_din.png';
 import jackInner from './images/jack-inner.jpg';
+import ledImage from './images/led.jpg';
+import capImage from './images/cap.jpg';
+import ellytcapsImage from './images/ellytcaps.jpg';
+import ic6n137Image from './images/6n137.jpg';
+import microcontrollerImage from './images/microcontroller.jpg';
 import ImageWithDescription from './ImageWithDescription';
 
 export default () => {
@@ -211,12 +216,32 @@ export default () => {
       label="Resistors. From the top: 1 x 4.7kOhm, 2 x 22kOhm, 3 x 1kOhm, 5 x 220Ohm. These do not have direction."/>
     <ImageWithDescription
       className="part-image"
+      src={ledImage}
+      label="LED. bottom, long leg is positive (+), top is negative. Flat side (top) is negative."/>
+    <ImageWithDescription
+      className="part-image"
+      src={capImage}
+      label="Film capacitor, 100nF. Has no direction/positive and negative terminals."/>
+    <ImageWithDescription
+      className="part-image"
+      src={ellytcapsImage}
+      label="Electrolytics capacitors (polarized). Small cap is 22uF, larger one is 10uF. Long leg is positive, short is negative. Negative side is also marked on the casing. It is extremely important to fit these the right way around or they will explode."/>
+    <ImageWithDescription
+      className="part-image"
       src={dilSocketsImage}
-      label="IC sockets for MCU and 6N137 optocoupler. The dot on the IC should line up with the lower right pin in the picture. Make sure to insert the sockets according to the symbol on the circuit board."/>
+      label="IC sockets for MCU and 6N137 optocoupler. The dot on the IC should line up with the lower right pin in the picture. Make sure to insert the sockets according to the symbol on the circuit board (half circles facing the same direction)."/>
+    <ImageWithDescription
+      className="part-image"
+      src={ic6n137Image}
+      label="Optocoupler IC. The dot indicates leg nr 1, and should face the same direction as the half circle on the socket."/>
+    <ImageWithDescription
+      className="part-image"
+      src={microcontrollerImage}
+      label="PIC18F15325 microcontroller. The dot indicates leg nr 1, and should face the same direction as the half circle on the socket."/>
     <ImageWithDescription
       className="part-image"
       src={transistorsVoltageRegImage}
-      label="2N3904 and 2N3906 transistors, 78L05 voltage regulator. It may be hard to read the labeling on these but it is absolutely crucial that they are not mixed. Make sure that they are placed the right way around, the flat side of the transistor should face the flat side on the symbol on the circuit board."/>
+      label="2N3904 and 2N3906 transistors, 78L05 voltage regulator. It may be hard to read the labeling on these but it is absolutely crucial that they are not mixed. Make sure that they are placed the right way around, the flat side of the transistor should face the flat side of the symbol on the circuit board."/>
     <ImageWithDescription
       className="part-image"
       src={dinSocketsImage}
@@ -224,7 +249,7 @@ export default () => {
     <ImageWithDescription
       className="part-image"
       src={jacksImage}
-      label="6 pin DIN jacks for the PG-200 cable. These are a bit hard to solder as the plastic around the pins melt if it get too hot."/>
+      label="6 pin DIN jacks for the PG-200 cable. These are a bit hard to solder as the plastic around the pins melts if it get too hot."/>
     <h2>Assembly hints</h2>
     <p>
       In general: Take ESD measures to prevent the parts from being destroyed by static
