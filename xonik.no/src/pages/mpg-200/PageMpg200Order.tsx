@@ -31,6 +31,10 @@ const formConfig = {
   },
   terms: {
     isRequired: 'You must approve of terms and conditions before submitting',
+    isEqual: () => ({
+      message: 'You must approve of terms and conditions before submitting',
+      value: true,
+    }),
   }
 };
 
@@ -52,7 +56,7 @@ class PageMpg200Order extends Component {
   }
 
   render() {
-    return <div className="orderPage">
+    return <div className="order">
       <h1>MPG-200 Order Form</h1>
       <FormValidation onSubmit={this.onSubmit} config={formConfig}>
         {({ errors, fields, submitted }) => (
@@ -61,69 +65,53 @@ class PageMpg200Order extends Component {
               Please fill in the form below and I will send you a Paypal invoice
             </div>
             <h2>Personal details</h2>
-            <div>
-              <label>
-                Name
-                <input name="name"/>
-                {submitted && errors.name && <span>{errors.name}</span>}
-              </label>
+            <div className="order_form-input">
+              <input name="name" placeholder="Name"/>
+              {submitted && errors.name &&
+              <span className="order_validation-error">{errors.name}</span>}
             </div>
-            <div>
-              <label>
-                Email
-                <input type="text" name="email"/>
-                {submitted && errors.email && <span>{errors.email}</span>}
-              </label>
-              * This is where your paypal invoice will be sent
+            <div className="order_form-input">
+              <input name="email" placeholder="Email"/>
+              <div className="order_help-text">This is where your paypal invoice will be sent</div>
+              {submitted && errors.email &&
+              <span className="order_validation-error">{errors.email}</span>}
             </div>
-            <div>
-              <label>
-                Confirm email
-                <input type="text" name="email2"/>
-                {submitted && errors.email2 && <span>{errors.email2}</span>}
-              </label>
+            <div className="order_form-input">
+              <input name="email2" placeholder="Confirm email"/>
+              {submitted && errors.email2 &&
+              <span className="order_validation-error">{errors.email2}</span>}
             </div>
             <h2>Shipping address</h2>
-            <div>
-              <label>
-                Street name and number
-                <input type="text" name="address1"/>
-                {submitted && errors.address1 && <span>{errors.address1}</span>}
-              </label>
+            <div className="order_form-input">
+              <input name="address1" placeholder="Street name and number"/>
+              {submitted && errors.address1 &&
+              <span className="order_validation-error">{errors.address1}</span>}
             </div>
-            <div>
-              <label>
-                Extended address
-                <input type="text" name="address2"/>
-                {submitted && errors.address2 && <span>{errors.address2}</span>}
-              </label>
+            <div className="order_form-input">
+              <input name="address2" placeholder="Extended address"/>
+              {submitted && errors.address2 &&
+              <span className="order_validation-error">{errors.address2}</span>}
             </div>
-            <div>
-              <label>
-                Zip code
-                <input type="text" name="zip"/>
-                {submitted && errors.zip && <span>{errors.zip}</span>}
-              </label>
+            <div className="order_form-input">
+              <input name="zip" placeholder="Postal code"/>
+              {submitted && errors.zip &&
+              <span className="order_validation-error">{errors.zip}</span>}
             </div>
-            <div>
-              <label>
-                City
-                <input type="text" name="city"/>
-                {submitted && errors.city && <span>{errors.city}</span>}
-              </label>
+            <div className="order_form-input">
+              <input name="city" placeholder="Postal city"/>
+              {submitted && errors.city &&
+              <span className="order_validation-error">{errors.city}</span>}
             </div>
-            <div>
-              <label>
-                Country
-                <input type="" name="country"/>
-                {submitted && errors.country && <span>{errors.country}</span>}
-              </label>
+            <div className="order_form-input">
+              <input name="country" placeholder="Country"/>
+              {submitted && errors.country &&
+              <span className="order_validation-error">{errors.country}</span>}
             </div>
-            <div>
+            <div className="order_form-input">
               <label>
-                Accept terms
-                <input type="checkbox" name="terms"/>
-                {submitted && errors.terms && <span>{errors.terms}</span>}
+                <input type="checkbox" name="terms"/> Accept terms
+                {submitted && errors.terms &&
+                <span className="order_validation-error">{errors.terms}</span>}
               </label>
             </div>
             <button>Order</button>
