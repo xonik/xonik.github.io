@@ -1,8 +1,15 @@
 import React, { ChangeEvent, Component } from 'react';
 import { FormContext, FormValidation } from 'calidation';
+import firebaseApi from '../../integration/firebase/api';
 import './PageMpg200Order.scss';
 
 const formConfig = {
+  mpg200count: {
+    isNumber: 'Number of MPG-200 kits must be a number'
+  },
+  enclosureCount: {
+    isNumber: 'Number of enclosures must be a number'
+  },
   name: {
     isRequired: 'Name is required!',
   },
@@ -29,6 +36,12 @@ const formConfig = {
   country: {
     isRequired: 'Country is required',
   },
+  comments: {
+    isMaxLength: {
+      message: 'Comment is too long',
+      length: 4000,
+    },
+  },
   terms: {
     isRequired: 'You must approve of terms and conditions before submitting',
     isEqual: () => ({
@@ -47,7 +60,27 @@ class PageMpg200Order extends Component {
 
   onSubmit({ fields, isValid }: FormContext) {
     if (isValid) {
-      console.log('submitting', fields);
+      const {
+        mpg200count,
+        enclosureCount,
+        ...passThroughFields
+      } = fields;
+
+      const order: any = {
+        orderDate: new Date().toISOString(),
+        ...passThroughFields,
+        items: []
+      };
+
+      if(mpg200count > 0){
+        order.items.push({name: 'MPG-200', count: mpg200count});
+      }
+      if(enclosureCount > 0){
+        order.items.push({name: 'Enclosure', count: enclosureCount});
+      }
+
+      console.log('submitting', order);
+      firebaseApi.submitOrder(order);
     }
   }
 
@@ -58,11 +91,24 @@ class PageMpg200Order extends Component {
   render() {
     return <div className="order">
       <h1>MPG-200 Order Form</h1>
+      number of items
       <FormValidation onSubmit={this.onSubmit} config={formConfig}>
         {({ errors, fields, submitted }) => (
           <>
             <div>
               Please fill in the form below and I will send you a Paypal invoice
+            </div>
+            <div className="order_form-input">
+              <input name="mpg200count" width={2}/>
+              Number of MPG-200 kits
+              {submitted && errors.mpg200count &&
+              <span className="order_validation-error">{errors.mpg200count}</span>}
+            </div>
+            <div className="order_form-input">
+              <input name="enclosureCount" width={2}/>
+              Number of enclosures
+              {submitted && errors.enclosureCount &&
+              <span className="order_validation-error">{errors.enclosureCount}</span>}
             </div>
             <h2>Personal details</h2>
             <div className="order_form-input">
@@ -107,6 +153,11 @@ class PageMpg200Order extends Component {
               {submitted && errors.country &&
               <span className="order_validation-error">{errors.country}</span>}
             </div>
+
+            <h2>Additional</h2>
+            <div className="order_form-input">
+              <textarea name="comments" placeholder="comments" maxLength={4000}/>
+            </div>
             <div className="order_form-input">
               <label>
                 <input type="checkbox" name="terms"/> Accept terms
@@ -114,7 +165,7 @@ class PageMpg200Order extends Component {
                 <span className="order_validation-error">{errors.terms}</span>}
               </label>
             </div>
-            <button>Order</button>
+            <button>Submit order</button>
           </>
         )}
       </FormValidation>

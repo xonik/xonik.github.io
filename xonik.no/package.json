@@ -5,6 +5,7 @@
   "dependencies": {
     "calidation": "^1.6.0",
     "classnames": "^2.2.6",
+    "firebase": "^7.5.2",
     "node-sass": "^4.13.0",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
