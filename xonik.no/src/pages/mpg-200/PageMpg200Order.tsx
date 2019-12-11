@@ -1,7 +1,8 @@
-import React, { ChangeEvent, Component } from 'react';
+import React, { Component } from 'react';
 import { FormContext, FormValidation } from 'calidation';
 import firebaseApi from '../../integration/firebase/api';
 import './PageMpg200Order.scss';
+import { paths } from '../../router/routes';
 
 const formConfig = {
   mpg200count: {
@@ -14,6 +15,7 @@ const formConfig = {
     isRequired: 'Name is required!',
   },
   email: {
+    isRequired: 'Name is required!',
     isEmail: 'Email is required',
   },
   email2: {
@@ -51,11 +53,20 @@ const formConfig = {
   }
 };
 
-class PageMpg200Order extends Component {
+interface State {
+  mpg200Count: number,
+  enclosureCount: number,
+}
+
+class PageMpg200Order extends Component<any, State> {
 
   constructor(props: any) {
     super(props);
-    this.handleTextChange = this.handleTextChange.bind(this);
+
+    this.state = {
+      mpg200Count: 0,
+      enclosureCount: 0,
+    }
   }
 
   onSubmit({ fields, isValid }: FormContext) {
@@ -84,32 +95,46 @@ class PageMpg200Order extends Component {
     }
   }
 
-  handleTextChange(event: ChangeEvent<HTMLInputElement>) {
-    this.setState({ [event.target.name]: event.target.value });
-  }
 
   render() {
+
+    const options = [0,1,2,3,4,5,6,7,8,9,10];
+    const sum = this.state.mpg200Count * 50 + this.state.enclosureCount * 10;
+
     return <div className="order">
       <h1>MPG-200 Order Form</h1>
-      number of items
+      <p>
+        If you've arrived here you probably know what the MPG-200 is all about.
+        If not, <a href={paths.mpg200} title="Check out the MPG-200">check it out</a>
+      </p>
+      <p>
+        intro text, one man operation
+      </p>
       <FormValidation onSubmit={this.onSubmit} config={formConfig}>
         {({ errors, fields, submitted }) => (
           <>
             <div>
               Please fill in the form below and I will send you a Paypal invoice
             </div>
+            <h2>Items</h2>
             <div className="order_form-input">
-              <input name="mpg200count" width={2}/>
-              Number of MPG-200 kits
-              {submitted && errors.mpg200count &&
-              <span className="order_validation-error">{errors.mpg200count}</span>}
+              <select name="mpg200count" onChange={e => this.setState({mpg200Count: parseInt(e.target.value)})}>
+                {options.map(index => <option key={index} value={index}>{index}</option>)}
+              </select>
+              MPG-200 kits, €50 per kit
             </div>
             <div className="order_form-input">
-              <input name="enclosureCount" width={2}/>
-              Number of enclosures
-              {submitted && errors.enclosureCount &&
-              <span className="order_validation-error">{errors.enclosureCount}</span>}
+              <select name="enclosureCount" onChange={e => this.setState({enclosureCount: parseInt(e.target.value)})}>
+                {options.map(index => <option key={index} value={index}>{index}</option>)}
+              </select>
+              Laser cut MDF enclosures, €10 per enclosure
             </div>
+            <p>
+              <strong>Total: {sum} + shipping</strong>
+            </p>
+            <p>
+              In addition, you will have to pay any customs fees, VAT and other fees applicable in your country.
+            </p>
             <h2>Personal details</h2>
             <div className="order_form-input">
               <input name="name" placeholder="Name"/>

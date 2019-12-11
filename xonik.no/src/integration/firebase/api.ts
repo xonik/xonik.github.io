@@ -22,6 +22,11 @@ const submitOrder = (order: any) => {
   db.ref('orders').push(order);
 };
 
+const submitContactForm = (order: any) => {
+  db.ref('contactForm').push(order);
+};
+
 export default {
   submitOrder,
+  submitContactForm,
 }
