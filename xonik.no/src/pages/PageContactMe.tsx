@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { FormContext, FormValidation } from 'calidation';
 import firebaseApi from '../integration/firebase/api';
+import history from '../router/history';
+import { paths } from '../router/routes';
 
 const formConfig = {
   name: {
@@ -20,13 +22,13 @@ const formConfig = {
 
 class PageContactMe extends Component {
 
-  constructor(props: any) {
-    super(props);
-  }
-
   onSubmit({ fields, isValid }: FormContext) {
     if (isValid) {
-      firebaseApi.submitContactForm(fields);
+      firebaseApi.submitContactForm({
+        ...fields,
+        date: new Date().toISOString(),
+      });
+      history.push(paths.contactMeReceipt);
     }
   }
 
@@ -38,7 +40,9 @@ class PageContactMe extends Component {
         {({ errors, fields, submitted }) => (
           <>
             <p>
-              I am a one man operation and will try to get back to you as soon as possible.
+              Xonik Devices is a one man operation. If you want to contact me, ask me any question
+              or just chat about synths, fill in the form and I will try to get back to you as soon
+              as possible.
             </p>
             <div className="order_form-input">
               <input name="name" placeholder="Name"/>

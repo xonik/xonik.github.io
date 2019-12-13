@@ -3,6 +3,7 @@ import { FormContext, FormValidation } from 'calidation';
 import firebaseApi from '../../integration/firebase/api';
 import './PageMpg200Order.scss';
 import { paths } from '../../router/routes';
+import history from '../../router/history';
 
 const formConfig = {
   mpg200count: {
@@ -92,6 +93,7 @@ class PageMpg200Order extends Component<any, State> {
 
       console.log('submitting', order);
       firebaseApi.submitOrder(order);
+      history.push(paths.mpg200orderReceipt);
     }
   }
 

@@ -4,6 +4,7 @@ import Helmet from 'react-helmet';
 import Footer from './Footer';
 import Header from './Header';
 import './Layout.scss';
+import { paths } from '../router/routes';
 
 type Props = RouteComponentProps<any>;
 
@@ -15,7 +16,7 @@ const Layout: React.FunctionComponent<Props> = props => {
       <Helmet defaultTitle="Xonik.no"/>
       <Header />
       <div>
-        <a href="http://xonik.no"><img src="/images/xonik-logo.png" className="logo-image" alt="Xonik logo"/></a>
+        <a href={paths.root}><img src="/images/xonik-logo.png" className="logo-image" alt="Xonik logo"/></a>
         <div className="layout__main">{children}</div>
       </div>
       <Footer />
