@@ -12,7 +12,8 @@ export default () => {
     </p>
 
     <p>
-      <a href={paths.mpg200buildersGuide} title="Builders guide">Already ordered? Check out the builder's guide!</a>
+      <a href={paths.mpg200buildersGuide} title="Builders guide">Already ordered? Check out the
+        builder's guide!</a>
     </p>
 
     <h2>About the MPG-200</h2>
@@ -69,25 +70,18 @@ export default () => {
     <p>
       A sysex file generator can be found at <a
       href="https://xonik.github.io/mpg-200/sysex/mpg200.html">xonik.no </a>. It lets you tweak
-      the parameters and generate a valid configuration sysex. If you're running Google Chrome you
-      can
-      even run the sysex and update the MPG-200 directly from your browser.
+      the parameters and generate a valid configuration sysex. You can map each PG-200 parameter to
+      any CC on any midi channel you like. If your browser supports WebMIDI you can even update the
+      configuration directly from the browser.
     </p>
-    <p>
-      You can map each PG-200 parameter to any CC on any midi channel you like. This is done through
-      sysex, and an online sysex generator is available at <a
-      href="https://xonik.github.io/mpg-200/sysex/mpg200.html">xonik.no
-    </a>. If your browser supports WebMIDI you can even update the configuration directly from the
-      browser.
-    </p>
-    <p>
+    <h2>
       Firmware
-    </p>
+    </h2>
     <p>
       Firmware on the MPG-200 can be updated through MIDI, in case I come up with new features or
       bugs
-      need to be fixed. As with the settings, an online WebMIDI-based firmware updater is found at
-      <a href="https://xonik.github.io/bootloader/index.html">xonik.no</a>.
+      need to be fixed. As with the settings, an online WebMIDI-based firmware updater is found
+      at <a href="https://xonik.github.io/bootloader/index.html">xonik.no</a>.
     </p>
     <h2>Things to be aware of</h2>
     <p>
@@ -122,7 +116,7 @@ export default () => {
       to power the internal opamps. These are not needed on the MPG-200 and are therefore left out.
       This means that you cannot use the cable to replace a missing PG-200 cable. You CAN however
       get your own six conductor cable and use the provided connectors to make a PG-200 cable. More
-      info about the PG-200 can be found <a href="./pg-200/pg-200.html">here</a>.
+      info about the PG-200 can be found <a href={paths.pg200}>here</a>.
     </p>
     <p>
       For the time being you will have to build your own enclosure, or leave the MPG-200 without
@@ -135,5 +129,5 @@ export default () => {
       The MPG-200 does not have any knobs or switches, it is a pure electronical protocol
       translator. You need to bring your own midi controller.
     </p>
-  </div>
+  </div>;
 };

@@ -3,8 +3,6 @@ import { paths } from '../router/routes';
 
 export default () => {
   return <div>
-    <a href="http://xonik.no"><img src="images/xonik-logo.png" className="logo-image"/></a>
-
     <h1>Xonik Devices</h1>
     <p>
       Xonik Devices specializes in synthesizer related hardware and software. We do new designs as
@@ -15,7 +13,7 @@ export default () => {
     </h2>
     <p>
       <ul>
-        <li><a href="68b01/index.html">The Xonik 68b01 Prophet VS keyboard controller</a></li>
+        <li><a href={paths.keyboardController}>The Xonik 68b01 Prophet VS keyboard controller</a></li>
         <li><a href={paths.mpg200}>MPG-200, a MIDI-to-PG-200 protocol converter for the
           Roland
           JX-3P/MKS-30</a></li>
@@ -30,11 +28,11 @@ export default () => {
         <li><a href="http://atosynth.blogspot.com">A to Synth, a project blog</a></li>
         <li><a href="http://so909.blogspot.com">So 909, a blog dedicated to the building of the
           Machinebeats TR-909 clone</a></li>
-        <li><a href="mpg-200/pg-200/pg-200.html">The PG-200 protocol and pinout</a></li>
+        <li><a href={paths.pg200}>The PG-200 protocol and pinout</a></li>
         <li><a href={paths.xm8}>The Xonik Matrix 8 polyphonic synthesizer project</a></li>
-        <li><a href="tbaneklokke">T-baneklokke - a way to get your wife to stop asking when to
+        <li><a href="http://atosynth.blogspot.no/2016/03/t-baneklokke-coundown-clock.html">T-baneklokke - a way to get your wife to stop asking when to
           leave</a></li>
-        <li><a href="machinebeats">The Machinebeats analog drum synthesizer</a></li>
+        <li><a href={paths.machinebeats}>The Machinebeats analog drum synthesizer</a></li>
       </ul>
     </p>
     <h2>
