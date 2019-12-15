@@ -69,7 +69,7 @@ export default () => {
     </p>
     <p>
       A sysex file generator can be found at <a
-      href="https://xonik.github.io/mpg-200/sysex/mpg200.html">xonik.no </a>. It lets you tweak
+      href="/mpg-200-sysex/mpg200.html">xonik.no </a>. It lets you tweak
       the parameters and generate a valid configuration sysex. You can map each PG-200 parameter to
       any CC on any midi channel you like. If your browser supports WebMIDI you can even update the
       configuration directly from the browser.
@@ -81,7 +81,7 @@ export default () => {
       Firmware on the MPG-200 can be updated through MIDI, in case I come up with new features or
       bugs
       need to be fixed. As with the settings, an online WebMIDI-based firmware updater is found
-      at <a href="https://xonik.github.io/bootloader/index.html">xonik.no</a>.
+      at <a href="/bootloader/index.html">xonik.no</a>.
     </p>
     <h2>Things to be aware of</h2>
     <p>
