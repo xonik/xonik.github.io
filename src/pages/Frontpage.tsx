@@ -5,8 +5,10 @@ export default () => {
   return <div>
     <h1>Xonik Devices</h1>
     <p>
-      Xonik Devices specializes in synthesizer related hardware and software. We do new designs as
-      well as repairs.
+      Xonik Devices is a one man, in-my-spare-time operation. I do new designs as well as repairs.
+    </p>
+    <p>
+      If you want to get in touch with me, use the <a href={paths.contactMe}>contact form</a>
     </p>
     <h2>
       Products on offer:
