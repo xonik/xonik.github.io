@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "xonik.no/precache-manifest.83566bea778d2f875055d824b83a4001.js"
+  "xonik.no/precache-manifest.d8eeaf0804abd47646ef54a7f69dc858.js"
 );
 
 self.addEventListener('message', (event) => {

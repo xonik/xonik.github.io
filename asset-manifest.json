@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "xonik.no/static/css/main.190c2f20.chunk.css",
-    "main.js": "xonik.no/static/js/main.301d705b.chunk.js",
-    "main.js.map": "xonik.no/static/js/main.301d705b.chunk.js.map",
+    "main.js": "xonik.no/static/js/main.a0a3d367.chunk.js",
+    "main.js.map": "xonik.no/static/js/main.a0a3d367.chunk.js.map",
     "runtime-main.js": "xonik.no/static/js/runtime-main.0c6a806c.js",
     "runtime-main.js.map": "xonik.no/static/js/runtime-main.0c6a806c.js.map",
     "static/js/2.9d7c227c.chunk.js": "xonik.no/static/js/2.9d7c227c.chunk.js",
     "static/js/2.9d7c227c.chunk.js.map": "xonik.no/static/js/2.9d7c227c.chunk.js.map",
     "index.html": "xonik.no/index.html",
-    "precache-manifest.83566bea778d2f875055d824b83a4001.js": "xonik.no/precache-manifest.83566bea778d2f875055d824b83a4001.js",
+    "precache-manifest.d8eeaf0804abd47646ef54a7f69dc858.js": "xonik.no/precache-manifest.d8eeaf0804abd47646ef54a7f69dc858.js",
     "service-worker.js": "xonik.no/service-worker.js",
     "static/css/main.190c2f20.chunk.css.map": "xonik.no/static/css/main.190c2f20.chunk.css.map",
     "static/media/1n4148.jpg": "xonik.no/static/media/1n4148.996cf65b.jpg",
@@ -36,6 +36,6 @@
     "static/js/runtime-main.0c6a806c.js",
     "static/js/2.9d7c227c.chunk.js",
     "static/css/main.190c2f20.chunk.css",
-    "static/js/main.301d705b.chunk.js"
+    "static/js/main.a0a3d367.chunk.js"
   ]
 }
