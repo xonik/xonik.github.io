@@ -48,7 +48,7 @@ export default () => {
     </ul>
     <p>
       From the service manual: Data is transfered LSB first, the 9th bit indicates data type.<br/>
-      <img src={pg200tx} width="524"/>
+      <img src={pg200tx} width="524" alt="PG-200 data transmission"/>
     </p>
     <h2>Commands</h2>
     <p>Commands are grouped into two main categories - potentiometers and switches. All the
@@ -323,7 +323,7 @@ export default () => {
       Value and address bytes are closely related to the hardware layout of the PG-200:
     </p>
     <p>
-      <img src={pg200switches} width="524"/>
+      <img src={pg200switches} width="524" alt="PG-200 switch diagram"/>
     </p>
     <p>
       The rows, P10-P13 correspond to the group addresses. The columns are read as the switch
@@ -386,7 +386,7 @@ export default () => {
       This is the pin numbering looking into the front of a female din connector (image is
       borrowed from <a
       href="http://www.digitalpeer.com/blog/diy-hitec-optic-6-cable-for-phoenix-rc-simulator">digitalpeer</a>).<br/>
-      <img src={sixPinDin} width="140"/>
+      <img src={sixPinDin} width="140" alt="Six pin PG-200 plug"/>
     </p>
 
     <h2>Gotchas</h2>
@@ -433,7 +433,7 @@ export default () => {
 
     <p>
       Read more about the MPG-200 and my other projects on my project blog <a
-      href="http://atosynth.blogspot.com" target="_blank">A to Synth</a>
+      href="http://atosynth.blogspot.com" target="_blank" rel="noopener noreferrer">A to Synth</a>
     </p>
   </div>;
 };
