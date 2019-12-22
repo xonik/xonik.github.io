@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "2f53c87585804a0a62b664b76bdfed6b",
+    "revision": "cfcc5265c8f2a26a9467cd822577bea9",
     "url": "xonik.no/index.html"
   },
   {
-    "revision": "89a8645c487415c0cabd",
+    "revision": "042b53d868679fd08c9d",
     "url": "xonik.no/static/css/main.190c2f20.chunk.css"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "xonik.no/static/js/2.9d7c227c.chunk.js"
   },
   {
-    "revision": "89a8645c487415c0cabd",
-    "url": "xonik.no/static/js/main.a0a3d367.chunk.js"
+    "revision": "042b53d868679fd08c9d",
+    "url": "xonik.no/static/js/main.efb8391c.chunk.js"
   },
   {
     "revision": "3543d91b3d134742d68f",
