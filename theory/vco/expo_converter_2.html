@@ -1,0 +1,509 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>The exponential converter explained</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<link rel="stylesheet" type="text/css" href="../theory.css">
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+  });
+</script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS_HTML-full"></script>
+<script type="text/javascript" src="../theory.js"></script>
+<script src="../jquery-2.1.1.min.js"></script>
+
+</head>
+<body>
+
+<H1>Temperature compensation for $I_s$</H1>
+<div class="ingress">
+<p>
+$I_s$ is the big bad wolf when it comes to exponential conversion using a transistor. The way to get rid of $I_s$ is, as you may have seen around the web, to use two NPN transistors connected together instead of just one. These should idealy be matched and on the same piece of silicon in order to have the same $I_s$ and to be thermally coupled (always at the same temperature).
+<p>
+But why and how does this circuit remove the dependency on $I_s$?
+</p>
+</div>
+<p>
+René Schmitz included a paragraph on this in his "A tutorial on exponential convertors and temperature compensation". While he shows the most important results and tries to explain the method in a more intuitive way, he intentionally leaves out much of the transistor theory and mathematics behind the circuit and formula.
+</p>
+<p>
+I have tried to recreate the missing pieces to understand how it all comes about. This whole document should be seen as an elaboration on Schmitz' article. It is not enough to read this document to create a working, stable exponential converter, but it may help you understand a bit more.
+</p>
+<p>
+The road to fully understanding what is going on is littered with mathematics and has a few steps that you may not immediately see the reason for. I have included the intermediate steps in all formulas, but they are initially hidden to improve readability. Just click on show/hide details and they will appear. Now let's start with the basics.
+</p>
+
+<h2>The relation between input and output of the transistor</h2>
+<p>
+	As we start off, it is important to realize that for the transistor, the collector current $I_c$ is determined not by the base current $I_b$ but by the base-emitter voltage $V_{be}$. The relation between $I_c$ and $V_{be}$ can be approximated by the Ebers Moll equation.
+</p>
+<p>
+	The Ebers Moll equation, as mentioned, can be written as
+</p>
+<p>
+	\(I_c = I_s \cdot e^{\frac{V_{be}}{V_T}}\)
+</p>
+<p>
+	given that $I_s$ is much smaller than $I_c$. Solving the equation for $V_{be}$ gives us
+</p>
+<div>
+	<a href="#" class="expandButton" onclick="openDiv">[show/hide details]</a>
+	<div class="details">
+		<p>
+			\(ln(I_c) = ln(I_s \cdot e^{\frac{V_{be}}{V_T}}) = ln(I_s) + ln(e^{\frac{V_{be}}{V_T}})\)
+			<br>
+			\(ln(I_c) = ln(I_s) + \frac{V_{be}}{V_T}\)
+			<br>
+			\(\frac{V_{be}}{V_T} = ln(I_c) - ln(I_s)\)
+		</p>
+		<p>
+			and finally
+		</p>
+	</div>
+	<p class="fact">
+		\(V_{be} = V_T \cdot [ln(I_c) - ln(I_s)]\)
+	</p>
+</div>
+<p>
+	Let us now assume that we can keep the collector current $I_c$ constant (using a current source). Since $I_s$ is also constant at a constant temperature, this leads us to the conclusion that:
+</p>
+<p class="fact">
+	The base-emitter voltage $V_{be}$ must be constant if $I_c$ is constant.
+</p>
+<p>
+	And thus
+</p>
+<p class="fact">
+If $I_c$ is constant and we change the base voltage $V_b$ with a value $\Delta V_b$, the emitter voltage $V_e$ will change with the same amount independent of the initial value of both $V_b$ and $V_e$.
+</p>
+<p class="example">
+	Example:<br>
+	Assuming we have these initial conditions:<br>
+	\(V_b = 1V, V_e = 0.4V\)<br><br>
+	If we increase $V_b$ by 18mV, we end up with<br>
+	\(V_b = 1.018V, V_e = 0.418V\)<br><br>
+ </p>
+ <h2>Two transistors with a common emitter</h2>
+ <p>
+ 	Now let's see what happens when we connect two transistors at the base, like the one you can see in all VCO diagrams out there. The collector current of transistor 1, $I_{c_1}$ is still assumed to be constant.
+ </p>
+  <img src="img/illustration_5.png" height="200">
+ <p class="fact">
+ 	When the transistors have the emitters connected together, they must also have the same $V_e$ at all times.
+ </p>
+ <p>
+ 	From the previous discussion, we know that if we change $V_b$ by an amount $\Delta V_b$, we also change $V_e$ by the same amount. Since our two transistors are connected at the emitter, changing the base voltage of transistor 1, $V_{b_1}$ will change the emitter voltage $V_e$ for BOTH transistors.
+ </p>
+ <h3>Trick 1</h3>
+ <p>
+ 	Now connect the base of transistor two to ground so that $V_{b_2} = 0V$ at all times. What will happen when we change $V_{b_1}$?
+</p>
+<p>
+	Well, we just said that changing $V_{b_1}$ by $\Delta V_b$ would also change $V_{e}$ by $\Delta V_b$. But what about $V_{b_2}$? It cannot go anywhere as it is stuck at $0V$. This, of course, means that the base-emitter voltage for transistor 2, $V_{be_2}$ increases by $\Delta V_b$.
+</p>
+<p>
+	Remember, $V_{be_1}$ is unchanged. Thus, $V_{be_1}$ and $V_{be_2}$ are no longer equal, and the difference between them is $\Delta V_b$.
+</p>
+<div class="fact">
+	<p>When transistor 2 has its base grounded, changing $V_{b_1}$ by $\Delta V_b$ will also change $V_{be_2}$ by $\Delta V_b$.
+	</p>
+	<p>When transistor 2 has its base grounded, the <i>difference</i> between $V_{be_1}$ and
+		$V_{be_2}$ is -$V_{b_1}$:<br>
+	\(\Delta V_{be} = V_{be_2} - V_{be_1} = V_{b_{2}} - V_e - (V_{b_1} - V_e) = -V_{b_1}\)
+	</p>
+</div>
+<p></p>
+<div class="example">
+	Example:
+	<p>
+		Given the initial condition:<br>
+		$V_{b_1} = 0V$
+	</p>
+	<p>
+		As $V_{b_1}$ and $V_{b_2}$ are both at $0V$, their base-emitter voltages will be the same. Let's call it $V_{be_{initial}}$
+	</p>
+	<p>
+		If we lower $V_{b_1}$ to $-18mV$, $V_e$ will also drop by $18mV$* (*BY 18mV, not TO 18mV mind you).
+	</p>
+	<p>
+		Because $V_{b_2}$ cannot change we now have
+	</p>
+	<p>
+		 \(V_{be_2} = V_{be_{initial}} -18mV\)
+	</p>
+	<p>NB: Even if we did NOT choose $V_{b_1} = 0V$ as an initial condition (which means that the
+		initial base-emitter voltages would be different for the two transistors), we would still get that $V_{be_2}$ would have <i>changed</i> by -18mV.
+</div>
+<p>
+	So trick 1 is that changing the base voltage of transistor 1 will lead to a change in the base-emitter voltage of transistor 2. This in turn changes the $I_c$ pf transistor 2. Big deal, so what?
+</p>
+<p>Oh, but here is where it gets exiting. Enter Trick 2.</p>
+<h3>Trick 2</h3>
+<p>
+	Time to get rid of $I_s$! This trick explains why the dual transistor configuration described above makes the the troublesome, temperature dependant $I_s$ disappear.
+</p>
+<p>
+	We just stated that
+</p>
+<p>
+	\(\Delta V_{be} = V_{be_2} - V_{be_1}\)
+</p>
+<p>
+	and earlier we showed that Ebers Moll can be written as
+</p>
+<p>
+	\(V_{be} = V_T \cdot [ln(I_c) - ln(I_s)]\)
+</p>
+<p>
+	This means that we can write $\Delta V_{be}$ as
+</p>
+<div>
+	<a href="#" class="expandButton" onclick="openDiv">[show/hide details]</a>
+	<div class="details">
+		<p>
+			\(\Delta V_{be} = V_T \cdot [ln(I_{c_2}) - ln(I_s)] - V_T \cdot [ln(I_{c_1}) - ln(I_s)]\)<br>
+			\(\Delta V_{be} = V_T \cdot [ln(I_{c_2}) - ln(I_s) - ln(I_{c_1}) + ln(I_s)]\)<br>
+			\(\Delta V_{be} = V_T \cdot [ln(I_{c_2}) - ln(I_{c_1})]\)
+		</p>
+	</div>
+</div>
+<p>
+	\(\Delta V_{be} = V_T \cdot ln(\frac{I_{c_2}}{I_{c_1}})\)
+</p>
+<p class="fact">
+	The difference between the base-emitter voltages of the two transistors can be written as	\(\Delta V_{be} = V_T \cdot ln(\frac{I_{c_2}}{I_{c_1}})\)
+</p>
+<p>
+	Wow! Did you see that? $I_s$ just magically disappeared! Ah, but so it did in the explanation of the basic exponential converter as well, and that didn't help us much back then, did it?
+</p>
+<p>
+	In fact, this time it does. Last time, the initial value of the output current $I_c$ depended on $I_s$ through the Ebers-Moll equation. But let's see what happens if we solve the equation above for what is now the output current, $I_{c_2}$:
+</p>
+<div>
+	<a href="#" class="expandButton" onclick="openDiv">[show/hide details]</a>
+	<div class="details">
+		<p>
+			\(\Delta V_{be} = V_T \cdot ln(\frac{I_{c_2}}{I_{c_1}})\)<br>
+			\(ln(\frac{I_{c_2}}{I_{c_1}}) = \frac{\Delta V_{be}}{V_T}\)<br>
+			\(\frac{I_{c_2}}{I_{c_1}} = e^{\frac{\Delta V_{be}}{V_T}}\)<br>
+		</p>
+		<p>
+			and finally
+		</p>
+	</div>
+</div>
+<div style="float: right">
+	<img src="img/illustration_4.png" height="200" class="singleillustration">
+</div>
+<p>
+	\(I_{c_2} = I_{c_1} \cdot e^{\frac{\Delta V_{be}}{V_T}}\)
+</p>
+<p>
+	As $I_{c_1}$ is constant, we'll call it $I_{ref}$. <br> $I_{c_2}$ will be used to control the vco core, so let's call it $I_{core}$:
+</p>
+<p>
+	\(I_{core} = I_{ref} \cdot e^{\frac{\Delta V_{be}}{V_T}}\)
+</p>
+<p>
+	This time, $I_{core}$ only depends on $\Delta V_{be}$* (*and $V_T$ which also varies a little
+	with temperature as we have seen eariler). $I_{ref}$ is still presumed to be constant. Since $\Delta V_{be}$ is equal to $-V_{b_1}$ when the base of transistor two is at $0V$, we get a superb, usable formula:
+</p>
+<p class="fact" xanchor="expConverterFunction">
+	The output current $I_{core}$ can always be found as a function of the base voltage of the first transistor:<br>
+	\(I_{core} = I_{ref} \cdot e^{\frac{-V_{b_1}}{V_T}}\)
+</p>
+<p>
+	In much the same way as we did for the basic exponential converter, we can now figure out how much $V_{b_1}$ needs to change to double $I_{core}$.
+</p>
+<p>
+	Solving for $V_{b_1}$ gives us
+</p>
+<div>
+	<a href="#" class="expandButton" onclick="openDiv">[show/hide details]</a>
+	<div class="details">
+		<p>
+			\(\frac{I_{core}}{I_{ref}} = e^{\frac{-V_{b_1}}{V_T}}\)<br>
+			\(ln(\frac{I_{core}}{I_{ref}}) = \frac{-V_{b_1}}{V_T}\)<br>
+		</p>
+	</div>
+</div>
+<p>
+	\(V_{b_1} = -V_T \cdot ln(\frac{I_{core}}{I_{ref}})\)
+</p>
+<p>
+	The change in $V_{b_1}$ that causes a doubling of $I_{core}$ can then be written as
+</p>
+<p>
+	\(\Delta V_{b_1} = -V_T \cdot ln(\frac{2 I_{core}} {I_{ref}}) - (-V_T \cdot ln(\frac{I_{core}}
+	{I_{ref}}))\)
+</p>
+<p>
+	and be simplified to
+</p>
+<div>
+	<a href="#" class="expandButton" onclick="openDiv">[show/hide details]</a>
+	<div class="details">
+		<p>
+			\(\Delta V_{b_1} = -V_T \cdot [ ln(\frac{2 I_{core}} {I_{ref}}) - ln(\frac{I_{core}}
+			{I_{ref}})]\)<br>
+			\(\Delta V_{b_1} = -V_T \cdot ln(\frac{\frac{2 I_{core}} {I_{ref}}}{\frac{I_{core}}
+			{I_{ref}}})\)<br>
+			\(\Delta V_{b_1} = -V_T \cdot ln(\frac{2 I_{core}}{I_{core}})\)<br>
+		</p>
+	</div>
+</div>
+<p class="fact">
+	The change in base voltage of the first transistor that is necessary to double the output current $I_{core}$ is: <br><br>
+	\(\Delta V_{b_1} = -V_T \cdot ln(2)\)<br>
+</p>
+<p>
+	which, incidently is the same result as we saw for the basic exponential converter, meaning that the voltage necessary to double $I_{core}$, \(\Delta V_{b_1} = 17.5mV\) at $20°C$.
+</p>
+<p>
+	TODO: comment on why it is reversed - and thus is -17.5mV, not 17.5mV. CORRECT EVERYTHING
+	FROM HERE ON OUT!
+</p>
+<H1>Temperature compensation for $V_T$</H1>
+<div class="ingress">
+<p>
+	The second temperature dependent part of the exponential converter is found in the exponential factor. and is guilty of streching or compressing the scale as the temperature changes. Though the math here is much simpler and the solution is no big trick like the previous one, it is in practice also hard to get completely right.
+</p>
+</div>
+<p>
+	From Ebers Moll we get that
+</p>
+<p>
+	\(I_c = I_s \cdot e^{\frac{V_{be}}{V_T}}\)
+</p>
+<p>
+	and we've already seen how $I_s$ is temperature dependent. From a previous chapter we know that
+</p>
+<p>
+	\(V_T = \frac{k \cdot T}{q}\)
+</p>
+<p>
+	where <br>
+	\(k = 1.38 \cdot 10^{-23}\) Joules/Kelvin<br>
+	\(q = 1.6 \cdot 10^{-19}\) Coloumbs<br>
+	\(T = \) absolute temperature in degrees Kelvinq (= degrees celcius + 273.16)
+</p>
+<p>
+	From this we can calculate the change in $V_T$ that occurs when the temperature increases one degree:
+</p>
+	Let \(V_{T_0} = \frac{k \cdot T}{q}\) be the initial voltage<br>
+	and \(V_{T_1} = \frac{k \cdot (T + 1)}{q}\) be the voltage when the temperature is increased by 1 degree<br>
+<p>
+<p>
+	We now have that the voltage increase is
+</p>
+<p>
+	\(\Delta V_T = V_{T_1} - V_{T_0} = \frac{k}{q} \cdot (T + 1) - \frac{k}{q} \cdot T = \frac{k}{q}\)<br>
+	\(\Delta V_T = \frac{1.38 \cdot 10^-23 J/K}{1.6 \cdot 10^-19 C} = 86.25 \mu V \)
+</p>
+<p>
+	In other words, the temperature dependency of $V_T$ can be expressed as follows:
+</p>
+<p class="fact">
+	A temperature increase of 1 degree leads to an 86.25 $\mu V$ increase in $V_T$
+</p>
+<p>
+	From earlier, we know that the change in $V_{be}$ that is required to double the frequency of the VCO is
+</p>
+<p>
+	\(\Delta V_{be} = V_T \cdot ln(2)\)
+</p>
+<p>
+	When the temperature increases by one degree, this changes to
+</p>
+<p>
+	\(\Delta V_{be} = (V_T + \Delta V_T) \cdot ln(2) = V_T \cdot ln(2) + \Delta V_T \cdot ln(2)\)
+</p>
+<p>
+	Thus, the increase in temperature by one degree leads to a change in $\Delta V_{be}$ of  \(\Delta V_T \cdot ln(2) = 86.25 \mu V \cdot ln(2) = 59.78 \mu V \)
+</p>
+<p class="fact">
+	A temperature increase of 1 degree leads to a $59.78 \mu V$ increase in the value of $\Delta V_{be}$ required to double the frequency.
+</p>
+<p>
+	Ok, so let's recap what we know:<br>
+	- We want the VCO to double it's frequency when the input is increased by 1V<br>
+	- At 20 degrees, the exponential converter doubles it output whenever the input is increased by $17.5 mV$<br>
+	- The voltage necessary to double the output increases with $59.78 \mu V$ per degree the temperature rises.
+</p>
+
+<div style="float: right">
+	<img src="img/illustration_6.png" height="150"  class="singleillustration">
+</div>
+
+<p>
+	To achieve the first goal, we simply use a resistor voltage divider. By selecting an appropriate ratio, we are able to convert 1V into 17,5mV.
+</p>
+<p>
+	The formula for such a divider is:
+</p>
+<p>
+	\(V_{out} = V_{in} \cdot \frac{R_2}{R_1 + R_2} \)<br>
+</p>
+<p>
+	For once I won't go into how to solve this, but needless to say there are many combinations that will work. A common one is
+</p>
+<p>
+	$R_1 = 56kOhm$<br>
+	$R_2 = 1kOhm$
+</p>
+<p>
+	which gives us
+</p>
+<p>
+	\(V_{out} = 1V \cdot \frac{1kOhm}{56kOhm + 1kOhm} = 17.5438mV\)
+</p>
+<p>
+	Fairly close to the ideal $17.5mV$ I'd say, the rest may be adjusted in the pitch CV summer circuit, making it output just slightly more than 1V per octave. But what about the voltage offset when the temperature increases? At 30 degrees we need \(17.5mV + 10°K \cdot 0.06 mV/°K = 18.1 mV\) to double the frequency?
+</p>
+<p>
+	Well, looking at the voltage divider, it should be clear that if we could increase the value of $R_2$ as the temperature increases, we would be able to also increase the voltage. For example, if $R_2$ was changed to a $2kOhm$ resistor, the output would be
+</p>
+<p>
+	\(V_{out} = 1V \cdot \frac{2kOhm}{56kOhm + 2kOhm} = 34.48mV\)
+</p>
+<p>
+	Fortunately, such a device exists. It's called a tempco resistor and its resistance increases linearly with temperature. There are however many different ones with different rates of increasing resistance, so how do we know which one to use? We'll get to that shortly, but first a little about this type of resistor.
+</p>
+<h2>The tempco resistor</h2>
+<p>
+	The tempco, or temperature correction resistor, is a resistor with a resistance that changes with temperature. The rate of change is often specified as for example 3300 ppm (parts per million) per °C, which means that its resistance changes by a factor of \(3300 \cdot 10^{-6} / °C\).
+</p>
+<p>
+	To find the resistance of a resistor with a ppm of P at a given temperature, you can use the following formula
+</p>
+<p class="fact">
+	\(R_{T_x} = R_{T_{initial}} \cdot (1 + P \cdot 10^{-6} \cdot x)\)
+</p>
+<p>
+	where
+</p>
+<p>
+	$P$ is the temperature coefficient in parts per million
+	$R_{T_{initial}}$ is the resistance at the initial temperature<br>
+	$x$ is the number of degrees celcius the temperature has changed from the initial<br>
+	$R_{T_x}$ is the resistance at the changed temperature.
+</p>
+<div class="example">
+	<p>
+		Example:
+	</p>
+	<p>
+		A 3300 ppm/°C resistor with a resistance of $1kΩ$ at $25°C$ will have a resistance of
+	</p>
+	<p>
+		\(1kΩ \cdot (1 + 3300 \cdot 10^{-6} / °C \cdot 5°C) = 1.0165kΩ\)
+	</p>
+	<p>
+		when the temperature is raised 5 degrees to 30°C.
+	</p>
+</div>
+<p>
+	The change is normally completely linear within the temperature range a synth operates. The "initial value", the value of the resistor in the datasheet/shop, is usually the resistance at room temperature ($25°C$) but you should probably check the data sheet for the resistor to confirm this. <b>NBNBN: Is this a lie?????:</b> It does not really matter that much since you will tune the VCO at one temperature and since the rate of change is constant, independently of the starting temperature, the temperature correction will still work.
+</p>
+<p>
+	This graph, from a Panasonic datasheet shows how the factor (temperature coefficient) changes for different ppm values
+</p>
+<p><img src="img/tempcograph.png" width="600"/></p>
+<h2>Finding the ppm value for the voltage divider</h2>
+<p>
+	Finding the correct ppm value for the $R_2$ resistor is just a matter of calculating how much we need to change the resistor value to get the correct voltage change when we increase the temperature by one degree. Dividing this value by the initial $R_2$ value gives us the coefficient.
+</p>
+<p>
+	By rearranging the voltage divider formula we get
+</p>
+<div>
+	<a href="#" class="expandButton" onclick="openDiv">[show/hide details]</a>
+	<div class="details">
+		<p>
+	\(V_{out} = V_{in} \cdot \frac{R_2}{R_1 + R_2} \)<br>
+	\(V_{out} \cdot (R_1 + R_2) = V_{in} \cdot R_2 \)<br>
+	\(V_{out} \cdot R_1 + V_{out} \cdot R_2 = V_{in} \cdot R_2 \)<br>
+	\(V_{out} \cdot R_2 - V_{in} \cdot R_2 = -V_{out} \cdot R_1\)<br>
+	\((V_{out} - V_{in} ) \cdot R_2 = -V_{out} \cdot R_1\)<br>
+		</p>
+		<p>
+	and finally
+		</p>
+	</div>
+</div>
+<p>
+	\(R_2 = \frac{-V_{out} \cdot R_1}{(V_{out} - V_{in} )}\)<br>
+</p>
+<p>
+	Lets try this on our previous voltage divider. At our initial temperature $R_2$ is $1kΩ$ and it outputs $17.5438mV$. Increasing the temperature by 1 degree meant we had to add 59.78μV, so the new output value is $17.6036mV$
+</p>
+<p>
+	Inserting this into the formula above, we get
+</p>
+<p>
+	\(R_2 = \frac{-17.6036mV \cdot 56kΩ}{(17.6036mV - 1000mV)} = \frac{-985.80mV\cdot kΩ}{-982.40 mV} = 1.00346kΩ\)<br>
+</p>
+<p>
+	This means that as we increase the temperature by one degree, our 1kΩ resistor must increase to a 1.00346kΩ one.
+	The relation between them is
+</p>
+<p>
+	\(\frac{1.00346kΩ}{1kΩ} = 1.00346\)
+</p>
+<p>We know that the coefficient can be written as \(1 + P \cdot 10^{-6}\), which means that</p>
+<div>
+	<a href="#" class="expandButton" onclick="openDiv">[show/hide details]</a>
+	<div class="details">
+		<p>
+	\(1 + P \cdot 10^{-6} = 1.00346\)<br>
+	\(P \cdot 10^{-6} = 1.00346 - 1\)<br>
+	\(P = \frac{0.00346}{10^{-6}}\)<br>
+		</p>
+		<p>and finally</p>
+	</div>
+</div>
+</p>
+<p>	\(P = 3460\)</p>
+<p>
+	in other words, we need to select a 1k resistor with a coefficient of 3460 ppm/°C. In practice this means you will have to use a 3300 ppm/°C or 3500 ppm/°C resistor as they only come in certain values.
+</p>
+<h2>One final thing...</h2>
+<p>
+	The more observant of you may have noticed a little ommitance in the previous discussion. Since we have $R_2$ in both the dividend and the divisor of the voltage divider formula, the change in the output voltage will not be completely linear even if the change in the resistor value is linear, i.e. it won't change by exactly \(59.78 \mu V\) per degree as the temperature increases. However, since $R_1$ is so much larger than $R_2$, this inaccuracy is mostly neglectable.
+</p>
+<div class="example">
+	<p>
+		Example:
+	</p>
+	<p>
+		Going from 20 to 30 degrees should ideally give us a voltage increase of \(10 \cdot 59.78 \mu V = 597.8 \mu V\). If we started at 17.5438mV the new output voltage would then have to be $18.1416 mV$.
+	</p>
+	<p>
+		Correspondingly, the resistance changes from 1k to
+	</p>
+	<p>
+		\( 1kΩ \cdot (1 + 0.00345/°C \cdot 10°C) = 1.0346kΩ\)
+	</p>
+	<p>
+		which in turn means that the real output voltage is
+	</p>
+	<p>
+		\(V_{out} = 1V \cdot \frac{1.0346kΩ}{56kΩ + 1.0346kΩ} = 18.1399mV\)<br>
+	</p>
+	<p>
+		This is quite accurate and is probably outweighed by other component inaccuracies, not least because you must buy either a 3300 ppm or a 3500 ppm resistor.
+	</p>
+</div>
+<script>
+$( ".expandButton" ).click(function( event ) {
+  event.preventDefault();
+  var detailsDiv = $(event.target).siblings(".details").first();
+  detailsDiv.toggle();
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+.fact{
+	background-color: #99ff99;
+	border: 2px dashed #777;
+	padding: 10px;
+}
+
+.example{
+	background-color: #ffff99;
+	border: 2px dashed #777;
+	padding: 10px;
+}
+
+.inset{
+	background-color: #eeeeee;
+	border: 2px dashed #777;
+	padding: 10px;
+}
+
+.details{
+	display: none;
+}
+
+.ingress{
+	font-weight: bold;
+}
+
+.formula,
+.formulaline{
+	padding-left: 30px;
+}
+
+.singleillustration {
+	background-color: #ddd;
+	border: 1px solid #000;
+	margin: 20px;
+	padding: 5px;
+}
+
+li {
+	padding: 0.25em;
+}
+
+.fullwidth {
+	width: 95%;
+}
+
+.halfwidth {
+	width: 47.5%;
+}
+
+.halfcolumn {
+	padding: 10px;
+	width: 47.5%;
+	float: left;
+}
+.clear {
+	content: "";
+	clear: both;
+	display: table;
+}
