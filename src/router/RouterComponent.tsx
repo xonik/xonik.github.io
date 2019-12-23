@@ -1,11 +1,12 @@
 import * as React from 'react';
+import history from './history';
 import { routes } from './routes';
 import {
   ROUTE_NORMAL,
   ROUTE_REDIRECT
 } from './routes.type';
 import { Routes } from './routes.type';
-import { Redirect, Route, BrowserRouter, Switch } from 'react-router-dom';
+import { Redirect, Route, Router, Switch } from 'react-router-dom';
 
 const getRoutes = (routes: Routes) => {
   return routes.map(route => {
@@ -38,12 +39,12 @@ const getRoutes = (routes: Routes) => {
 };
 
 const RouterComponent = () => (
-  <BrowserRouter basename={process.env.PUBLIC_URL}>
+  <Router history={history}>
     <Switch>
       <Redirect exact from="/index.html" to="/" />
       {getRoutes(routes)}
     </Switch>
-  </BrowserRouter>
+  </Router>
 );
 
 export default RouterComponent;

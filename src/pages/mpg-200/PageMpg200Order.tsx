@@ -4,6 +4,7 @@ import firebaseApi from '../../integration/firebase/api';
 import './PageMpg200Order.scss';
 import { paths } from '../../router/routes';
 import history from '../../router/history';
+import { Link } from 'react-router-dom';
 
 const formConfig = {
   mpg200count: {
@@ -107,7 +108,7 @@ class PageMpg200Order extends Component<any, State> {
       <h1>MPG-200 Order Form</h1>
       <p>
         If you've arrived here you probably know what the MPG-200 is all about.
-        If not, <a href={paths.mpg200} title="Check out the MPG-200">check it out</a>
+        If not, <Link to={paths.mpg200} title="Check out the MPG-200">check it out</Link>
       </p>
       <p>
         intro text, one man operation

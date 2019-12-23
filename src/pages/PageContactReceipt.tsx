@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { paths } from '../router/routes';
+import { Link } from 'react-router-dom';
 
 class PageContactReceipt extends Component {
 
@@ -10,7 +11,7 @@ class PageContactReceipt extends Component {
         Thank you! I will get back to you shortly.
       </p>
       <p>
-        <a href={paths.root}>To frontpage</a>
+        <Link to={paths.root}>To frontpage</Link>
       </p>
     </div>;
   };

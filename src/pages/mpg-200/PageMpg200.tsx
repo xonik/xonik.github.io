@@ -1,5 +1,6 @@
 import React from 'react';
 import { paths } from '../../router/routes';
+import { Link } from 'react-router-dom';
 
 export default () => {
   return <div>
@@ -8,12 +9,12 @@ export default () => {
       Price: 50 EUR + postage
     </p>
     <p>
-      <a href={paths.mpg200order} title="Order here">ORDER HERE</a>
+      <Link to={paths.mpg200order} title="Order here">ORDER HERE</Link>
     </p>
 
     <p>
-      <a href={paths.mpg200buildersGuide} title="Builders guide">Already ordered? Check out the
-        builder's guide!</a>
+      <Link to={paths.mpg200buildersGuide} title="Builders guide">Already ordered? Check out the
+        builder's guide!</Link>
     </p>
 
     <h2>About the MPG-200</h2>
@@ -116,7 +117,7 @@ export default () => {
       to power the internal opamps. These are not needed on the MPG-200 and are therefore left out.
       This means that you cannot use the cable to replace a missing PG-200 cable. You CAN however
       get your own six conductor cable and use the provided connectors to make a PG-200 cable. More
-      info about the PG-200 can be found <a href={paths.pg200}>here</a>.
+      info about the PG-200 can be found <Link to={paths.pg200}>here</Link>.
     </p>
     <p>
       For the time being you will have to build your own enclosure, or leave the MPG-200 without

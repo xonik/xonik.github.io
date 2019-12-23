@@ -2,6 +2,7 @@ import React from 'react';
 import { paths } from '../../router/routes';
 import nono from './images/nono.jpg';
 import yesyes from './images/yesyes.jpg';
+import { Link } from 'react-router-dom';
 
 export default () => {
   return <div>
@@ -27,7 +28,7 @@ export default () => {
       Price: USD 99.00
     </p>
     <p>
-      <a href={paths.contactMe}>Contact me here if you want to buy one</a>
+      <Link to={paths.contactMe}>Contact me here if you want to buy one</Link>
     </p>
     <h2>Compatible synths</h2>
     <p>
