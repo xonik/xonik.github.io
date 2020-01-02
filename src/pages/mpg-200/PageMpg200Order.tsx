@@ -109,7 +109,7 @@ class PageMpg200Order extends Component<any, State> {
       mpg200Count: 0,
       enclosureCount: 0,
       cableLength: 0,
-      showTerms: true,
+      showTerms: false,
     };
   }
 
