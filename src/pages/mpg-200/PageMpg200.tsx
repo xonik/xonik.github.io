@@ -84,6 +84,14 @@ export default () => {
       need to be fixed. As with the settings, an online WebMIDI-based firmware updater is found
       at <a href="/bootloader/index.html">xonik.no</a>.
     </p>
+    <h2>Enclosure</h2>
+    <p>
+      The MPG-200 comes without an enclosure, but I have made one to match that can be purchased for
+      an additional EUR 10. You have to glue the box yourself, but everything else is included
+    </p>
+    <img src="/images/mpg200/mpg200-box.png" alt="mpg200 box"/>
+    <img src="/images/mpg200/mpg200-box-front.png" alt="mpg200 box front"/>
+    <img src="/images/mpg200/mpg200-box-top.png"  alt="mpg200 top"/>
     <h2>Things to be aware of</h2>
     <p>
       There are some limitations to the MPG-200. Most importantly: Because it works exactly like the
@@ -118,13 +126,6 @@ export default () => {
       This means that you cannot use the cable to replace a missing PG-200 cable. You CAN however
       get your own six conductor cable and use the provided connectors to make a PG-200 cable. More
       info about the PG-200 can be found <Link to={paths.pg200}>here</Link>.
-    </p>
-    <p>
-      For the time being you will have to build your own enclosure, or leave the MPG-200 without
-      one.
-      If you choose the latter, make sure you insulate the botton to prevent it from coming into
-      contact with anything conductive, this may short circuit and destroy the MPG-200. I plan on
-      offering a laser cut enclosure in the future.
     </p>
     <p>
       The MPG-200 does not have any knobs or switches, it is a pure electronical protocol
