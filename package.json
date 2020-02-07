@@ -1,7 +1,6 @@
 {
   "name": "xonik.no",
   "version": "0.1.0",
-  "private": true,
   "homepage": "https://www.xonik.no",
   "dependencies": {
     "calidation": "^1.6.0",

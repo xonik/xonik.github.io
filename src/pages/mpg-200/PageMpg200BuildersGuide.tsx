@@ -35,6 +35,29 @@ export default () => {
       There are no known errors on the MPG-200 v6.1. However, the two electrolytic capacitors are
       a tiny bit larger than comfortable, so beware when soldering.
     </p>
+    <h2>Where to solder the parts</h2>
+    <p>
+      The supplied PCB has two sides (surprise!) - the side with the MPG-200 logo is the bottom.
+      It is called the solder side and this is where you solder:
+    </p>
+    <p>
+      <img src="/images/mpg200/pcb-solder-side.jpg" alt="PCB solder side"/>
+      <img src="/images/mpg200/pcb-soldered-bottom.jpg" alt="PCB after soldering"/>
+    </p>
+    <p>
+      PS: If you want MIDI Thru to work you have to put solder between the two squares in the middle
+      of the picture.
+    </p>
+    <p>
+      The top is called the component side. It has the name and placement of everything, and this is
+      where you place the components.
+    </p>
+    <p>
+      <img src="/images/mpg200/pcb-component-side.jpg" alt="Six pin DIN"/>
+      <img src="/images/mpg200/pcb-soldered-top.jpg" alt="Six pin DIN"/>
+
+    </p>
+
     <h2>Parts list</h2>
     <p>
       There are no part numbers on the circuit board, but each component is clearly labeled with
