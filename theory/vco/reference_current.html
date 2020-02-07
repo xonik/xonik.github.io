@@ -66,7 +66,9 @@
 	Now, how high will the output voltage be? That depends on the circuit elements in the feedback loop, so the simple answer is "whatever it has to be to induce a feedback current that nulls out the input currents". For a simple inverting amplifier that has a single resistor in its feedback path, the current is $I_{feedback} = -V_{out} / R_{feedback}$ (minus because the forward voltage drop is equal to $0 - V_{out}$). For other configurations, just keep in mind that the primary goal is to keep the sum of the input currents at zero and that the input voltage is always $0V$. Also, it is important to be aware that the current into the feedback loop at the negative input terminal may not necessary be the same as the current into the opamp output terminal, this all depends on what you put inside the feedback loop as we'll see shortly.
 </p>
 <p>
-Of course, this is only the ideal behaviour of the opamp. As it can only sink/source a limited amount of current - about $20mV$ is the norm for the TL07x series, but some datasheets say up to $40mV$ - and cannot  rise/lower its output voltage beyond the supply voltages, it will only behave ideally within these limits.
+Of course, this is only the ideal behaviour of the opamp. As it can only sink/source a limited
+	amount of current - about $20mA$ is the norm for the TL07x series, but some datasheets say up
+	to $40mA$ - and cannot  rise/lower its output voltage beyond the supply voltages, it will only behave ideally within these limits.
 </p>
 <p>
 	Now, lets see how we can utilize the opamp to set up a reference current.
@@ -99,13 +101,13 @@ Of course, this is only the ideal behaviour of the opamp. As it can only sink/so
 	Furthermore, we know that the change in emitter voltage will give us a collector current in the right transistor, \(I_{c_2} = I_{c_1} \cdot e^{\frac{\Delta V_{be}}{V_T}}\).
 </p>
 <p>
-	All this current has to go somewhere, and that somewhere is into the opamp's output. This means that the sum of the emitter currents in the two transistors cannot exceed $20mV$.
+	All this current has to go somewhere, and that somewhere is into the opamp's output. This means that the sum of the emitter currents in the two transistors cannot exceed $20mA$.
 </p>
 <p class="fact">
 	For the circuit to work, the following has to be true:<br>
-	\(I_{c_1} + I_{c_2} < 20mV \)<br>
-	\(I_{c_1} + I_{c_1} \cdot e^{\frac{\Delta V_{be}}{V_T}}) < 20mV \)<br>
-	\(I_{c_1} \cdot (1 + e^{\frac{\Delta V_{be}}{V_T}}) < 20mV \)
+	\(I_{c_1} + I_{c_2} < 20mA \)<br>
+	\(I_{c_1} + I_{c_1} \cdot e^{\frac{\Delta V_{be}}{V_T}}) < 20mA \)<br>
+	\(I_{c_1} \cdot (1 + e^{\frac{\Delta V_{be}}{V_T}}) < 20mA \)
 </p>
 <img src="img/emittercurrents.png" height="200">
 <p>
