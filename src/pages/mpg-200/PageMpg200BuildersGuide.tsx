@@ -417,7 +417,7 @@ export default () => {
     </h2>
     <p>
       The MPG-200 settings - what CC controls what PG-200 controller - is configurable through
-      sysex. See separate instructions. <a href="http://www.xonik.no/mpg-200/sysex/mpg200.html">A sysex settings generator is available.</a>
+      sysex. See separate instructions. <a href="http://www.xonik.no/mpg-200-sysex/mpg200.html">A sysex settings generator is available.</a>
     </p>
     <h2>General disclaimer</h2>
     <p>
