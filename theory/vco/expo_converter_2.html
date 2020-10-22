@@ -498,6 +498,30 @@ If $I_c$ is constant and we change the base voltage $V_b$ with a value $\Delta V
 		This is quite accurate and is probably outweighed by other component inaccuracies, not least because you must buy either a 3300 ppm or a 3500 ppm resistor.
 	</p>
 </div>
+<h2>An interesting post</h2>
+<p>
+	I just found the following post, by Graham Hinton on <a
+		href="https://www.muffwiggler.com/forum/viewtopic.php?t=123511&start=10"
+		alt="Muffwiggler post">Muffwiggler</a>, talking about tempco resistors and effects thereof:
+</p>
+<p>
+	Most people do not understand what the TC resistor is there for or how to test it. It is not, as seems to be believed, to make a VCO stable at one temperature or to make several VCOs stay in tune with each other, but to keep the VCOs at the same tuning when the temperature changes.
+</p>
+<p>
+	When the temperature changes the transistors will cause both the absolute pitch to shift and the V/octave spread to change. The absolute pitch shift will be greater at lower notes because it is multiplied by the Vbe. When Vbe = 0 the VCO will normally be at it's highest frequency, say ~16kHz, so it makes sense to test how much middle C shifts, six octaves down from that with a Vbe of 6 x 17.8mV.
+</p>
+<p>
+	Without temperature compensation you can expect middle C to shift 5.5 semitones with a 25 degC temperature change. With an exact 3300ppm TC resistor this can be reduced to 9 cent pitch shift and a 7 cent error over a 5 octave keyboard, but if the part is +/-10% tolerance it will go from 3000ppm and a -59 cent shift with -49 cent span error to 3600ppm and +40 cent shift with 33 cent span error. Either extreme is a unplayable out of tune keyboard.
+</p>
+<p>
+	Due to the way they are manufactured wirewound resistors from one reel of wire will closely match each other in the same batch. The manufacturer cannot pick a reel of wire that will give the required TC because it changes during winding so they have to test samples after manufacture and grade them. I think I got lucky with the first batch of Q81s I ever bought, the problem only becomes apparent when you go back for more and put two VCOs from different batches together. If you buy a synthesizer with all the VCOs built at the same time they will match each other, but may not remain absolutely in tune over temperature. That's why analogue polyphonics have a tune function and use a self calibration lookup table.
+</p>
+<p>
+	I have had some +/-1% TC resistors made, but I really wanted +/-0.5% for a "drop in and forget" part and the manufacturer couldn't do it.
+</p>
+<p>
+	With film resistors due to the manufacturing process the TC will have a spread and the manufacturers specify a wide tolerance because they know they cannot select finer. You also get the spread within a batch so there is no guarantee that two VCOs built at the same time will track unless the components are tested and matched and that is a pain.
+</p>
 <script>
 $( ".expandButton" ).click(function( event ) {
   event.preventDefault();
