@@ -18,7 +18,7 @@ const formConfig = {
     isNumber: 'Number of enclosures must be a number'
   },
   cableLength: {
-    isRequired: 'Cable length is required'
+    isRequired: 'Please select cable length'
   },
   name: {
     isRequired: 'Name is required!',
@@ -71,7 +71,7 @@ interface State {
 
 const getCablePrice = (multiplier: number) => {
   return (cablePrice*multiplier).toFixed(2)
-}
+};
 
 const options = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 const cableLengths = [{
@@ -117,7 +117,7 @@ class PageMpg200Order extends Component<any, State> {
     return mpg200Count * mpg200Price + enclosureCount * enclosurePrice + mpg200Count * cableLength * cablePrice;
   };
 
-  onSubmit = ({ fields, isValid }: FormContext) => {
+  onSubmit = ({ fields, isValid, errors }: FormContext) => {
     if (isValid) {
       const {
         mpg200count,
@@ -132,7 +132,6 @@ class PageMpg200Order extends Component<any, State> {
         items: [],
         total: this.getTotal(mpg200count, enclosureCount, cableLength)
       };
-
       if (mpg200count > 0) {
         const cable = cableLengths[cableLength];
         order.items.push({ name: 'MPG-200', count: mpg200count, pricePerItem: mpg200Price });
@@ -145,6 +144,8 @@ class PageMpg200Order extends Component<any, State> {
       console.log('submitting', order);
       firebaseApi.submitOrder(order);
       history.push(paths.mpg200orderReceipt);
+    } else {
+      console.log("not valid", errors, fields)
     }
   };
 
@@ -189,9 +190,11 @@ class PageMpg200Order extends Component<any, State> {
             <div className="order_form-input">
               <select name="cableLength"
                       onChange={e => this.setState({ cableLength: parseInt(e.target.value) })}>
+                <option key="not-selected" value="not-selected">Select length</option>
                 {cableLengths.map(({ length, price }, index) => <option key={index}
                                                                         value={index}>{length}: {price}</option>)}
               </select>
+              {submitted && errors.cableLength &&<span className="order_validation-error">{errors.cableLength}</span>}
             </div>
             <div>
               30 cm is included, €{cablePrice} per additional 10 cm. Same lengths for all ordered kits,

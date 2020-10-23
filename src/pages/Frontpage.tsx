@@ -6,13 +6,13 @@ export default () => {
   return <div>
     <h1>Xonik Devices</h1>
     <p>
-      Xonik Devices is a one man, in-my-spare-time operation. I do new designs as well as repairs.
+      Xonik Devices is a one man operation. I do new designs as well as repairs.
     </p>
     <p>
       If you want to get in touch with me, use the <Link to={paths.contactMe}>contact form</Link>
     </p>
     <h2>
-      Products on offer:
+      Products currently on offer:
     </h2>
     <ul>
       <li><Link to={paths.keyboardController}>The Xonik 68b01 Prophet VS keyboard controller</Link></li>

@@ -32,8 +32,32 @@ export default () => {
     </p>
     <h2>Known errors</h2>
     <p>
-      There are no known errors on the MPG-200 v6.1
+      There are no known errors on the MPG-200 v6.1. However, the two electrolytic capacitors are
+      a tiny bit larger than comfortable, so beware when soldering.
     </p>
+    <h2>Where to solder the parts</h2>
+    <p>
+      The supplied PCB has two sides (surprise!) - the side with the MPG-200 logo is the bottom.
+      It is called the solder side and this is where you solder:
+    </p>
+    <p>
+      <img src="/images/mpg200/pcb-solder-side.jpg" alt="PCB solder side"/>
+      <img src="/images/mpg200/pcb-soldered-bottom.jpg" alt="PCB after soldering"/>
+    </p>
+    <p>
+      PS: If you want MIDI Thru to work you have to put solder between the two squares in the middle
+      of the picture.
+    </p>
+    <p>
+      The top is called the component side. It has the name and placement of everything, and this is
+      where you place the components.
+    </p>
+    <p>
+      <img src="/images/mpg200/pcb-component-side.jpg" alt="Six pin DIN"/>
+      <img src="/images/mpg200/pcb-soldered-top.jpg" alt="Six pin DIN"/>
+
+    </p>
+
     <h2>Parts list</h2>
     <p>
       There are no part numbers on the circuit board, but each component is clearly labeled with
@@ -147,7 +171,8 @@ export default () => {
         <td>Electrolytic Capacitor</td>
         <td>10uF</td>
         <td>Match the long leg on the capacitor with the hole labeled + on the PCB. Inserting it the
-          wrong way will make it explode when power is turned on.
+          wrong way will make it explode when power is turned on. The capacitor is
+          a tiny bit wider than comfortable, so beware when soldering.
         </td>
       </tr>
       <tr>
@@ -155,7 +180,8 @@ export default () => {
         <td>Electrolytic Capacitor</td>
         <td>22uF</td>
         <td>Match the long leg on the capacitor with the hole labeled + on the PCB. Inserting it the
-          wrong way will make it explode when power is turned on.
+          wrong way will make it explode when power is turned on. The capacitor is
+          a tiny bit wider than comfortable, so beware when soldering.
         </td>
       </tr>
       <tr>
@@ -279,8 +305,7 @@ export default () => {
     <p>
       LED: If you want you can make the status LED visible from outside any enclosure you choose
       for your MPG-200. In that case it is probably best to mount it last when you know exactly
-      where
-      it should go.
+      where it should go.
     </p>
     <h2>
       MIDI thru
@@ -354,12 +379,32 @@ export default () => {
       Enclosure
     </h2>
     <p>
-      There is no enclosure supplied with the MPG-200. If you build your own, make sure that the
-      pins on the underside of the PCB do not touch the bottom of the enclosure, especially if
+      There is no enclosure supplied with the MPG-200, but one can be purchased separately.
+      If you build your own, make sure that the pins on the underside of the PCB do not touch the
+      bottom of the enclosure, especially if
       it's made of metal. Use spacers with the screw holes, or a thick fibre tape.
     </p>
     <p>
-      I am working on different enclosure options that can be purchased separately in the future.
+      If you've bought the MDF enclosure from me, there are a few things to be aware of.
+      First of all, the box will hold together fairly well without any glue, but to be absolutely
+      sure you can glue the the sides to the bottom using normal wood glue. Do not glue the top in
+      case you need to open the device later.
+    </p>
+    <p>
+      Second, the front (where the connectors are) is prone to breaking. When assembling the case,
+      squeese the parts together like this
+    </p>
+    <p>
+      Not like this:
+    </p>
+    <p>
+      Third, remember to fit the LED last when building the MPG200 - you should probably test fit the
+      MPG200 in the box before bending and cutting the LED legs to make sure it reaches the hole.
+    </p>
+    <p>
+      When assembling, start with the bottom and front, and push the sides onto those. Then fit the
+      MPG-200 and screw it down. Add the back, making sure the LED is put into its hole, and finally
+      close the box with the top.
     </p>
     <h2>
       Firmware update
@@ -372,7 +417,7 @@ export default () => {
     </h2>
     <p>
       The MPG-200 settings - what CC controls what PG-200 controller - is configurable through
-      sysex. See separate instructions. <a href="http://www.xonik.no/mpg-200/sysex/mpg200.html">A sysex settings generator is available.</a>
+      sysex. See separate instructions. <a href="http://www.xonik.no/mpg-200-sysex/mpg200.html">A sysex settings generator is available.</a>
     </p>
     <h2>General disclaimer</h2>
     <p>
