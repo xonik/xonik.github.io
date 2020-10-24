@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/bootloader/static/css/main.b1ec85e8.chunk.css",
-    "main.js": "/bootloader/static/js/main.8a1d6d5d.chunk.js",
-    "main.js.map": "/bootloader/static/js/main.8a1d6d5d.chunk.js.map",
+    "main.js": "/bootloader/static/js/main.86349fc5.chunk.js",
+    "main.js.map": "/bootloader/static/js/main.86349fc5.chunk.js.map",
     "runtime-main.js": "/bootloader/static/js/runtime-main.5dcd3c22.js",
     "runtime-main.js.map": "/bootloader/static/js/runtime-main.5dcd3c22.js.map",
     "static/js/2.99ba9dec.chunk.js": "/bootloader/static/js/2.99ba9dec.chunk.js",
     "static/js/2.99ba9dec.chunk.js.map": "/bootloader/static/js/2.99ba9dec.chunk.js.map",
     "index.html": "/bootloader/index.html",
-    "precache-manifest.fbdccb9416eaab6318b1535b1e4e9d5b.js": "/bootloader/precache-manifest.fbdccb9416eaab6318b1535b1e4e9d5b.js",
+    "precache-manifest.f0cddbe327666d439ee4d446b4c926ed.js": "/bootloader/precache-manifest.f0cddbe327666d439ee4d446b4c926ed.js",
     "service-worker.js": "/bootloader/service-worker.js",
     "static/css/main.b1ec85e8.chunk.css.map": "/bootloader/static/css/main.b1ec85e8.chunk.css.map"
   },
@@ -16,6 +16,6 @@
     "static/js/runtime-main.5dcd3c22.js",
     "static/js/2.99ba9dec.chunk.js",
     "static/css/main.b1ec85e8.chunk.css",
-    "static/js/main.8a1d6d5d.chunk.js"
+    "static/js/main.86349fc5.chunk.js"
   ]
 }
