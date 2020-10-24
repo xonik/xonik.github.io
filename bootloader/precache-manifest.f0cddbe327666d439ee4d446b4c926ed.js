@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "3fee0ce719ef89ec0cec91e4bef6244b",
+    "revision": "0b2247744a9dc252d7eb39f987ea5124",
     "url": "/bootloader/index.html"
   },
   {
-    "revision": "24630ae1b67825e3e813",
+    "revision": "bd8d9034eabb1759b076",
     "url": "/bootloader/static/css/main.b1ec85e8.chunk.css"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/bootloader/static/js/2.99ba9dec.chunk.js"
   },
   {
-    "revision": "24630ae1b67825e3e813",
-    "url": "/bootloader/static/js/main.8a1d6d5d.chunk.js"
+    "revision": "bd8d9034eabb1759b076",
+    "url": "/bootloader/static/js/main.86349fc5.chunk.js"
   },
   {
     "revision": "0a0bc908c4b929c41467",
