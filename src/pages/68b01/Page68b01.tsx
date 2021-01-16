@@ -38,15 +38,13 @@ export default () => {
     </p>
     <p>
       The parts list for the Sequential Circuits MultiTrak lists the same kind of controller (U230,
-      SCI Part # I-612, shown as 6801 in the service manual schematics), though I cannot guarantee
-      that it works. The circuit diagram is almost identical to the Prophet VS though, so it is
-      quite possible that it will work as expected.
+      SCI Part # I-612, shown as 6801 in the service manual schematics). Manfred Veber tried replacing 
+      this with my clone, but unfortunatelly it does not work.
     </p>
     <p>
-      If anyone is interested in trying the chip on a MultiTrack I will refund the full price
-      including shipping if it does not work. My only demand is that you destroy the chip and send
-      me a picture of the
-      pieces to get a refund.
+      The Prophet 2000 on the other hand lists the same part, U206, as having Sequential Part # I-626, 
+      which is the same as the one in the Prophet VS. That makes it highly likely that it will work with the 
+      Prophet 2000 although this has not been tested.
     </p>
     <p>
       PS: The aftertouch mechanism is not scanned by the keyboard controller so if your aftertouch
