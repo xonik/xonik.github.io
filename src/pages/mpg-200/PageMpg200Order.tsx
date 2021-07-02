@@ -178,11 +178,12 @@ class PageMpg200Order extends Component<any, State> {
               MPG-200 kits, €{mpg200Price} per kit
             </div>
             <div className="order_form-input">
-              <select name="enclosureCount"
+              <select disabled name="enclosureCount"
                       onChange={e => this.setState({ enclosureCount: parseInt(e.target.value) })}>
                 {options.map(index => <option key={index} value={index}>{index}</option>)}
               </select>
-              Laser cut MDF enclosures, €{enclosurePrice} per enclosure
+              Laser cut MDF enclosures, €{enclosurePrice} per enclosure<br/><br/>
+                Unfortunately sold out at the moment, I'll consider making a new batch in August 2021
             </div>
             <div>
               Cable length
