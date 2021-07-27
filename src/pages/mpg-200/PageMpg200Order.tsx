@@ -166,6 +166,13 @@ class PageMpg200Order extends Component<any, State> {
               Please fill in the form below and I will send you a Paypal invoice.
             </p>
             <p>
+              <b>NB: Do not purchase this (or any other) kit if you're not willing to debug it if it does not work
+              on first power up. The kit has been proven to work and the microcontroller is tested before
+              it is shipped, but you may unintentionally mess up something during assembly. I WILL try to help
+              you but I will not give you a refund if it doesn't work and you're not willing to try to fix it with me.
+              </b>
+            </p>
+            <p>
               Use the <Link to={paths.contactMe}>contact form</Link> if you have any questions or
               want to get in touch with me.
             </p>
@@ -287,6 +294,16 @@ class PageMpg200Order extends Component<any, State> {
                 Replacement parts are not covered by the purchase sum, and there is no warranty on
                 the finished product. This said, tell me if something is wrong and I'll do my best
                 to help you out.
+              </p>
+              <p>
+                Since this is a DIY kit that you as the user is assembling yourself, it may not work immediately -
+                Parts may have been placed the wrong way around or in the wrong spot etc.
+                I will try my best to work with you to figure out what has been done and to get the kit working.
+                I will NOT offer a refund unless you spend time with me trying to debug the problem. All controllers
+                are tested before shipping and the kit itself has a great track record, no one that has tried building
+                it has failed to get it working in the end, so giving up after the first time is not something that
+                I accepts as a "device not working" refund demand. I really regret having to say this, but people actually
+                do this.
               </p>
             </div>
             }
