@@ -190,7 +190,7 @@ class PageMpg200Order extends Component<any, State> {
                 {options.map(index => <option key={index} value={index}>{index}</option>)}
               </select>
               Laser cut MDF enclosures, €{enclosurePrice} per enclosure<br/><br/>
-                Unfortunately sold out at the moment, I'll consider making a new batch in August 2021
+                The enclosures are unfortunately sold out at the moment. I'm considering making a new batch in August 2021
             </div>
             <div>
               Cable length
