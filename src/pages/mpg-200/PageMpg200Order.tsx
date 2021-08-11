@@ -155,6 +155,7 @@ class PageMpg200Order extends Component<any, State> {
 
     return <div className="order">
       <h1>MPG-200 Order Form</h1>
+      <h1>Orders are not possible at the moment, will be back soon</h1>
       <p>
         If you've arrived here you probably know what the MPG-200 is all about.
         If not, <Link to={paths.mpg200} title="Check out the MPG-200">check it out</Link>
@@ -314,7 +315,7 @@ class PageMpg200Order extends Component<any, State> {
                 <span className="order_validation-error">{errors.terms}</span>}
               </label>
             </div>
-            <button>Submit order</button>
+            {/*<button>Submit order</button>*/}
           </>
         )}
       </FormValidation>
