@@ -157,7 +157,7 @@ class PageMpg200Order extends Component<any, State> {
       <h1>MPG-200 Order Form</h1>
       <h1>Orders through the form are not possible at the moment, but send me an email if you want to buy something:</h1>
       <p>
-        <img src="./images/email.png"/>
+        <img src="/images/email.png"/>
       </p>
       <p>
         If you've arrived here you probably know what the MPG-200 is all about.
