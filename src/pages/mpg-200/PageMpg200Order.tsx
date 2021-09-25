@@ -155,7 +155,10 @@ class PageMpg200Order extends Component<any, State> {
 
     return <div className="order">
       <h1>MPG-200 Order Form</h1>
-      <h1>Orders are not possible at the moment, will be back soon</h1>
+      <h1>Orders through the form are not possible at the moment, but send me an email if you want to buy something:</h1>
+      <p>
+        <img src="./images/email.png"/>
+      </p>
       <p>
         If you've arrived here you probably know what the MPG-200 is all about.
         If not, <Link to={paths.mpg200} title="Check out the MPG-200">check it out</Link>
