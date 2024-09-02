@@ -39,7 +39,7 @@ export default () => {
     </p>
     <h2>Kit</h2>
     <p>
-      The MPG-200 comes as a build it yourself kit with all the required parts, including a 60 cm
+      The MPG-200 comes as a build it yourself kit with all the required parts, including a 30 cm
       long
       4 conductor cable (you have to solder the connectors yourself). No enclosure is included but I
       plan to offer a laser cut enclosure separately later. The MPG-200 is easy to build, having
