@@ -278,9 +278,9 @@ class PageMpg200Order extends Component<any, State> {
                 All sales are final, but please contact me if anything is wrong.
               </p>
               <p>
-                The MPG-200 costs EUR {mpg200Price} + postage. Postage is EUR 7 throughout Europe and EUR 8.5 to the rest
-                of the world, untracked. Multiple MPG-200 may be shipped together for the same price, though I
-                will have to check how many.
+                The MPG-200 costs EUR {mpg200Price} + postage. Postage is EUR 10 throughout Europe and approximately
+                EUR 12.5 to the rest of the world, untracked. Multiple MPG-200 may be shipped together for the same
+                price, though I will have to check how many.
               </p>
               <p>
                 Some countries may require tracked/registered mail at my discretion unless you chose to accept
