@@ -1,17 +1,18 @@
+import type { ReactNode } from 'react';
+
 export const ROUTE_NORMAL: 'normal' = 'normal';
 export const ROUTE_REDIRECT: 'redirect' = 'redirect';
 
-interface Route {
+interface RouteConfig {
   type: typeof ROUTE_NORMAL;
   path: string;
-  component: any;
-  layout: any;
+  element: ReactNode;
 }
 
 interface RedirectRoute {
-  type: typeof ROUTE_REDIRECT
+  type: typeof ROUTE_REDIRECT;
   path: string;
   redirectPath: string;
 }
 
-export type Routes = (Route | RedirectRoute)[];
+export type RoutesConfig = (RouteConfig | RedirectRoute)[];

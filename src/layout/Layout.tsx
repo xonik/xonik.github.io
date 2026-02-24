@@ -1,17 +1,16 @@
 import React from 'react';
-import { withRouter, RouteComponentProps } from 'react-router';
-import Helmet from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 import Footer from './Footer';
 import Header from './Header';
 import './Layout.scss';
 import { paths } from '../router/routes';
 import { Link } from 'react-router-dom';
 
-type Props = RouteComponentProps<any>;
+interface Props {
+  children?: React.ReactNode;
+}
 
-const Layout: React.FunctionComponent<Props> = props => {
-  const { children } = props;
-
+const Layout: React.FunctionComponent<Props> = ({ children }) => {
   return (
     <div className="layout">
       <Helmet defaultTitle="Xonik.no"/>
@@ -25,4 +24,4 @@ const Layout: React.FunctionComponent<Props> = props => {
   );
 };
 
-export default withRouter(Layout);
+export default Layout;

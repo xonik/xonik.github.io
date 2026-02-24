@@ -1,9 +1,13 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
+import { HelmetProvider } from 'react-helmet-async';
 import RouterComponent from './router/RouterComponent';
 import './index.scss';
 
-ReactDOM.render(
-  <RouterComponent />,
-  document.getElementById('root')
+const container = document.getElementById('root')!;
+const root = createRoot(container);
+root.render(
+  <HelmetProvider>
+    <RouterComponent />
+  </HelmetProvider>
 );

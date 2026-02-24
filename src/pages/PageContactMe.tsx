@@ -1,7 +1,6 @@
-import React, { Component } from 'react';
-import { FormContext, FormValidation } from 'calidation';
+import { FormContext, FormValidation } from '../lib/FormValidation';
 import firebaseApi from '../integration/firebase/api';
-import history from '../router/history';
+import { useNavigate } from 'react-router-dom';
 import { paths } from '../router/routes';
 
 const formConfig = {
@@ -20,23 +19,23 @@ const formConfig = {
   },
 };
 
-class PageContactMe extends Component {
+const PageContactMe = () => {
+  const navigate = useNavigate();
 
-  onSubmit({ fields, isValid }: FormContext) {
+  const onSubmit = ({ fields, isValid }: FormContext) => {
     if (isValid) {
       firebaseApi.submitContactForm({
         ...fields,
         date: new Date().toISOString(),
       });
-      history.push(paths.contactMeReceipt);
+      navigate(paths.contactMeReceipt);
     }
-  }
+  };
 
-
-  render() {
-    return <div className="order">
+  return (
+    <div className="order">
       <h1>Contact Form</h1>
-      <FormValidation onSubmit={this.onSubmit} config={formConfig}>
+      <FormValidation onSubmit={onSubmit} config={formConfig}>
         {({ errors, fields, submitted }) => (
           <>
             <p>
@@ -61,8 +60,8 @@ class PageContactMe extends Component {
           </>
         )}
       </FormValidation>
-    </div>;
-  };
-}
+    </div>
+  );
+};
 
 export default PageContactMe;

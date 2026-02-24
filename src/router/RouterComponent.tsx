@@ -1,36 +1,16 @@
-import * as React from 'react';
-import history from './history';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { routes } from './routes';
-import {
-  ROUTE_NORMAL,
-  ROUTE_REDIRECT
-} from './routes.type';
-import { Routes } from './routes.type';
-import { Redirect, Route, Router, Switch } from 'react-router-dom';
+import { ROUTE_NORMAL, ROUTE_REDIRECT } from './routes.type';
+import type { RoutesConfig } from './routes.type';
 
-const getRoutes = (routes: Routes) => {
+const getRoutes = (routes: RoutesConfig) => {
   return routes.map(route => {
     if (route.type === ROUTE_NORMAL) {
-      const {
-        path,
-        component: Component,
-        layout: Layout,
-      } = route;
-      return (
-        <Route
-          exact
-          key={path}
-          path={path}
-          render={props =>
-            <Layout>
-              <Component {...props} />
-            </Layout>
-          }
-        />
-      );
+      const { path, element } = route;
+      return <Route key={path} path={path} element={element} />;
     } else if (route.type === ROUTE_REDIRECT) {
       const { path, redirectPath } = route;
-      return <Redirect exact from={path} to={redirectPath} />
+      return <Route key={path} path={path} element={<Navigate to={redirectPath} replace />} />;
     } else {
       const allRoutesAreHandled: never = route;
       throw new Error(allRoutesAreHandled);
@@ -39,12 +19,12 @@ const getRoutes = (routes: Routes) => {
 };
 
 const RouterComponent = () => (
-  <Router history={history}>
-    <Switch>
-      <Redirect exact from="/index.html" to="/" />
+  <BrowserRouter>
+    <Routes>
+      <Route path="/index.html" element={<Navigate to="/" replace />} />
       {getRoutes(routes)}
-    </Switch>
-  </Router>
+    </Routes>
+  </BrowserRouter>
 );
 
 export default RouterComponent;

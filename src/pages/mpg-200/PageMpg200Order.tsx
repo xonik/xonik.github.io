@@ -1,10 +1,9 @@
-import React, { Component } from 'react';
-import { FormContext, FormValidation } from 'calidation';
+import { useState } from 'react';
+import { FormContext, FormValidation } from '../../lib/FormValidation';
 import firebaseApi from '../../integration/firebase/api';
 import './PageMpg200Order.scss';
 import { paths } from '../../router/routes';
-import history from '../../router/history';
-import { Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 const mpg200Price = 50;
 const enclosurePrice = 10;
@@ -62,15 +61,8 @@ const formConfig = {
   }
 };
 
-interface State {
-  mpg200Count: number,
-  enclosureCount: number,
-  cableLength: number,
-  showTerms: boolean
-}
-
 const getCablePrice = (multiplier: number) => {
-  return (cablePrice*multiplier).toFixed(2)
+  return (cablePrice * multiplier).toFixed(2);
 };
 
 const options = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -100,29 +92,23 @@ const cableLengths = [{
   price: `+€${getCablePrice(7)}`,
 }];
 
-class PageMpg200Order extends Component<any, State> {
+const getTotal = (mpg200Count: number, enclosureCount: number, cableLength: number) => {
+  return mpg200Count * mpg200Price + enclosureCount * enclosurePrice + mpg200Count * cableLength * cablePrice;
+};
 
-  constructor(props: any) {
-    super(props);
+const PageMpg200Order = () => {
+  const navigate = useNavigate();
+  const [mpg200Count, setMpg200Count] = useState(0);
+  const [enclosureCount, setEnclosureCount] = useState(0);
+  const [cableLength, setCableLength] = useState(0);
+  const [showTerms, setShowTerms] = useState(false);
 
-    this.state = {
-      mpg200Count: 0,
-      enclosureCount: 0,
-      cableLength: 0,
-      showTerms: false,
-    };
-  }
-
-  getTotal = (mpg200Count: number, enclosureCount: number, cableLength: number) => {
-    return mpg200Count * mpg200Price + enclosureCount * enclosurePrice + mpg200Count * cableLength * cablePrice;
-  };
-
-  onSubmit = ({ fields, isValid, errors }: FormContext) => {
+  const onSubmit = ({ fields, isValid, errors }: FormContext) => {
     if (isValid) {
       const {
         mpg200count,
-        enclosureCount,
-        cableLength,
+        enclosureCount: encCount,
+        cableLength: cabLen,
         ...passThroughFields
       } = fields;
 
@@ -130,40 +116,39 @@ class PageMpg200Order extends Component<any, State> {
         orderDate: new Date().toISOString(),
         ...passThroughFields,
         items: [],
-        total: this.getTotal(mpg200count, enclosureCount, cableLength)
+        total: getTotal(mpg200count, encCount, cabLen)
       };
       if (mpg200count > 0) {
-        const cable = cableLengths[cableLength];
+        const cable = cableLengths[cabLen];
         order.items.push({ name: 'MPG-200', count: mpg200count, pricePerItem: mpg200Price });
-        order.items.push({ name: `Cable - ${cable.length}`, count: mpg200count, pricePerItem: cable.price});
+        order.items.push({ name: `Cable - ${cable.length}`, count: mpg200count, pricePerItem: cable.price });
       }
-      if (enclosureCount > 0) {
-        order.items.push({ name: 'Enclosure', count: enclosureCount, pricePerItem: enclosurePrice });
+      if (encCount > 0) {
+        order.items.push({ name: 'Enclosure', count: encCount, pricePerItem: enclosurePrice });
       }
 
       console.log('submitting', order);
       firebaseApi.submitOrder(order);
-      history.push(paths.mpg200orderReceipt);
+      navigate(paths.mpg200orderReceipt);
     } else {
-      console.log("not valid", errors, fields)
+      console.log("not valid", errors, fields);
     }
   };
 
+  const sum = getTotal(mpg200Count, enclosureCount, cableLength);
 
-  render() {
-    const sum = this.getTotal(this.state.mpg200Count, this.state.enclosureCount, this.state.cableLength);
-
-    return <div className="order">
+  return (
+    <div className="order">
       <h1>MPG-200 Order Form</h1>
       <h1>Orders through the form are not possible at the moment, but send me an email if you want to buy something:</h1>
       <p>
-        <img src="/images/email.png"/>
+        <img src="/images/email.png" alt="Email"/>
       </p>
       <p>
         If you've arrived here you probably know what the MPG-200 is all about.
         If not, <Link to={paths.mpg200} title="Check out the MPG-200">check it out</Link>
       </p>
-      <FormValidation onSubmit={this.onSubmit} config={formConfig}>
+      <FormValidation onSubmit={onSubmit} config={formConfig}>
         {({ errors, fields, submitted }) => (
           <>
             <p>
@@ -183,14 +168,14 @@ class PageMpg200Order extends Component<any, State> {
             <h2>Items</h2>
             <div className="order_form-input">
               <select name="mpg200count"
-                      onChange={e => this.setState({ mpg200Count: parseInt(e.target.value) })}>
+                      onChange={e => setMpg200Count(parseInt(e.target.value))}>
                 {options.map(index => <option key={index} value={index}>{index}</option>)}
               </select>
               MPG-200 kits, €{mpg200Price} per kit
             </div>
             <div className="order_form-input">
               <select disabled name="enclosureCount"
-                      onChange={e => this.setState({ enclosureCount: parseInt(e.target.value) })}>
+                      onChange={e => setEnclosureCount(parseInt(e.target.value))}>
                 {options.map(index => <option key={index} value={index}>{index}</option>)}
               </select>
               Laser cut MDF enclosures, €{enclosurePrice} per enclosure<br/><br/>
@@ -200,12 +185,12 @@ class PageMpg200Order extends Component<any, State> {
             </div>
             <div className="order_form-input">
               <select name="cableLength"
-                      onChange={e => this.setState({ cableLength: parseInt(e.target.value) })}>
+                      onChange={e => setCableLength(parseInt(e.target.value))}>
                 <option key="not-selected" value="not-selected">Select length</option>
                 {cableLengths.map(({ length, price }, index) => <option key={index}
                                                                         value={index}>{length}: {price}</option>)}
               </select>
-              {submitted && errors.cableLength &&<span className="order_validation-error">{errors.cableLength}</span>}
+              {submitted && errors.cableLength && <span className="order_validation-error">{errors.cableLength}</span>}
             </div>
             <div>
               30 cm is included, €{cablePrice} per additional 10 cm. Same lengths for all ordered kits,
@@ -269,10 +254,10 @@ class PageMpg200Order extends Component<any, State> {
             <p>
               <a className="order_toggle-terms" href="" onClick={(event) => {
                 event.preventDefault();
-                this.setState({ showTerms: !this.state.showTerms });
-              }}>{this.state.showTerms ? 'Hide terms & conditions' : 'Show terms & conditions'}</a>
+                setShowTerms(!showTerms);
+              }}>{showTerms ? 'Hide terms & conditions' : 'Show terms & conditions'}</a>
             </p>
-            {this.state.showTerms && <div>
+            {showTerms && <div>
               <h2>Terms & conditions</h2>
               <p>
                 All sales are final, but please contact me if anything is wrong.
@@ -321,8 +306,9 @@ class PageMpg200Order extends Component<any, State> {
           </>
         )}
       </FormValidation>
-    </div>;
-  };
-}
+    </div>
+  );
+};
 
 export default PageMpg200Order;
+
